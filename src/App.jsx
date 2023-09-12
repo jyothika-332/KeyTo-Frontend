@@ -10,7 +10,7 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-        <Route Component={Home} path="/home" />
+        <Route Component={Home} path="/" />
         <Route Component={Login} path='/login' />
         <Route Component={ForgotPassword} path='/forgot-password' />
       </Routes>

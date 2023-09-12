@@ -22,7 +22,7 @@ export function LoginPage() {
         <div className="bg-white flex justify-around mt-8">
           <div>
             <Button
-              className={isLogin ? " bg-deep-orange-400" : ""}
+              className={isLogin ? " bg-deep-orange-500" : "bg-brown-300"}
               onClick={() => setisLogin(true)}
             >
               Login
@@ -30,7 +30,7 @@ export function LoginPage() {
           </div>
           <div>
             <Button
-              className={!isLogin ? "bg-deep-orange-400" : ""}
+              className={!isLogin ? "bg-deep-orange-500" : "bg-brown-300"}
               onClick={() => setisLogin(false)}
             >
               SIGNUP
@@ -42,20 +42,25 @@ export function LoginPage() {
             <div className="">
               <div>
                 <p> Login Form </p>
-                <div className="w-72 mt-8">
-                  <Input label="Username" />
+                <div className="w-96 mt-8">
+                  <Input label="Email" type="text"/>
                 </div>
-                <div className="w-72 mt-8">
-                  <Input label="Password" />
+                <div className="w-96 mt-8">
+                  <Input label="Password" type="password"/>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="mt-5">
-                  <label className="inline-flex items-center">
-                    <input type="checkbox" className="form-checkbox h-5 w-5" />
-                    <span className="ml-2 text-gray-700">Remember Me</span>
-                  </label>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        className="form-checkbox h-4 w-4"
+                      />
+                      <span className="ml-2 text-gray-700 text-sm">Remember Me</span>
+                    </label>
                   </div>
-                  <div className="mt-5"><Link to="/forgot-password">Forgot password?</Link></div>
+                  <div className="mt-5 ml-16 text-sm">
+                    <Link to="/forgot-password">Forgot password?</Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -63,25 +68,44 @@ export function LoginPage() {
             <div className="">
               <div className="flex-col items-center">
                 <p className=""> Register Form </p>
-                <div className="w-72 mt-8">
+                <div className="w-96 mt-8">
                   <Input label="First Name" type="text" />
                 </div>
-                <div className="w-72 mt-8">
+                <div className="w-96 mt-8">
                   <Input label="Last Name" type="text" />
                 </div>
-                <div className="w-72 mt-8">
+                <div className="w-96 mt-8">
                   <Input label="Email" type="email" />
                 </div>
-                <div className="w-72 mt-8">
+                <div className="w-96 mt-8">
                   <Input label="Password" type="password" />
                 </div>
-                <div className="w-72 mt-8">
+                <div className="w-96 mt-8">
                   <Input label="Confirm Password" type="password" />
                 </div>
+                <div className="mt-8">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        className="form-checkbox h-4 w-4"
+                      />
+                      <span className="ml-2 text-gray-700 text-sm">I agree to the Privacy Policy and Terms and Conditions</span>
+                    </label>
+                  </div>
               </div>
             </div>
           )}
         </div>
+
+        {isLogin ? (
+          <Button className="bg-deep-orange-500 h-10 ml-40 mx-auto">
+            LOGIN
+          </Button>
+        ) : (
+          <Button className="bg-deep-orange-500 h-10 ml-40 mx-auto mt-5">
+            SIGNUP
+          </Button>
+        )}
       </div>
     </Card>
   );
