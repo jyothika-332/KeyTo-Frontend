@@ -1,10 +1,14 @@
 import React from 'react'
 import { LoginPage } from '../../components/Login/Login'
+import { StickyNavbar } from '../../components/navbar/Navbar'
 
 function Login() {
   return (
     <div>
-        <LoginPage></LoginPage>
+      <StickyNavbar/>
+      <div className='mt-20'>
+        <LoginPage/>
+      </div>
     </div>
   )
 }

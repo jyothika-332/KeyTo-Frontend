@@ -15,7 +15,7 @@ function Home() {
       <div className="mt-16 flex justify-center">
         <p className="text-4xl font-serif font-bold">Latest Properties</p>
       </div>
-      <div className="grid grid-cols-3 mt-10 mx-10 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <PropertyList />
         <PropertyList />
         <PropertyList />
@@ -26,40 +26,26 @@ function Home() {
       <div className="mt-16 flex justify-center">
         <p className="text-4xl font-serif font-bold">Why Choose Us</p>
       </div>
-      <div className="grid grid-cols-2 mt-10 mx-10 gap-10">
-        <div className="grid-rows-3">
-          <p className="ml-36 mt-10 text-2xl font-serif">
-            Trusted By Thousands
-          </p>
-          <p className="ml-36 mt-28 text-2xl font-serif">
-            Wide Range Of Properties
-          </p>
-          <p className="ml-36 mt-28 text-2xl font-serif">Financing Made Easy</p>
-        </div>
-        <div>
-          <img
-            src={Image1}
-            alt="card-image"
-            className="h-full w-full object-cover"
-          />
-        </div>
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 mt-10 mx-10 gap-10">
+  <div className="grid grid-rows-3 md:grid-rows-1">
+    <p className="md:ml-36 md:mt-10 text-2xl font-serif">Trusted By Thousands</p>
+    <p className="md:ml-36 md:mt-28 text-2xl font-serif">Wide Range Of Properties</p>
+    <p className="md:ml-36 md:mt-28 text-2xl font-serif">Financing Made Easy</p>
+  </div>
+  <div className="">
+    <img src={Image1} alt="card-image" className="h-full w-full object-cover rounded-lg" />
+  </div>
+</div>
       <div className="mt-16 flex justify-center">
         <p className="text-4xl font-serif font-bold">About Us</p>
       </div>
-      <div className="flex mt-10 col-span-12 mx-10 gap-10">
-        <div className="md:col-span-4 col-span-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <PropertyList />
 
-        </div>
-        <div className="md:col-span-4 col-span-12">
         <PropertyList />
 
-        </div>
-        <div className="md:col-span-4 col-span-12">
-
+ 
         <PropertyList />
-        </div>
       </div>
       <div className="mt-40">
         <FooterWithSocialLinks/>

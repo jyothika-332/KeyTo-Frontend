@@ -26,6 +26,7 @@ import {
   RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 // profile menu component
 const profileMenuItems = [
@@ -170,9 +171,9 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <Link to="/login" className="flex items-center">
           Sign In
-        </a>
+          </Link>
       </Typography>
       <div className="relative flex w-full gap-2 md:w-max">
         <Input
@@ -195,7 +196,7 @@ export function StickyNavbar() {
 
   return (
     <div className="max-h-[768px] w-screen">
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
+      <Navbar className="fixed top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
             as="a"
