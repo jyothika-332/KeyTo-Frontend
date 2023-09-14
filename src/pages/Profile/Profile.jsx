@@ -1,32 +1,26 @@
 import React from "react";
 import { StickyNavbar } from "../../components/navbar/Navbar";
 import { SidebarWithContentSeparator } from "../../components/sidebar/Sidebar";
-import Image1 from "../../assets/Image/bailey-anselme-Bkp3gLygyeA-unsplash.jpg";
+import { ProfileForm } from "../../components/profileform/Profileform"; 
+import { FooterWithSocialLinks } from "../../components/footer/Footer";
 
 function Profile() {
   return (
     <div>
       <StickyNavbar />
-      {/* <div className='grid-rows-2'>
-            <div className='fixed'>
-                
-            </div>
-            <div>
-                
-            </div>
-        </div> */}
-
-      <div className="grid grid-cols-1 md:grid-cols-4 mt-10 mx-10 ">
+      <div className="grid grid-cols-1 md:grid-cols-4 mt-5 mx-10 ">
         <div className="">
           <SidebarWithContentSeparator />
         </div>
-        <div className="">
-          <p className="mt-36 ml-10 font-serif text-3xl">
-            My Profile hsgas shdbsbd hdhshd hsdhjsbd nhdhjs dn dsbd dsdhs dbgds
-            dsdhs d
+        <div className=" col-span-3">
+          <p className="mt-24 ml-10 font-serif text-3xl  text-deep-orange-900">
+            My Profile
           </p>
-          <p>llllllllllllllllllllllllllllll</p>
+          <ProfileForm/>
         </div>
+      </div>
+      <div className="mt-36 "> 
+        <FooterWithSocialLinks/>
       </div>
     </div>
   );

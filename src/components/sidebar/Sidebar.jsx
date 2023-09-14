@@ -20,6 +20,8 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
+
  
 export function SidebarWithContentSeparator() {
   const [open, setOpen] = React.useState(0);
@@ -29,7 +31,7 @@ export function SidebarWithContentSeparator() {
   };
  
   return (
-    <Card className="fixed h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 mt-20">
+    <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 mt-20">
       <List>
         <Accordion
           open={open === 1}
@@ -119,12 +121,22 @@ export function SidebarWithContentSeparator() {
             <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
           </ListItemSuffix>
         </ListItem>
+        <Link to="/profile">
+        <ListItem>
+          <ListItemPrefix>
+            <UserCircleIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          Pricing
+        </ListItem>
+        </Link>
+        <Link to="/profile">
         <ListItem>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
           Profile
         </ListItem>
+        </Link>
         <ListItem>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />

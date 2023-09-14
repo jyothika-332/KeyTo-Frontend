@@ -131,9 +131,9 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <Link to='/' className="flex items-center">
           Home
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -201,9 +201,9 @@ export function StickyNavbar() {
           <Typography
             as="a"
             href="#"
-            className="mr-4 font-bold cursor-pointer py-1.5 "
+            className="mr-4 font-extrabold text-3xl text-red-900 ml-10 cursor-pointer py-1.5 "
           >
-            Material Tailwind
+            KeyTo
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
