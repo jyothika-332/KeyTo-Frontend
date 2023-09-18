@@ -166,7 +166,7 @@ export function LoginPage() {
                       className="border-black border-2 bg-white text-black mt-5"
                       onClick={() => login()}
                     >
-                      Sign up With google
+                      Sign In With google
                     </Button>
                     <Button className="bg-deep-orange-500 h-10 ml-40 mx-auto mt-5" onClick={(e) => loginWithUsername(null)}>
                       LOGIN
