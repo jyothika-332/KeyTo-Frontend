@@ -6,6 +6,10 @@ import ForgotPassword from './pages/Forgot-Password/Forgot-password'
 import Profile from './pages/Profile/Profile'
 import Userprofile from './pages/Userprofile/Userprofile'
 import Become_a_seller from './pages/Become_a_Seller/Become_a_seller'
+import Adminlogin from './pages/Admin_Login/Adminlogin'
+import Admin_Userlist from './pages/Admin_Userlist/Admin_Userlist'
+import AgentRoute from './pages/Routes/AgentRoute'
+import AdminRoute from './pages/Routes/AdminRoute'
 
 
 function App() {
@@ -16,9 +20,21 @@ function App() {
         <Route Component={Home} path="/" />
         <Route Component={Login} path='/login' />
         <Route Component={ForgotPassword} path='/forgot-password' />
-        <Route Component={Profile} path='/profile' />
         <Route Component={Userprofile} path='/userprofile' />
-        <Route Component={Become_a_seller} path='/become_a_seller' />
+
+
+        <Route path='/agent' Component={AgentRoute}>
+        <Route Component={Profile} path='profile' />
+        <Route Component={Become_a_seller} path='become_a_seller' />
+        </Route>
+
+
+        <Route Component={Adminlogin} path='/admin_login' />
+        
+        <Route path='/admin' Component={AdminRoute}>
+        <Route Component={Admin_Userlist} path='admin_userlist' />
+        </Route>
+       
       </Routes>
     </BrowserRouter>
     </>

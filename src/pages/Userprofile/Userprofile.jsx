@@ -7,8 +7,8 @@ function Userprofile() {
   return (
     <>
         <StickyNavbar/>
-        <div className="text-center">
-          <p className="mt-32 font-serif text-3xl  text-deep-orange-900">
+        <div className="">
+          <p className="mt-32 font-serif text-3xl text-center text-deep-orange-900">
             My Profile
           </p>
           <div className=''>

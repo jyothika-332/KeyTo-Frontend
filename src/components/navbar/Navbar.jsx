@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Navbar,
   MobileNav,
@@ -26,7 +26,7 @@ import {
   RocketLaunchIcon,
   Bars2Icon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // profile menu component
 const profileMenuItems = [
@@ -54,7 +54,6 @@ const profileMenuItems = [
 
 export function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
@@ -115,7 +114,8 @@ export function ProfileMenu() {
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
-
+  const [isLogedIn, setisLogedIn] = useState(localStorage.getItem('token') ? true : false)
+  let navigate = useNavigate()
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -123,6 +123,12 @@ export function StickyNavbar() {
     );
   }, []);
 
+  const Logout =  () => {
+    if (window.confirm("Do You Want to Logout")){
+      localStorage.clear()
+      window.location.href = '/'
+    }
+  }
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -161,20 +167,33 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
-          Become an Agent
-        </a>
+        <Link to='/agent/become_a_seller' className="flex items-center">
+          Become a Seller
+        </Link>
       </Typography>
-      <Typography
+      {
+        isLogedIn ? 
+        <Typography
         as="li"
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
+        onClick={()=>Logout()}
       >
-        <Link to="/login" className="flex items-center">
-          Sign In
-          </Link>
-      </Typography>
+        
+          Logout
+      </Typography> :
+            <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
+          >
+            <Link to="/login" className="flex items-center">
+              Sign In
+              </Link>
+          </Typography>
+      }
       <div className="relative flex w-full gap-2 md:w-max">
         <Input
           type="search"
