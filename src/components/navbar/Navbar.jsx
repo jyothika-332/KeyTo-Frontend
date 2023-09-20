@@ -33,10 +33,12 @@ const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
+    link: "/userprofile",
   },
   {
     label: "Edit Profile",
     icon: Cog6ToothIcon,
+
   },
   {
     label: "Inbox",
@@ -80,31 +82,33 @@ export function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
+        {profileMenuItems.map(({ label, icon, link }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
-            <MenuItem
-              key={label}
-              onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                  : ""
-              }`}
-            >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? "red" : "inherit"}
+            <Link to={link}>
+              <MenuItem
+                key={label}
+                onClick={closeMenu}
+                className={`flex items-center gap-2 rounded ${
+                  isLastItem
+                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                    : ""
+                }`}
               >
-                {label}
-              </Typography>
-            </MenuItem>
+                {React.createElement(icon, {
+                  className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                  strokeWidth: 2,
+                })}
+                <Typography
+                  as="span"
+                  variant="small"
+                  className="font-normal"
+                  color={isLastItem ? "red" : "inherit"}
+                >
+                  {label}
+                </Typography>
+              </MenuItem>
+            </Link>
           );
         })}
       </MenuList>
@@ -114,8 +118,10 @@ export function ProfileMenu() {
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
-  const [isLogedIn, setisLogedIn] = useState(localStorage.getItem('token') ? true : false)
-  let navigate = useNavigate()
+  const [isLogedIn, setisLogedIn] = useState(
+    localStorage.getItem("token") ? true : false
+  );
+  let navigate = useNavigate();
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -123,12 +129,12 @@ export function StickyNavbar() {
     );
   }, []);
 
-  const Logout =  () => {
-    if (window.confirm("Do You Want to Logout")){
-      localStorage.clear()
-      window.location.href = '/'
+  const Logout = () => {
+    if (window.confirm("Do You Want to Logout")) {
+      localStorage.clear();
+      window.location.href = "/";
     }
-  }
+  };
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -137,7 +143,7 @@ export function StickyNavbar() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to='/' className="flex items-center">
+        <Link to="/" className="flex items-center">
           Home
         </Link>
       </Typography>
@@ -161,39 +167,49 @@ export function StickyNavbar() {
           Contact Us
         </a>
       </Typography>
+      {isLogedIn ?
       <Typography
         as="li"
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to='/agent/become_a_seller' className="flex items-center">
+        <Link to="/agent/become_a_seller" className="flex items-center">
           Become a Seller
         </Link>
       </Typography>
-      {
-        isLogedIn ? 
-        <Typography
+      :
+      <Typography
         as="li"
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
-        onClick={()=>Logout()}
       >
-        
-          Logout
-      </Typography> :
-            <Typography
-            as="li"
-            variant="small"
-            color="blue-gray"
-            className="p-1 font-normal"
-          >
-            <Link to="/login" className="flex items-center">
-              Sign In
-              </Link>
-          </Typography>
+          Become a Seller
+      </Typography>
       }
+      {isLogedIn ? (
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+          onClick={() => Logout()}
+        >
+          Logout
+        </Typography>
+      ) : (
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          <Link to="/login" className="flex items-center">
+            Sign In
+          </Link>
+        </Typography>
+      )}
       <div className="relative flex w-full gap-2 md:w-max">
         <Input
           type="search"
@@ -226,7 +242,7 @@ export function StickyNavbar() {
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
-            <ProfileMenu />
+            {isLogedIn ? <ProfileMenu /> : ''}
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"

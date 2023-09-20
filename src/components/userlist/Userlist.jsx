@@ -2,6 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BaseUrl } from "../../utils/Constants";
 import jwtDecode from "jwt-decode";
+import { PencilIcon } from "@heroicons/react/24/solid";
+import { Card, IconButton, Tooltip, Typography } from "@material-tailwind/react";
+ 
+const TABLE_HEAD = ["First_name", "Email", "Role", "Premium","Status",""];
+
+ 
 
 function Userlist() {
   const tableStyle = {
@@ -40,52 +46,75 @@ function Userlist() {
         window.location.href = "/";
       });
   };
+  const TABLE_ROWS = userList
+
 
   return (
-    <table className="table-fixed" style={tableStyle}>
+    <Card className="h-full w-full">
+    <table className="w-full min-w-max table-auto text-left">
       <thead>
-        <tr className="text-left">
-          <th>ID</th>
-          <th>FIRST_NAME</th>
-          <th>EMAIL</th>
-          <th>ROLE</th>
-          <th>ISPREMIUM</th>
-          <th>STATUS</th>
-          <th></th>
+        <tr>
+          {TABLE_HEAD.map((head) => (
+            <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+              <Typography
+                variant="small"
+                color="blue-gray"
+                className="font-normal leading-none opacity-70"
+              >
+                {head}
+              </Typography>
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>
-        {/* <tr>
-          <td>{userList ? userList.id : ""}</td>
-          <td>{userList ? userList.first_name : ""}</td>
-          <td>{userList ? userList.email : ""}</td>
-          <td>{userList ? userList.role : ""}</td>
-          <td>{userList ? userList.is_premium : ""}</td>
-          <td>{userList ? userList.is_active : ""}</td>
-          <td></td>
-        </tr> */}
-        {
-            userList.length ? <>
-            {
-                userList.map((value,key) => (
-                    <tr key={key}>
-                        <td>{key+1 }</td>
-                        <td>{value.first_name }</td>
-                        <td>{value.email }</td>
-                        <td>{value.role }</td>
-                        <td>{value.is_premium ? 'Yes' : 'No' }</td>
-                        <td>{value.is_active  ? 'Yes' : 'No'}</td>
-                        <td></td>
-                    </tr>
-                ))
-            }
-            </> :
-            <tr>
-                <td colSpan={7}><b> No Users Joined </b></td>
+        {TABLE_ROWS.map(({ first_name, email, role,is_premium,is_active }, index) => {
+          const isLast = index === TABLE_ROWS.length - 1;
+          const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+
+          return (
+            <tr key={name}>
+              <td className={classes}>
+                <Typography variant="small" color="blue-gray" className="font-normal">
+                  {first_name}
+                </Typography>
+              </td>
+              <td className={`${classes} bg-blue-gray-50/50`}>
+                <Typography variant="small" color="blue-gray" className="font-normal">
+                  {email}
+                </Typography>
+              </td>
+              <td className={classes}>
+                <Typography variant="small" color="blue-gray" className="font-normal">
+                  {role}
+                </Typography>
+              </td>
+              <td className={`${classes} bg-blue-gray-50/50`}>
+                <Typography variant="small" color="blue-gray" className="font-normal">
+                  {is_premium}
+                </Typography>
+              </td>
+              <td className={classes}>
+                <Typography variant="small" color="blue-gray" className="font-normal">
+                  {is_active}
+                </Typography>
+              </td>
+              <td className={`${classes} bg-blue-gray-50/50`}>
+                <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
+                  <Tooltip content="Edit User">
+                    <IconButton variant="text">
+                      <PencilIcon className="h-4 w-4" />
+                    </IconButton>
+                  </Tooltip>
+                </Typography>
+              </td>
             </tr>
-        }
+          );
+        })}
       </tbody>
     </table>
+  </Card>
+
   );
 }
 

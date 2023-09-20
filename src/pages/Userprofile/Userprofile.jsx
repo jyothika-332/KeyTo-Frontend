@@ -11,7 +11,7 @@ function Userprofile() {
           <p className="mt-32 font-serif text-3xl text-center text-deep-orange-900">
             My Profile
           </p>
-          <div className=''>
+          <div className='ml-40'>
           <UserProfile/>
           </div>
         </div>

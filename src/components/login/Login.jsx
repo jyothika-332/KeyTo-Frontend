@@ -18,6 +18,8 @@ export function LoginPage() {
     onSuccess: (codeResponse) => setUser(codeResponse),
     onError: (error) => console.log("Login Failed:", error),
   });
+
+
   useEffect(() => {
     if (user) {
       axios
@@ -31,7 +33,6 @@ export function LoginPage() {
           }
         )
         .then((res) => {
-          console.log ("------------------------------------------------------------")
           // setgUser(res.data);
           const { data  } = res
           if (isLogin) {
@@ -61,9 +62,6 @@ export function LoginPage() {
 
 
 
-
-
-
   const loginWithUsername = (data) => {
     const datas = data ? data : logDatas
     if (datas)
@@ -78,7 +76,7 @@ export function LoginPage() {
       })
       .catch((err) => {
         console.log ( err)
-         var { message } = err.response.data ? err.response.data : 'Sometging Went Wrong'
+         var { message } = err.response.data ? err.response.data : 'Something Went Wrong'
         window.alert(message)
       })
     }
@@ -110,7 +108,7 @@ export function LoginPage() {
         })
         .catch((err) => {
           console.log ( err)
-           var { message } = err.response.data ? err.response.data : 'Sometging Went Wrong'
+           var { message } = err.response.data ? err.response.data : 'Something Went Wrong'
           window.alert(message)
         })
       }

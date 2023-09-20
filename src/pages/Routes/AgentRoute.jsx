@@ -12,7 +12,9 @@ function AgentRoute() {
         <div className="">
           <SidebarWithContentSeparator />
         </div>
+        <div className='col-span-3'>
         <Outlet />
+        </div>
       </div>
       <div className="mt-36 "> 
         <FooterWithSocialLinks/>

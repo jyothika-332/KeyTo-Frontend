@@ -29,7 +29,7 @@ import { useNavigate } from "react-router-dom";
           }
           else{
           localStorage.setItem('token' , access)
-          return navigate('/admin/admin_userlist')
+          return navigate('/admin/admin_dashboard')
 
           }
   

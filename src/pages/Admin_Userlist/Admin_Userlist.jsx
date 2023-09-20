@@ -5,11 +5,11 @@ function Admin_Userlist() {
   return (
     <div>
       <div>
-      <div className=" col-span-3">
+      <div className=" col-span-2">
           <p className="mt-9 ml-10 font-serif text-3xl  text-deep-orange-900">
             User List
           </p>
-          <div className='mt-10'>
+          <div className='mt-10 w-full h-full'>
             <Userlist/>
           </div>
         </div>

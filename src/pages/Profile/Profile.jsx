@@ -1,8 +1,5 @@
 import React from "react";
-import { StickyNavbar } from "../../components/navbar/Navbar";
-import { SidebarWithContentSeparator } from "../../components/sidebar/Sidebar";
 import { ProfileForm } from "../../components/profileform/Profileform"; 
-import { FooterWithSocialLinks } from "../../components/footer/Footer";
 
 function Profile() {
   return (
