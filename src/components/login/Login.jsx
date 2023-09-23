@@ -97,14 +97,14 @@ export function LoginPage() {
         axios.post(`${BaseUrl}/user/`,datas)
         .then((res) => {
             window.alert("User Registered Succesfully")
-            // setregDatas("")
-            // setisLogin(true)
          
             var logindata = {
               username : datas.email,
               password : datas.password
             }
-            loginWithUsername( logindata )
+            setisLogin(true)
+            setregDatas("")
+            // return navigate('/login')
         })
         .catch((err) => {
           console.log ( err)
