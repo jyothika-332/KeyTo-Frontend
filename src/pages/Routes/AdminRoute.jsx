@@ -14,7 +14,6 @@ function AdminRoute() {
           <AdminSidebar/>
         </div>
         <div className='col-span-3'>
-
         <Outlet />
         </div>
       </div>

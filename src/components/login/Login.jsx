@@ -6,8 +6,14 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import Image1 from "../../assets/Image/bailey-anselme-Bkp3gLygyeA-unsplash.jpg";
 import { BaseUrl } from "../../utils/Constants";
+import GoogleImage from "../../assets/Image/google.png";
 
 export function LoginPage() {
+
+  const [isVerify, setisVerify] = useState(false)
+  const [otpform, setotpform] = useState(false)
+  const [isemail, setisemail] = useState(true)
+  const [otp, setotp] = useState("")
   let navigate = useNavigate()
   const [regDatas, setregDatas] = useState("")
   const [logDatas, setlogDatas] = useState("")
@@ -120,6 +126,28 @@ export function LoginPage() {
     
   }
 
+  const SendOTP = () => {
+    axios.post(`${BaseUrl}/send-otp/`,{ email : regDatas.email})
+    .then((res) => {
+      window.alert("OTP Send to The Number")
+      setotpform(true)
+      setisemail(false)
+    })
+    .catch((err) => {
+      console.log(err)
+      var { message } = err.response.data ? err.response.data : "Server Error"
+      window.alert( message)
+    })
+  }
+
+  const verifyOTP = () => {
+      axios.post(`${BaseUrl}/verify/`,{ "email" : regDatas.email , "otp" : otp})
+      .then((res) => {
+        window.alert("OTP Verifiled")
+        setisVerify(true)
+      })
+  }
+
 
   return (
     <div className="grid  grid-cols-1 md:grid-cols-2 mt-10 mx-10 gap-10  h-full">
@@ -161,10 +189,10 @@ export function LoginPage() {
                   </div>
                   <div className="flex justify-around">
                     <Button
-                      className="border-black border-2 bg-white text-black mt-5"
+                      className="border-black border-2 bg-white text-black mt-5 w-60"
                       onClick={() => login()}
                     >
-                      Sign In With google
+                    <img src={GoogleImage} alt="Google Icon" /> <span className="text-xs mb-10 ml-3">Sign In With google</span>
                     </Button>
                     <Button className="bg-deep-orange-500 h-10 ml-40 mx-auto mt-5" onClick={(e) => loginWithUsername(null)}>
                       LOGIN
@@ -182,6 +210,31 @@ export function LoginPage() {
               <form>
                 <div className="flex-col items-center">
                   <p className="mt-8 text-3xl font-serif text-deep-orange-900"> Register </p>
+                  {
+                    !isVerify ? 
+                    <>
+                    {
+                        isemail ? 
+                        <>
+                        <div className="w-96 mt-14">
+                    <Input label="Email" type="email" value={ regDatas.email ? regDatas.email : ''} onChange={(e)=>setregDatas({...regDatas , email : e.target.value })} />
+                  </div>
+                  <Button className="mt-10 bg-deep-orange-500 ml-64" onClick={()=>SendOTP()}> Send OTP </Button>
+
+                  </> : ''
+                    }
+                    {
+                      otpform ? 
+                      <>
+                    <div className="w-96 mt-14">
+                    <Input label="OTP" type="text" value={ otp } onChange={(e)=>setotp(e.target.value)} />
+                  </div>
+                  <Button className="mt-10 bg-deep-orange-500 ml-64" onClick={()=>verifyOTP()}> Verify OTP </Button>
+                  </> : ''
+                    }
+                    
+                 
+                  </> : <>
                   <div className="w-96 mt-6">
                     <Input label="First Name" type="text" value={ regDatas.first_name ? regDatas.first_name : ''} onChange={(e)=>setregDatas({...regDatas , first_name : e.target.value })} />
                   </div>
@@ -189,7 +242,7 @@ export function LoginPage() {
                     <Input label="Last Name" type="text" value={ regDatas.last_name ? regDatas.last_name : ''} onChange={(e)=>setregDatas({...regDatas , last_name : e.target.value })} />
                   </div>
                   <div className="w-96 mt-5">
-                    <Input label="Email" type="email" value={ regDatas.email ? regDatas.email : ''} onChange={(e)=>setregDatas({...regDatas , email : e.target.value })} />
+                    <Input label="Email" disabled={true} type="email" value={ regDatas.email ? regDatas.email : ''} onChange={(e)=>setregDatas({...regDatas , email : e.target.value })} />
                   </div>
                   <div className="w-96 mt-5">
                     <Input label="Password" type="password" value={ regDatas.password ? regDatas.password : ''} onChange={(e)=>setregDatas({...regDatas , password : e.target.value })} />
@@ -219,6 +272,9 @@ export function LoginPage() {
                       SIGNUP
                     </Button>
                   </div>
+                  </>
+                  }
+                  
                 </div>
               </form>
               <p className="mt-5 text-light-blue-800" onClick={() => setisLogin(true)}>

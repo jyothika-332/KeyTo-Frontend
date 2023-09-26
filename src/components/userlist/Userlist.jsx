@@ -91,12 +91,12 @@ function Userlist() {
               </td>
               <td className={`${classes} bg-blue-gray-50/50`}>
                 <Typography variant="small" color="blue-gray" className="font-normal">
-                  {is_premium}
+                {is_premium == true? 'True': 'False'}
                 </Typography>
               </td>
               <td className={classes}>
                 <Typography variant="small" color="blue-gray" className="font-normal">
-                  {is_active}
+                  {is_active == true? 'Active' : 'Not Active'}
                 </Typography>
               </td>
               <td className={`${classes} bg-blue-gray-50/50`}>

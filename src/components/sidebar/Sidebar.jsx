@@ -67,6 +67,18 @@ export function SidebarWithContentSeparator() {
               </Typography>
             </AccordionHeader>
           </ListItem>
+          <Link to='/agent/create_listing'>
+          <ListItem className="p-0" selected={open === 2}>
+            <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
+              <ListItemPrefix>
+                <ShoppingBagIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+                Create Listing
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
+          </Link>
         </Accordion>
         <hr className="my-2 border-blue-gray-50" />
         <ListItem>
@@ -75,12 +87,14 @@ export function SidebarWithContentSeparator() {
           </ListItemPrefix>
           Inbox
         </ListItem>
+        <Link to="/premium">
         <ListItem>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
           Pricing
         </ListItem>
+        </Link>
         <Link to="/agent/profile">
         <ListItem>
           <ListItemPrefix>

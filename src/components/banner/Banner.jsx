@@ -1,46 +1,34 @@
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 import Image1 from '../../assets/Image/bailey-anselme-Bkp3gLygyeA-unsplash.jpg'
+import axios from "axios";
+import { BaseUrl } from "../../utils/Constants";
+import { useEffect, useState } from "react";
 
 
 export function CarouselWithContent() {
+  const [banners, setBanners] = useState([]);
+
+  useEffect(() => {
+    getBanners()
+  }, []);
+
+  const getBanners = () => {
+    axios.get(`${BaseUrl}/banner/`)
+    .then((res) => {
+      console.log ("THE Banners Are",res.data)
+      setBanners(res.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching banners:", error);
+    })
+  }
   return (
-    <Carousel className="">
-      <div className="relative h-full w-full">
+    <Carousel>
+      {
+        banners.map((value,key) => (
+          <div className="relative h-full w-full">
         <img
-          src={Image1}
-          alt="image 1"
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/75">
-          <div className="w-3/4 text-center md:w-2/4">
-            <Typography
-              variant="h1"
-              color="white"
-              className="mb-4 text-3xl md:text-4xl lg:text-5xl"
-            >
-              Find Your Dream.....
-            </Typography>
-            <Typography
-              variant="lead"
-              color="white"
-              className="mb-12 opacity-80"
-            >
-              Real Estate Searching Platform
-            </Typography>
-            <div className="flex justify-center gap-2">
-              <Button size="lg" color="white">
-                Explore
-              </Button>
-              <Button size="lg" color="white" variant="text">
-                Gallery
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="relative h-full w-full">
-        <img
-          src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+          src={`${BaseUrl}/${value.image}`}
           alt="image 2"
           className="h-full w-full object-cover"
         />
@@ -51,65 +39,23 @@ export function CarouselWithContent() {
               color="white"
               className="mb-4 text-3xl md:text-4xl lg:text-5xl"
             >
-              The Beauty of Nature
+              { value.heading }
             </Typography>
             <Typography
               variant="lead"
               color="white"
               className="mb-12 opacity-80"
             >
-              It is not so much for its beauty that the forest makes a claim
-              upon men&apos;s hearts, as for that subtle something, that quality
-              of air that emanation from old trees, that so wonderfully changes
-              and renews a weary spirit.
+              { value.description }
             </Typography>
-            <div className="flex gap-2">
-              <Button size="lg" color="white">
-                Explore
-              </Button>
-              <Button size="lg" color="white" variant="text">
-                Gallery
-              </Button>
-            </div>
           </div>
         </div>
       </div>
-      <div className="relative h-full w-full">
-        <img
-          src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-          alt="image 3"
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 grid h-full w-full items-end bg-black/75">
-          <div className="w-3/4 pl-12 pb-12 md:w-2/4 md:pl-20 md:pb-20 lg:pl-32 lg:pb-32">
-            <Typography
-              variant="h1"
-              color="white"
-              className="mb-4 text-3xl md:text-4xl lg:text-5xl"
-            >
-              The Beauty of Nature
-            </Typography>
-            <Typography
-              variant="lead"
-              color="white"
-              className="mb-12 opacity-80"
-            >
-              It is not so much for its beauty that the forest makes a claim
-              upon men&apos;s hearts, as for that subtle something, that quality
-              of air that emanation from old trees, that so wonderfully changes
-              and renews a weary spirit.
-            </Typography>
-            <div className="flex gap-2">
-              <Button size="lg" color="white">
-                Explore
-              </Button>
-              <Button size="lg" color="white" variant="text">
-                Gallery
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+        ))
+      }
+      
+      
     </Carousel>
   );
 }
+

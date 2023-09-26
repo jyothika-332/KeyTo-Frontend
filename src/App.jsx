@@ -11,6 +11,10 @@ import Admin_Userlist from './pages/Admin_Userlist/Admin_Userlist'
 import AgentRoute from './pages/Routes/AgentRoute'
 import AdminRoute from './pages/Routes/AdminRoute'
 import AdminDashboard from './pages/Admin_Dashboard/AdminDashboard'
+import AdminBannerList from './pages/Admin_BannerList/AdminBannerList'
+import Create_Listing from './pages/Create_Listing/Create_Listing'
+import Premium_Page from './pages/Premium/Premium_Page'
+
 
 
 function App() {
@@ -27,7 +31,9 @@ function App() {
         <Route path='/agent' Component={AgentRoute}>
           <Route Component={Profile} path='profile' />
           <Route Component={Become_a_seller} path='become_a_seller' />
+          <Route Component={Create_Listing} path='create_listing' />
         </Route>
+        <Route Component={Premium_Page} path='/premium' />
 
 
         <Route Component={Adminlogin} path='/admin_login' />
@@ -36,6 +42,7 @@ function App() {
         <Route path='/admin' Component={AdminRoute}>
           <Route Component={AdminDashboard} path='admin_dashboard' />
           <Route Component={Admin_Userlist} path='admin_userlist' />
+          <Route Component={AdminBannerList} path='admin_bannerlist' />
         </Route>   
       </Routes>
     </BrowserRouter>

@@ -27,13 +27,16 @@ import {
   Bars2Icon,
 } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+
 
 // profile menu component
 const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
-    link: "/userprofile",
+    // link: localStorage.getItem("token") ? jwtDecode(localStorage.getItem("token")).role === "user" ? "/userprofile" : '/agent/profile' : null,
+    link : localStorage.getItem("token") ? jwtDecode(localStorage.getItem("token")).role === "user" ? "/userprofile" : '/agent/profile' : null ,
   },
   {
     label: "Edit Profile",

@@ -54,6 +54,14 @@ export function AdminSidebar() {
             </AccordionHeader>
           </ListItem>
         </Accordion>
+        <Link to='/admin/admin_bannerlist'>
+        <ListItem>
+          <ListItemPrefix>
+            <InboxIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          Banners
+        </ListItem>
+        </Link>
         <Accordion
           open={open === 2}
         >
@@ -75,22 +83,20 @@ export function AdminSidebar() {
           </ListItemPrefix>
           Report
         </ListItem>
-        <Link to="/profile">
         <ListItem>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
           <Link to='/admin/admin_userlist'>Users</Link>
         </ListItem>
-        </Link>
-        <Link to="/agent/profile">
+        {/* <Link to="/agent/profile"> */}
         <ListItem>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
           Profile
         </ListItem>
-        </Link>
+        {/* </Link> */}
         <ListItem onClick={() => Logout()}>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
