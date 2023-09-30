@@ -1,5 +1,4 @@
 import { Carousel, Typography, Button } from "@material-tailwind/react";
-import Image1 from '../../assets/Image/bailey-anselme-Bkp3gLygyeA-unsplash.jpg'
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
 import { useEffect, useState } from "react";

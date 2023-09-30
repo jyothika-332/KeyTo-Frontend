@@ -11,7 +11,7 @@ import { BaseUrl } from "../../utils/Constants";
 import jwtDecode from "jwt-decode";
 
 export function ProfileForm() {
-
+  
   const [userData, setuserData] = useState("");
 
   useEffect(() => {
@@ -42,6 +42,9 @@ export function ProfileForm() {
         window.location.href = "/";
       });
   };
+
+
+
   return (
     <>
       <div className="flex justify-center mt-8 w-full">
@@ -85,7 +88,7 @@ export function ProfileForm() {
             </div>
             <div className="flex mt-4 md:mt-10">
               <div>
-                <Button className="bg-deep-orange-500">Edit Profile</Button>
+                <Button className="bg-deep-orange-500" >Edit Profile</Button>
               </div>
               <div className="ml-4">
                 <Button className="bg-deep-orange-500">Change Password</Button>

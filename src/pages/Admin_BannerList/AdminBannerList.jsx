@@ -19,7 +19,7 @@ import { PencilIcon } from "@heroicons/react/24/outline";
 const TABLE_HEAD = ["Heading", "Image", "Priority", "Description","",""];
 
 function AdminBannerList() {
-const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
   const [Data, setData] = React.useState("");
   const [bannerData, setbannerData] = useState([])
@@ -116,7 +116,7 @@ const [open, setOpen] = React.useState(false);
           </div>
           <div className="mt-10 w-full h-full">
           <Card className="h-full w-full">
-      <table className="w-full min-w-max table-auto text-left">
+      <table className="w-full max-w-full table-auto text-left">
         <thead>
           <tr>
             {TABLE_HEAD.map((head) => (

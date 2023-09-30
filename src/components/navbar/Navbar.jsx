@@ -160,6 +160,7 @@ export function StickyNavbar() {
           About Us
         </a>
       </Typography>
+      <Link to='/property'>
       <Typography
         as="li"
         variant="small"
@@ -167,9 +168,10 @@ export function StickyNavbar() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-          Contact Us
+          Property
         </a>
       </Typography>
+      </Link>
       {isLogedIn ?
       <Typography
         as="li"
