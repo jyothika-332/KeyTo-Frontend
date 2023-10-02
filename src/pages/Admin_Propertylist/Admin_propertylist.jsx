@@ -16,13 +16,13 @@ import { BaseUrl } from "../../utils/Constants";
 import { Tooltip } from "react-bootstrap";
 import { PencilIcon } from "@heroicons/react/24/outline";
 
-const TABLE_HEAD = ["Heading", "Image", "Priority", "Description","",""];
+const TABLE_HEAD = ["Location", "Address", "Total_cent", "Price_per_cent","Description","Image", "Is_rent","Is_sell","",""];
 
-function AdminBannerList() {
+function AdminPropertyList() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
   const [Data, setData] = React.useState("");
-  const [bannerData, setbannerData] = useState([])
+  const [propertyData, setpropertyData] = useState([])
 
 
   const tableStyle = {
@@ -30,43 +30,47 @@ function AdminBannerList() {
     borderSpacing: "10px", // Adjust the value to set the desired gap
   };
 
-  const [bannerList, setbannerList] = useState([]);
+  const [propertyList, setpropertyList] = useState([]);
 
-  const TABLE_ROWS = bannerList;
+  const TABLE_ROWS = propertyList;
   
+
   useEffect(() => {
-    getBanners()
+    getProperty()
   }, []);
 
-  const getBanners = () => {
-    axios.get(`${BaseUrl}/banner/`)
+  const getProperty = () => {
+    axios.get(`${BaseUrl}/property/`)
     .then((res) => {
       console.log ( res )
-      setbannerList( res.data)
+      setpropertyList( res.data)
     })
   }
 
 
-  const EditData = (heading, priority, description,id) => {
-    setData({
-      id : id,
-      heading : heading,
-      description : description,
-      priority : priority
-    })
-    handleOpen()
-  }
+  // const EditData = (heading, priority, description,id) => {
+  //   setData({
+  //     id : id,
+  //     heading : heading,
+  //     description : description,
+  //     priority : priority
+  //   })
+  //   handleOpen()
+  // }
 
-  const Delete = (id) => {
-    axios.delete(`${BaseUrl}/banner/`,{data : { id : id}})
-    .then((res) => {
-      getBanners()
-    })
-  }
+  // const Delete = (id) => {
+  //   axios.delete(`${BaseUrl}/banner/`,{data : { id : id}})
+  //   .then((res) => {
+  //     getBanners()
+  //   })
+  // }
 
-  const AddBanner = () => {
+  const AddProperty = () => {
     let formData = new FormData()
-    formData.append('heading',Data.heading)
+    formData.append('location',Data.location)
+    formData.append('address',Data.address)
+    formData.append('total_cent',Data.total_cent)
+    formData.append('price_per_cent',Data.price_per_cent)
     formData.append('description',Data.description)
     formData.append('id',Data.id)
     if (Data.image)
@@ -74,13 +78,14 @@ function AdminBannerList() {
     formData.append('image',Data.image)
 
     }
-    formData.append('priority',Data.priority)
+    formData.append('is_rent',Data.is_rent)
+    formData.append('is_sell',Data.is_sell)
     if (Data.id)
     { 
 
-      axios.put(`${BaseUrl}/banner/`,formData)
+      axios.put(`${BaseUrl}/property/`,formData)
       .then((res) => {
-        getBanners()
+        getProperty()
         setData("")
         handleOpen()
   
@@ -89,9 +94,9 @@ function AdminBannerList() {
     }
     else
     {
-      axios.post(`${BaseUrl}/banner/`,formData)
+      axios.post(`${BaseUrl}/property/`,formData)
       .then((res) => {
-        getBanners()
+        getProperty()
         setData("")
         handleOpen()
   
@@ -99,18 +104,20 @@ function AdminBannerList() {
     }
    
   }
+
+
   return (
     <div>
       <div>
         <div className=" col-span-2">
           <div className="grid grid-cols-2">
             <p className="mt-9 ml-10 font-serif text-3xl  text-deep-orange-900">
-              Banner List
+              Property List
             </p>
             <div className="ml-64 mt-9">
               <Button onClick={handleOpen} className="bg-deep-orange-900">
-                Add Banner
-              </Button>   
+                Add Property
+              </Button>
             </div>
           </div>
           <div className="mt-10 w-full h-full">
@@ -136,7 +143,7 @@ function AdminBannerList() {
         </thead>
         <tbody>
           {TABLE_ROWS.map(
-            ({ heading, image, priority, description , id }, index) => {
+            ({ location, address, total_cent, price_per_cent, description, image, is_rent, is_sell, id }, index) => {
               const isLast = index === TABLE_ROWS.length - 1;
               const classes = isLast
                 ? "p-4"
@@ -150,7 +157,43 @@ function AdminBannerList() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {heading}
+                      {location}
+                    </Typography>
+                  </td>
+                  <td className={`${classes} bg-blue-gray-50/50`}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {address}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {total_cent}
+                    </Typography>
+                  </td>
+                  <td className={`${classes} bg-blue-gray-50/50`}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {price_per_cent}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {description}
                     </Typography>
                   </td>
                   <td className={`${classes} bg-blue-gray-50/50`}>
@@ -168,7 +211,7 @@ function AdminBannerList() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {priority}
+                      {is_rent}
                     </Typography>
                   </td>
                   <td className={`${classes} bg-blue-gray-50/50`}>
@@ -177,20 +220,20 @@ function AdminBannerList() {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {description}
+                      {is_sell}
                     </Typography>
                   </td>
                   <td className={classes}>
                 <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
-                  <Tooltip content="Edit User">
-                    <IconButton variant="text" onClick={()=>EditData(heading, priority, description,id)}>
+                  <Tooltip content="Edit Data">
+                    <IconButton variant="text">
                       <PencilIcon className="h-4 w-4" />
                     </IconButton>
                   </Tooltip>
                 </Typography>
               </td>
               <td className={`${classes} bg-blue-gray-50/50`}>
-                <Button className=" bg-deep-orange-500" onClick={()=>Delete(id)}>Delete</Button>
+                <Button className=" bg-deep-orange-500">Delete</Button>
               </td>
                 </tr>
               );
@@ -207,7 +250,7 @@ function AdminBannerList() {
      
 <Dialog open={open} handler={handleOpen}>
         <div className="flex items-center justify-between">
-          <DialogHeader>Add/Update Banner</DialogHeader>
+          <DialogHeader>Add Property</DialogHeader>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -224,18 +267,21 @@ function AdminBannerList() {
         </div>
         <DialogBody divider>
           <div className="grid gap-6">
-          <Input label="Heading" size="lg" value={Data.heading ? Data.heading : ""} onChange={(e)=>setData({...Data , heading : e.target.value})}/>
+            <Input label="Heading" size="lg" value={Data.location ? Data.location : ""} onChange={(e)=>setData({...Data , location : e.target.value})}/>
+            <Input label="Heading" size="lg" value={Data.address ? Data.address : ""} onChange={(e)=>setData({...Data , address : e.target.value})}/>
+            <Input label="Heading" size="lg" value={Data.total_cent ? Data.total_cent : ""} onChange={(e)=>setData({...Data , total_cent : e.target.value})}/>
+            <Input label="Heading" size="lg" value={Data.price_per_cent ? Data.price_per_cent : ""} onChange={(e)=>setData({...Data , price_per_cent : e.target.value})}/>
             <Textarea label="Description" size="lg" value={Data.description ? Data.description : ""} onChange={(e)=>setData({...Data , description : e.target.value})}/>
             <Input label="Image" size="lg" type="file" onChange={(e)=>setData({...Data , image : e.target.files[0]})} />
-            <Input label="Priority" size="lg" value={Data.priority ? Data.priority : ""} onChange={(e)=>setData({...Data , priority : e.target.value})}/>
-          
+            <Input label="Priority" size="lg" value={Data.is_rent ? Data.is_rent : ""} onChange={(e)=>setData({...Data , is_rent : e.target.value})}/>
+            <Input label="Heading" size="lg" value={Data.is_sell ? Data.is_sell : ""} onChange={(e)=>setData({...Data , is_sell : e.target.value})}/>        
           </div>
         </DialogBody>
         <DialogFooter className="space-x-2">
           <Button variant="outlined" color="red" onClick={handleOpen}>
             close
           </Button>
-          <Button variant="gradient" color="green" onClick={AddBanner}>
+          <Button variant="gradient" color="green" onClick={AddProperty}>
             Submit
           </Button>
         </DialogFooter>
@@ -244,4 +290,4 @@ function AdminBannerList() {
   );
 }
 
-export default AdminBannerList;
+export default AdminPropertyList;

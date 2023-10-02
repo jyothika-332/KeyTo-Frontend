@@ -17,6 +17,7 @@ import Premium_Page from './pages/Premium/Premium_Page'
 import UserProtected from './protect_public/UserProtected'
 import Property_Show from './pages/PropertyShow/Property_Show'
 import Property_Details from './pages/Property_Details/Property_Details'
+import AdminPropertyList from './pages/Admin_Propertylist/Admin_propertylist'
 
 
 
@@ -51,6 +52,7 @@ function App() {
           <Route Component={AdminDashboard} path='admin_dashboard' />
           <Route Component={Admin_Userlist} path='admin_userlist' />
           <Route Component={AdminBannerList} path='admin_bannerlist' />
+          <Route Component={AdminPropertyList} path='admin_propertylist' />
         </Route>   
       </Routes>
     </BrowserRouter>
