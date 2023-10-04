@@ -9,7 +9,7 @@ import {
   Textarea,
 } from "@material-tailwind/react";
  
-export function EditProfileUser({data}) {
+export function EditProfileSeller({data}) {
   const [open, setOpen] = React.useState(false); 
   const handleOpen = () => setOpen(!open);
   const [Data, setData] = React.useState("");
@@ -59,9 +59,14 @@ export function EditProfileUser({data}) {
                 onChange={(e) => setData({ ...Data, email: e.target.value })}
               />
               <Input
-                label="Username"
-                value={data.email ? data.email : ""}
-                onChange={(e) => setData({ ...Data, email: e.target.value })}
+                label="Phone Number"
+                value={data.phone ? data.phone : ""}
+                onChange={(e) => setData({ ...Data, phone: e.target.value })}
+              />
+              <Input
+                label="Address"
+                value={data.address ? data.address : ""}
+                onChange={(e) => setData({ ...Data, address: e.target.value })}
               />
               <Input
                 label="Image"

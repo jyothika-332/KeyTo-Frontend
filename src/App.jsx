@@ -18,6 +18,7 @@ import UserProtected from './protect_public/UserProtected'
 import Property_Show from './pages/PropertyShow/Property_Show'
 import Property_Details from './pages/Property_Details/Property_Details'
 import AdminPropertyList from './pages/Admin_Propertylist/Admin_propertylist'
+import Seller_Dashboard from './pages/Seller_Dashboard/Seller_Dashboard'
 
 
 
@@ -40,6 +41,7 @@ function App() {
             <Route Component={Profile} path='profile' />
             <Route Component={Become_a_seller} path='become_a_seller' />
             <Route Component={Create_Listing} path='create_listing' />
+            <Route Component={Seller_Dashboard} path='seller_dashboard' />
           </Route>
           <Route Component={Premium_Page} path='/premium' />
         </Route>

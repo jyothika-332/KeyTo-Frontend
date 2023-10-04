@@ -43,6 +43,7 @@ export function SidebarWithContentSeparator() {
         <Accordion
           open={open === 1}
         >
+          <Link to='/agent/seller_dashboard'>
           <ListItem className="p-0" selected={open === 1}>
             <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
               <ListItemPrefix>
@@ -53,6 +54,7 @@ export function SidebarWithContentSeparator() {
               </Typography>
             </AccordionHeader>
           </ListItem>
+          </Link>
         </Accordion>
         <Accordion
           open={open === 2}

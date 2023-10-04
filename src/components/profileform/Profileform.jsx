@@ -9,6 +9,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BaseUrl } from "../../utils/Constants";
 import jwtDecode from "jwt-decode";
+import profileicon from "../../assets/Image/profileicon.png";
+import { EditProfileSeller } from "../dialogues/EditProfileSeller";
+import { ChangePasswordUser } from "../dialogues/ChangePasswordUser";
+
+
 
 export function ProfileForm() {
   
@@ -34,7 +39,7 @@ export function ProfileForm() {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setuserData(res.data)
       })
       .catch((err) => {
@@ -47,51 +52,37 @@ export function ProfileForm() {
 
   return (
     <>
-      <div className="flex justify-center mt-8 w-full">
-        <p className="text-2xl font-semibold font-serif">Hello, { userData.first_name ? userData.first_name : ''} { userData.last_name ?  userData.last_name : ''}</p>
+      <div>
+        <img src={userData.profile_image ? userData.profile_image : profileicon } className="w-14 sm:w-16 md:w-20"></img>
+        <p className="text-2xl font-semibold font-serif">Hello, { userData.first_name ? userData.first_name : ''}</p>
       </div>
-      <div className="mt-10 ml-10">
+      <div className="mt-8 ml-10">
         <div className="text-blue-gray-600 font-medium">Personal Info</div>
         <div className="flex flex-col md:flex-row mt-5">
           <div className="md:w-1/2">
             <div className="mb-4">
-              <p className="text-xs text-blue-gray-800">First Name :</p>
-              <div className="h-10 border-blue-gray-50 border-2 mt-2 rounded-md text-base ps-10 pt-1">
-              { userData.first_name ? userData.first_name : ''}
-              </div>
+              <p className="text-xs text-blue-gray-800">First Name : <span className="h-10 mt-2 text-base ps-10 pt-1">{ userData.first_name ? userData.first_name : ''}</span></p>
             </div>
-            <div className="mb-4">
-              <p className="text-xs text-blue-gray-800">Last Name :</p>
-              <div className="h-10 border-blue-gray-50 border-2 mt-2 rounded-md text-base ps-10 pt-2">
-              { userData.last_name ? userData.last_name : ''}
-              </div>
+            <div className="mb-4 mt-8">
+              <p className="text-xs text-blue-gray-800">Last Name : <span className="h-10 mt-2 text-base ps-10 pt-1">{ userData.last_name ? userData.last_name : ''}</span></p>
             </div>
-            <div className="mb-4">
-              <p className="text-xs text-blue-gray-800">Email :</p>
-              <div className="h-10 border-blue-gray-50 border-2 mt-2 rounded-md text-base ps-10 pt-2">
-              { userData.email ? userData.email : ''}
-              </div>
+            <div className="mb-4 mt-8">
+              <p className="text-xs text-blue-gray-800">Email<span className="ml-8">:</span><span className="h-10 mt-2 text-base ps-10 pt-1">{ userData.email ? userData.email : ''}</span></p>
             </div>
           </div>
           <div className="md:w-1/2 md:ml-4">
             <div className="mb-4">
-              <p className="text-xs text-blue-gray-800">Phone :</p>
-              <div className="h-10 border-blue-gray-50 border-2 mt-2 rounded-md text-base ps-10 pt-2">
-              { userData.phone ? userData.phone : ''}
-              </div>
+              <p className="text-xs text-blue-gray-800">Phone<span className="ml-10">:</span><span className="h-10 mt-2 text-base ps-10 pt-1">{ userData.phone ? userData.phone : ''}</span></p>
             </div>
-            <div className="mb-4">
-              <p className="text-xs text-blue-gray-800">Address :</p>
-              <div className="h-10 border-blue-gray-50 border-2 mt-2 rounded-md text-base ps-10 pt-2">
-              { userData.address ? userData.address : ''}
-              </div>
+            <div className="mb-4 mt-8">
+              <p className="text-xs text-blue-gray-800">Address<span className="ml-8">:</span><span className="h-10 mt-2 text-base ps-10 pt-1">{ userData.address ? userData.address : ''}</span></p>
             </div>
             <div className="flex mt-4 md:mt-10">
               <div>
-                <Button className="bg-deep-orange-500" >Edit Profile</Button>
+                <EditProfileSeller data={userData}/>
               </div>
               <div className="ml-4">
-                <Button className="bg-deep-orange-500">Change Password</Button>
+                <ChangePasswordUser/>
               </div>
             </div>
           </div>
