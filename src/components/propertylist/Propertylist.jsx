@@ -8,9 +8,25 @@ import {
   Tooltip,
   IconButton,
 } from "@material-tailwind/react";
+import axios from "axios";
+import { BaseUrl } from "../../utils/Constants";
+import { useEffect } from "react";
+import { GoogleMap } from "@react-google-maps/api";
  
 export function PropertyList() {
+
+    useEffect(() => {
+      propertyData()
+    }, []);
+
+  const propertyData = () => {
+    axios.get(`${BaseUrl}/property/`)
+    .then((res) => {
+      console.log ( res)
+    })
+  }
   return (
+    <div >
     <Card className="w-full md:max-w-[26rem] shadow-lg">
       <CardHeader floated={false} color="blue-gray">
         <img
@@ -155,6 +171,8 @@ export function PropertyList() {
           For sale
         </Button>
       </CardFooter>
+      
     </Card>
+    </div>
   );
 }

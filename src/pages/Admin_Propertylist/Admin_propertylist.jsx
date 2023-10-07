@@ -1,135 +1,48 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Textarea,
-  Card,
-  Typography,
-  IconButton,
-} from "@material-tailwind/react";
-import axios from "axios";
-import { BaseUrl } from "../../utils/Constants";
-import { Tooltip } from "react-bootstrap";
-import { PencilIcon } from "@heroicons/react/24/outline";
+import { Typography } from '@material-tailwind/react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { Button, Card } from 'react-bootstrap';
+import { BaseUrl } from '../../utils/Constants';
 
-const TABLE_HEAD = ["Location", "Address", "Total_cent", "Price_per_cent","Description","Image", "Is_rent","Is_sell","",""];
+const TABLE_HEAD = ["Location", "Address", "Total_cent", "Price_per_cent","Is_rent","Is_sell",""];  
 
-function AdminPropertyList() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen((cur) => !cur);
-  const [Data, setData] = React.useState("");
-  const [propertyData, setpropertyData] = useState([])
+function Admin_propertylist() {
 
-
-  const tableStyle = {
-    borderCollapse: "separate",
-    borderSpacing: "10px", // Adjust the value to set the desired gap
-  };
-
-  const [propertyList, setpropertyList] = useState([]);
-
-  const TABLE_ROWS = propertyList;
-  
+  const [propertyList, setPropertyList] = useState([]);
+  const TABLE_ROWS = propertyList
 
   useEffect(() => {
-    getProperty()
+    getProperty();
   }, []);
 
   const getProperty = () => {
-    axios.get(`${BaseUrl}/property/`)
-    .then((res) => {
-      console.log ( res )
-      setpropertyList( res.data)
-    })
-  }
+    axios.get(`${BaseUrl}/property/`).then((res) => {
+      console.log(res);
+      setPropertyList(res.data);
+    });
+  };
 
-
-  // const EditData = (heading, priority, description,id) => {
-  //   setData({
-  //     id : id,
-  //     heading : heading,
-  //     description : description,
-  //     priority : priority
-  //   })
-  //   handleOpen()
-  // }
-
-  // const Delete = (id) => {
-  //   axios.delete(`${BaseUrl}/banner/`,{data : { id : id}})
-  //   .then((res) => {
-  //     getBanners()
-  //   })
-  // }
-
-  const AddProperty = () => {
-    let formData = new FormData()
-    formData.append('location',Data.location)
-    formData.append('address',Data.address)
-    formData.append('total_cent',Data.total_cent)
-    formData.append('price_per_cent',Data.price_per_cent)
-    formData.append('description',Data.description)
-    formData.append('id',Data.id)
-    if (Data.image)
-    {
-    formData.append('image',Data.image)
-
-    }
-    formData.append('is_rent',Data.is_rent)
-    formData.append('is_sell',Data.is_sell)
-    if (Data.id)
-    { 
-
-      axios.put(`${BaseUrl}/property/`,formData)
-      .then((res) => {
-        getProperty()
-        setData("")
-        handleOpen()
-  
-      })
-
-    }
-    else
-    {
-      axios.post(`${BaseUrl}/property/`,formData)
-      .then((res) => {
-        getProperty()
-        setData("")
-        handleOpen()
-  
-      })
-    }
-   
-  }
-
+  const Delete = (id) => {
+    axios.delete(`${BaseUrl}/property/`,{data : {id:id}}).then((res) =>{
+      getProperty();
+    });
+  };
 
   return (
     <div>
-      <div>
-        <div className=" col-span-2">
-          <div className="grid grid-cols-2">
+      <div className=" col-span-2">
+        <div className="grid grid-cols-2">
             <p className="mt-9 ml-10 font-serif text-3xl  text-deep-orange-900">
               Property List
             </p>
-            <div className="ml-64 mt-9">
-              <Button onClick={handleOpen} className="bg-deep-orange-900">
-                Add Property
-              </Button>
-            </div>
-          </div>
-          <div className="mt-10 w-full h-full">
-          <Card className="h-full w-full">
-      <table className="w-full max-w-full table-auto text-left">
+        </div>
+        <div className="mt-10 w-full h-full">
+        <Card className="h-full w-full">
+      <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
             {TABLE_HEAD.map((head) => (
-              <th
-                key={head}
-                className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-              >
+              <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
                 <Typography
                   variant="small"
                   color="blue-gray"
@@ -142,152 +55,58 @@ function AdminPropertyList() {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(
-            ({ location, address, total_cent, price_per_cent, description, image, is_rent, is_sell, id }, index) => {
-              const isLast = index === TABLE_ROWS.length - 1;
-              const classes = isLast
-                ? "p-4"
-                : "p-4 border-b border-blue-gray-50";
-
-              return (
-                <tr key={name}>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {location}
-                    </Typography>
-                  </td>
-                  <td className={`${classes} bg-blue-gray-50/50`}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {address}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {total_cent}
-                    </Typography>
-                  </td>
-                  <td className={`${classes} bg-blue-gray-50/50`}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {price_per_cent}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {description}
-                    </Typography>
-                  </td>
-                  <td className={`${classes} bg-blue-gray-50/50`}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {image}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {is_rent}
-                    </Typography>
-                  </td>
-                  <td className={`${classes} bg-blue-gray-50/50`}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {is_sell}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
-                  <Tooltip content="Edit Data">
-                    <IconButton variant="text">
-                      <PencilIcon className="h-4 w-4" />
-                    </IconButton>
-                  </Tooltip>
-                </Typography>
-              </td>
-              <td className={`${classes} bg-blue-gray-50/50`}>
-                <Button className=" bg-deep-orange-500">Delete</Button>
-              </td>
-                </tr>
-              );
-            }
-          )}
+          {TABLE_ROWS.map(({ location, address, total_cent,price_per_cent,is_rent,is_sell , id  }, index) => {
+            const isLast = index === TABLE_ROWS.length - 1;
+            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+ 
+            return (
+              <tr key={name}>
+                <td className={classes}>
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {location}
+                  </Typography>
+                </td>
+                <td className={`${classes} bg-blue-gray-50/50`}>
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {address}
+                  </Typography>
+                </td>
+                <td className={classes}>
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {total_cent}
+                  </Typography>
+                </td>
+                <td className={`${classes} bg-blue-gray-50/50`}>
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {price_per_cent}
+                  </Typography>
+                </td>
+                <td className={classes}>
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {is_rent}
+                  </Typography>
+                </td>
+                <td className={`${classes} bg-blue-gray-50/50`}>
+                  <Typography variant="small" color="blue-gray" className="font-normal">
+                    {is_sell}
+                  </Typography>
+                </td>
+                <td className={classes}>
+                  <Button className='bg-deep-orange-500 h-10 w-28 rounded-xl text-white' onClick={() => Delete(id)}>
+                    DELETE
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </Card>
-          </div>
+
         </div>
       </div>
-
-
-     
-<Dialog open={open} handler={handleOpen}>
-        <div className="flex items-center justify-between">
-          <DialogHeader>Add Property</DialogHeader>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="mr-3 h-5 w-5"
-            onClick={handleOpen}
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
-        <DialogBody divider>
-          <div className="grid gap-6">
-            <Input label="Heading" size="lg" value={Data.location ? Data.location : ""} onChange={(e)=>setData({...Data , location : e.target.value})}/>
-            <Input label="Heading" size="lg" value={Data.address ? Data.address : ""} onChange={(e)=>setData({...Data , address : e.target.value})}/>
-            <Input label="Heading" size="lg" value={Data.total_cent ? Data.total_cent : ""} onChange={(e)=>setData({...Data , total_cent : e.target.value})}/>
-            <Input label="Heading" size="lg" value={Data.price_per_cent ? Data.price_per_cent : ""} onChange={(e)=>setData({...Data , price_per_cent : e.target.value})}/>
-            <Textarea label="Description" size="lg" value={Data.description ? Data.description : ""} onChange={(e)=>setData({...Data , description : e.target.value})}/>
-            <Input label="Image" size="lg" type="file" onChange={(e)=>setData({...Data , image : e.target.files[0]})} />
-            <Input label="Priority" size="lg" value={Data.is_rent ? Data.is_rent : ""} onChange={(e)=>setData({...Data , is_rent : e.target.value})}/>
-            <Input label="Heading" size="lg" value={Data.is_sell ? Data.is_sell : ""} onChange={(e)=>setData({...Data , is_sell : e.target.value})}/>        
-          </div>
-        </DialogBody>
-        <DialogFooter className="space-x-2">
-          <Button variant="outlined" color="red" onClick={handleOpen}>
-            close
-          </Button>
-          <Button variant="gradient" color="green" onClick={AddProperty}>
-            Submit
-          </Button>
-        </DialogFooter>
-      </Dialog>
     </div>
-  );
+  )
 }
 
-export default AdminPropertyList;
+export default Admin_propertylist

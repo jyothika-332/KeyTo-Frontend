@@ -40,6 +40,22 @@ import { BaseUrl } from "../../utils/Constants";
       }
   }, []);
 
+
+  const PaymentData = async ( price ) => {
+    var data = {
+      "name" : "Test Name",
+      "price" : price,
+      "origin_site" : window.location.origin,
+    }
+
+    axios.post(`${BaseUrl}/payment/`,data)
+    .then((res) => {
+      console.log ( res)
+      window.location.href = res.data.message.url
+    })
+    
+  }
+
   const AddToPremium = async (addedmonth) => {
       var currentDate = new Date();
       var year = currentDate.getFullYear();
@@ -58,7 +74,7 @@ import { BaseUrl } from "../../utils/Constants";
       }
       axios.put(`${BaseUrl}/user/addtopremium/`, body)
       .then((res) => {
-          window.alert("Account Added to Premium")
+          PaymentData(1750)
       })
   }
 
@@ -75,7 +91,7 @@ import { BaseUrl } from "../../utils/Constants";
             color="white"
             className="font-normal uppercase"
           >
-            standard
+            get premium
           </Typography>
           <Typography
             variant="h1"
@@ -83,42 +99,34 @@ import { BaseUrl } from "../../utils/Constants";
             className="mt-6 flex justify-center gap-1 text-7xl font-normal"
           >
             <span className="mt-2 text-xl">₹</span>1750{" "}
-            <span className="self-end text-xl">/mo</span>
+            <span className="self-end text-xl">/4mo</span>
           </Typography>
         </CardHeader>
         <CardBody className="p-0">
-          <ul className="flex flex-col gap-4">
+        <ul className="flex flex-col gap-4">
             <li className="flex items-center gap-4">
               <span className="rounded-full border border-white/20 bg-white/20 p-1">
                 <CheckIcon />
               </span>
-              <Typography className="font-normal">5 team members</Typography>
+              <Typography className="font-normal">10 Listing</Typography>
             </li>
             <li className="flex items-center gap-4">
               <span className="rounded-full border border-white/20 bg-white/20 p-1">
                 <CheckIcon />
               </span>
-              <Typography className="font-normal">200+ components</Typography>
+              <Typography className="font-normal">4 Month Available</Typography>
             </li>
             <li className="flex items-center gap-4">
               <span className="rounded-full border border-white/20 bg-white/20 p-1">
                 <CheckIcon />
               </span>
-              <Typography className="font-normal">40+ built-in pages</Typography>
+              <Typography className="font-normal">Non Featured</Typography>
             </li>
             <li className="flex items-center gap-4">
               <span className="rounded-full border border-white/20 bg-white/20 p-1">
                 <CheckIcon />
               </span>
-              <Typography className="font-normal">1 year free updates</Typography>
-            </li>
-            <li className="flex items-center gap-4">
-              <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                <CheckIcon />
-              </span>
-              <Typography className="font-normal">
-                Life time technical support
-              </Typography>
+              <Typography className="font-normal">24/7 Support</Typography>
             </li>
           </ul>
         </CardBody>

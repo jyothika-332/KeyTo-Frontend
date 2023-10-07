@@ -40,6 +40,21 @@ import jwtDecode from "jwt-decode";
         }
     }, []);
 
+    const PaymentData = async ( price ) => {
+      var data = {
+        "name" : "Test Name",
+        "price" : price,
+        "origin_site" : window.location.origin,
+      }
+
+      axios.post(`${BaseUrl}/payment/`,data)
+      .then((res) => {
+        console.log ( res)
+        window.location.href = res.data.message.url
+      })
+      
+    }
+
     const AddToPremium = async (addedmonth) => {
         var currentDate = new Date();
         var year = currentDate.getFullYear();
@@ -58,7 +73,7 @@ import jwtDecode from "jwt-decode";
         }
         axios.put(`${BaseUrl}/user/addtopremium/`, body)
         .then((res) => {
-            window.alert("Account Added to Premium")
+          PaymentData(500)
         })
     }
 
@@ -75,7 +90,7 @@ import jwtDecode from "jwt-decode";
             color="white"
             className="font-normal uppercase"
           >
-            standard
+            get premium
           </Typography>
           <Typography
             variant="h1"
@@ -92,33 +107,25 @@ import jwtDecode from "jwt-decode";
               <span className="rounded-full border border-white/20 bg-white/20 p-1">
                 <CheckIcon />
               </span>
-              <Typography className="font-normal">5 team members</Typography>
+              <Typography className="font-normal">3 Listing</Typography>
             </li>
             <li className="flex items-center gap-4">
               <span className="rounded-full border border-white/20 bg-white/20 p-1">
                 <CheckIcon />
               </span>
-              <Typography className="font-normal">200+ components</Typography>
+              <Typography className="font-normal">1 Month Available</Typography>
             </li>
             <li className="flex items-center gap-4">
               <span className="rounded-full border border-white/20 bg-white/20 p-1">
                 <CheckIcon />
               </span>
-              <Typography className="font-normal">40+ built-in pages</Typography>
+              <Typography className="font-normal" style={{textDecoration: 'line-through'}}>Non Featured</Typography>
             </li>
             <li className="flex items-center gap-4">
               <span className="rounded-full border border-white/20 bg-white/20 p-1">
                 <CheckIcon />
               </span>
-              <Typography className="font-normal">1 year free updates</Typography>
-            </li>
-            <li className="flex items-center gap-4">
-              <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                <CheckIcon />
-              </span>
-              <Typography className="font-normal">
-                Life time technical support
-              </Typography>
+              <Typography className="font-normal" style={{textDecoration: 'line-through'}}>Limited Support</Typography>
             </li>
           </ul>
         </CardBody>

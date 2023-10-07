@@ -19,6 +19,8 @@ import Property_Show from './pages/PropertyShow/Property_Show'
 import Property_Details from './pages/Property_Details/Property_Details'
 import AdminPropertyList from './pages/Admin_Propertylist/Admin_propertylist'
 import Seller_Dashboard from './pages/Seller_Dashboard/Seller_Dashboard'
+import Seller_My_Listing from './pages/Seller_My_Listing/Seller_My_Listing'
+import Success from './components/Payment/Success'
 
 
 
@@ -27,6 +29,9 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
+      <Route Component={Success} path='success=true' />
+      <Route Component={Success} path='canceled=true' />
+
         <Route Component={Home} path="/" />
         <Route Component={Login} path='/login' />
         <Route Component={Property_Show} path='/property' />
@@ -42,6 +47,7 @@ function App() {
             <Route Component={Become_a_seller} path='become_a_seller' />
             <Route Component={Create_Listing} path='create_listing' />
             <Route Component={Seller_Dashboard} path='seller_dashboard' />
+            <Route Component={Seller_My_Listing} path='seller_mylisting' />
           </Route>
           <Route Component={Premium_Page} path='/premium' />
         </Route>

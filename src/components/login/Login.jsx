@@ -16,6 +16,7 @@ export function LoginPage() {
   const [otp, setotp] = useState("")
   let navigate = useNavigate()
   const [regDatas, setregDatas] = useState("")
+  console.log(regDatas,"ttttttttttttttttttt");
   const [logDatas, setlogDatas] = useState("")
   const [isLogin, setisLogin] = useState(true);
   const [user, setUser] = useState([]);

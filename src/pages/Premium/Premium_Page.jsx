@@ -37,7 +37,7 @@ function Premium_Page() {
           <Typography
             variant="h1"
             color="white"
-            className="mb-12 font-sans leading-[1.5] z-10 "
+            className="mb-12 font-sans leading-[1.5] z-10 ml-28"
             >
             Our Pricing Plans...
           </Typography>
