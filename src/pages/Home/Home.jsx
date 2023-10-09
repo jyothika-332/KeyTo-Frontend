@@ -8,6 +8,7 @@ import { FooterWithSocialLinks } from "../../components/footer/Footer";
 
 
 function Home() {
+  
   return (
     <>
       <StickyNavbar />
@@ -16,8 +17,6 @@ function Home() {
         <p className="text-4xl font-serif font-bold">Latest Properties</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <PropertyList />
-        <PropertyList />
         <PropertyList />
       </div>
       <Button className="bg-deep-orange-500 mt-9 ml-10">
@@ -39,13 +38,11 @@ function Home() {
       <div className="mt-16 flex justify-center">
         <p className="text-4xl font-serif font-bold">About Us</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <PropertyList />
+      <div className="flex">
+  
 
         <PropertyList />
-
- 
-        <PropertyList />
+      
       </div>
       <div className="mt-40">
         <FooterWithSocialLinks/>

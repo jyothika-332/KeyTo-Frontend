@@ -14,7 +14,7 @@ export function CarouselWithContent() {
   const getBanners = () => {
     axios.get(`${BaseUrl}/banner/`)
     .then((res) => {
-      console.log ("THE Banners Are",res.data)
+      console.log ("The Banners Are",res.data)
       setBanners(res.data);
     })
     .catch((error) => {
@@ -51,9 +51,7 @@ export function CarouselWithContent() {
         </div>
       </div>
         ))
-      }
-      
-      
+      }     
     </Carousel>
   );
 }
