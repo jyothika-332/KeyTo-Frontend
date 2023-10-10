@@ -1,16 +1,17 @@
 import React from "react";
-import payment from '../../assets/Image/payment.jpg'
+import payment4 from '../../assets/Image/payment4.jpg'
 import { CardBody, CardFooter, Typography } from "@material-tailwind/react";
 import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 
 function Success() {
   return (
     <div>
-      <div className="flex justify-center items-center h-screen">
-      <Card className="mt-6 w-96 border-2 rounded-xl border-light-green-500">
+      <div className="flex justify-center items-center h-screen" style={{backgroundImage: `url(${payment4})`}}>
+      <Card className="w-96 border-4 border-green-600 rounded-xl">
       <CardBody>
-        <Typography variant="h5" color="blue-gray" className="mb-2">
+        <Typography variant="h5" color="blue-gray" className="mb-2 text-3xl text-light-green-900">
           Payment Successfull
         </Typography>
         <Typography className="text-sm mt-5">
@@ -19,7 +20,8 @@ function Success() {
       </CardBody>
       <CardFooter className="pt-0">
         <a href="#" className="inline-block">
-          <Button size="sm" variant="text" className="flex items-center ml-64 gap-2">
+          <Link to='/agent/profile'>
+          <Button size="sm" variant="text" className="flex items-center ml-64 gap-2 text-deep-orange-900 font-bold">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -36,6 +38,7 @@ function Success() {
             </svg>
             Back
           </Button>
+          </Link>
         </a>
       </CardFooter>
     </Card>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -8,11 +8,22 @@ import {
   Input,
   Textarea,
 } from "@material-tailwind/react";
+import axios from "axios";
+import { BaseUrl } from "../../utils/Constants";
  
-export function EditProfileSeller({data}) {
+export function EditProfileSeller({data , setData , next }) {
   const [open, setOpen] = React.useState(false); 
   const handleOpen = () => setOpen(!open);
-  const [Data, setData] = React.useState("");
+  
+
+  const UpdateData = () => {
+    axios.put(`${BaseUrl}/user/`,data)
+    .then((res) => {
+      window.alert("User Updated Succesfully")
+      next()
+      handleOpen()
+    })
+  }
 
  
   return (
@@ -41,45 +52,45 @@ export function EditProfileSeller({data}) {
           <div className="grid gap-6">
           <Input
                 label="First Name"
-                value={data.first_name ? data.first_name : ""}
+                defaultValue={data.first_name ? data.first_name : ""}
                 onChange={(e) =>
-                  setData({ ...Data, first_name: e.target.value })
+                  setData({ ...data, first_name: e.target.value })
                 }
               />
               <Input
                 label="Last Name"
-                value={data.last_name ? data.last_name : ""}
+                defaultValue={data.last_name ? data.last_name : ""}
                 onChange={(e) =>
-                  setData({ ...Data, last_name: e.target.value })
+                  setData({ ...data, last_name: e.target.value })
                 }
               />
               <Input
                 label="Email"
-                value={data.email ? data.email : ""}
-                onChange={(e) => setData({ ...Data, email: e.target.value })}
+                defaultValue={data.email ? data.email : ""}
+                onChange={(e) => setData({ ...data, email: e.target.value })}
               />
               <Input
                 label="Phone Number"
-                value={data.phone ? data.phone : ""}
-                onChange={(e) => setData({ ...Data, phone: e.target.value })}
+                defaultValue={data.phone ? data.phone : ""}
+                onChange={(e) => setData({ ...data, phone: e.target.value })}
               />
               <Input
                 label="Address"
-                value={data.address ? data.address : ""}
-                onChange={(e) => setData({ ...Data, address: e.target.value })}
+                defaultValue={data.address ? data.address : ""}
+                onChange={(e) => setData({ ...data, address: e.target.value })}
               />
-              <Input
+              {/* <Input
                 label="Image"
                 type="file"
                 onChange={(e) => setData({ ...Data, image: e.target.files[0] })}
-              />
+              /> */}
           </div>
         </DialogBody>
         <DialogFooter className="space-x-2">
           <Button variant="outlined" color="red" onClick={handleOpen}>
             close
           </Button>
-          <Button className="bg-deep-orange-500" onClick={handleOpen}>
+          <Button className="bg-deep-orange-500" onClick={UpdateData}>
             update
           </Button>
         </DialogFooter>

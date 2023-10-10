@@ -6,7 +6,7 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import Image1 from "../../assets/Image/bailey-anselme-Bkp3gLygyeA-unsplash.jpg";
 import { BaseUrl } from "../../utils/Constants";
-import GoogleImage from "../../assets/Image/google.png";
+import GoogleImage from "../../assets/Image/google2.png";
 
 export function LoginPage() {
 
@@ -82,9 +82,12 @@ export function LoginPage() {
 
       })
       .catch((err) => {
-        console.log ( err)
-         var { message } = err.response.data ? err.response.data : 'Something Went Wrong'
-        window.alert(message)
+        console.log ( err.response)
+         
+         var { detail } = err.response.data ? err.response.data : 'Something Went Wrong'
+         
+          window.alert(detail)
+         
       })
     }
     else{
@@ -188,16 +191,18 @@ export function LoginPage() {
                       <Link to="/forgot-password">Forgot password?</Link>
                     </div>
                   </div>
-                  <div className="flex justify-around">
-                    <Button
-                      className="border-black border-2 bg-white text-black mt-5 w-60"
-                      onClick={() => login()}
-                    >
-                    <img src={GoogleImage} alt="Google Icon" /> <span className="text-xs mb-10 ml-3">Sign In With google</span>
-                    </Button>
-                    <Button className="bg-deep-orange-500 h-10 ml-40 mx-auto mt-5" onClick={(e) => loginWithUsername(null)}>
-                      LOGIN
-                    </Button>
+                  <div className="flex justify-between mt-5"> 
+                    <div>
+                      <div className="flex items-center p-2 rounded-lg h-10  text-black border-2 border-gray-400"  onClick={() => login()}>
+                        <img src={GoogleImage} alt="Google Icon" className="h-8  bg-white rounded-full p-1" /> 
+                        <p className="mx-2 ">Sign In With google</p>
+                      </div>
+                    </div>
+                    <div>
+                      <Button className="bg-deep-orange-500 h-10 ml-40 mx-auto " onClick={(e) => loginWithUsername(null)}>
+                        LOGIN
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -262,17 +267,32 @@ export function LoginPage() {
                       </span>
                     </label>
                   </div>
-                  <div className="flex justify-around">
+                  <div className="flex justify-between mt-5"> 
+                    <div>
+                      <div className="flex items-center p-2 rounded-lg h-10  text-black border-2 border-gray-400"  onClick={() => login()}>
+                        <img src={GoogleImage} alt="Google Icon" className="h-8  bg-white rounded-full p-1" /> 
+                        <p className="mx-2 ">Sign In With google</p>
+                      </div>
+                    </div>
+                    <div>
+                      <Button className="bg-deep-orange-500 h-10 ml-40 mx-auto " onClick={(e) => Signup(null)}>
+                        SIGNUP
+                      </Button>
+                    </div>
+                  </div>
+                  {/* <div className="flex justify-around">
+                    <div className="flex items-center p-2 rounded-lg h-10  text-black border-2 border-gray-400">
                     <Button
                       className="border-black border-2 bg-white text-black mt-5"
                       onClick={() => login()}
                     >
                       Sign up With google
                     </Button>
+                    </div>
                     <Button onClick={(e)=>Signup(null)} className="bg-deep-orange-500 h-10 ml-40 mx-auto mt-5">
                       SIGNUP
                     </Button>
-                  </div>
+                  </div> */}
                   </>
                   }
                   

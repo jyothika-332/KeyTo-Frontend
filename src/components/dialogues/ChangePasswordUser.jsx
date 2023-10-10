@@ -10,10 +10,40 @@ import {
   Input,
   Checkbox,
 } from "@material-tailwind/react";
+import axios from "axios";
+import { BaseUrl } from "../../utils/Constants";
+import jwtDecode from "jwt-decode";
  
 export function ChangePasswordUser() {
   const [open, setOpen] = React.useState(false);
+  const [Datas, setDatas] = React.useState("");
   const handleOpen = () => setOpen((cur) => !cur);
+
+  const ChangePass = () => {
+  
+      if ( Datas.newpass != Datas.newcpass)
+      {
+        window.alert("Mismatch Password")
+      }
+      else
+      {
+        var data  = { 
+          "id" : jwtDecode(localStorage.getItem("token")).user_id,
+          "oldpass" : Datas.oldpass,
+          "newpass" : Datas.newpass
+        }
+        axios.post(`${BaseUrl}/user/changepassword/`,data)
+        .then((res) => {
+          window.alert("Password Changed Succesfully")
+          localStorage.clear()
+          window.location.href = '/'
+        })
+        .catch((err)=> {
+          var { message} = err.response.data ? err.response.data : "Something Went Wrong"
+          window.alert(message)
+        })
+      }
+  }
  
   return (
     <>
@@ -29,12 +59,12 @@ export function ChangePasswordUser() {
               Change Password
             </Typography>
           <CardBody className="flex flex-col gap-4 mt-5">
-            <Input label="Current Password" size="lg" type="password"/>
-            <Input label="New Password" size="lg" type="password"/>
-            <Input label="Confirm Password" size="lg" type="password"/>
+            <Input label="Current Password" value={ Datas.oldpass ? Datas.oldpass : ""} onChange={(e)=>setDatas({...Datas , oldpass : e.target.value})} size="lg" type="password"/>
+            <Input label="New Password" value={ Datas.newpass ? Datas.newpass : ""} onChange={(e)=>setDatas({...Datas , newpass : e.target.value})} size="lg" type="password"/>
+            <Input label="Confirm Password" value={ Datas.newcpass ? Datas.newcpass : ""} onChange={(e)=>setDatas({...Datas , newcpass : e.target.value})} size="lg" type="password"/>
           </CardBody>
           <CardFooter className="pt-0 mt-5">
-            <Button className="bg-deep-orange-500" onClick={handleOpen} fullWidth>
+            <Button className="bg-deep-orange-500" onClick={ChangePass} fullWidth>
               Submit
             </Button>
           </CardFooter>

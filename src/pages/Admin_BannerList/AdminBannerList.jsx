@@ -20,13 +20,15 @@ const TABLE_HEAD = ["Heading", "Image", "Priority", "Description", "", ""];
 
 function AdminBannerList() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen((cur) => !cur);
+  const handleOpen = () => {
+    setOpen(!open)
+    setData("")
+  }
   const [Data, setData] = React.useState("");
-  const [bannerData, setbannerData] = useState([]);
 
   const tableStyle = {
     borderCollapse: "separate",
-    borderSpacing: "10px", // Adjust the value to set the desired gap
+    borderSpacing: "10px", 
   };
 
   const [bannerList, setbannerList] = useState([]);
@@ -51,7 +53,7 @@ function AdminBannerList() {
       description: description,
       priority: priority,
     });
-    handleOpen();
+    setOpen(true);
   };
 
   const Delete = (id) => {
@@ -253,7 +255,7 @@ function AdminBannerList() {
           <Button variant="outlined" color="red" onClick={handleOpen}>
             close
           </Button>
-          <Button variant="gradient" color="green" onClick={AddBanner}>
+          <Button className="bg-deep-orange-500" onClick={AddBanner}>
             Submit
           </Button>
         </DialogFooter>

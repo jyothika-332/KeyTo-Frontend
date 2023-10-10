@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navbar,
   MobileNav,
@@ -35,7 +35,6 @@ const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
-    // link: localStorage.getItem("token") ? jwtDecode(localStorage.getItem("token")).role === "user" ? "/userprofile" : '/agent/profile' : null,
     link : localStorage.getItem("token") ? jwtDecode(localStorage.getItem("token")).role === "user" ? "/userprofile" : '/agent/profile' : null ,
   },
   {
@@ -59,7 +58,11 @@ const profileMenuItems = [
 
 export function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  
+ 
   const closeMenu = () => setIsMenuOpen(false);
+
+
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -121,6 +124,8 @@ export function ProfileMenu() {
 
 export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
+  const [is_premium, setis_premium] = useState(false)
+
   const [isLogedIn, setisLogedIn] = useState(
     localStorage.getItem("token") ? true : false
   );
@@ -130,6 +135,11 @@ export function StickyNavbar() {
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
+    if (localStorage.getItem("token"))
+    {
+    
+      setis_premium(jwtDecode(localStorage.getItem("token")).is_premium)
+    }
   }, []);
 
   const Logout = () => {
@@ -216,7 +226,7 @@ export function StickyNavbar() {
         </Typography>
       )}
       <div className="relative flex w-full gap-2 md:w-max">
-        <Input
+        {/* <Input
           type="search"
           label="Type here..."
           className="pr-20"
@@ -229,7 +239,33 @@ export function StickyNavbar() {
           className="!absolute right-1 bg-deep-orange-400 top-1 rounded"
         >
           Search
-        </Button>
+        </Button> */}
+        {
+          isLogedIn  ? <>
+          {
+            is_premium ? 
+            <Link to='/premium'>
+            <Button className="border-2 rounded-xl bg-light-green-700">
+              <div className="flex">
+              <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="-mt-0.5 h-5 w-5 text-yellow-700"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Premium
+            </div>
+            </Button>
+            </Link> : ''          
+          }
+          </> : ''
+        }
       </div>
     </ul>
   );

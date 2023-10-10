@@ -20,12 +20,16 @@ import { ChangePasswordUser } from "../dialogues/ChangePasswordUser";
 import { EditProfileUser } from "../dialogues/EditProfileUser";
 
 export function UserProfile() { 
+
   const [userData, setuserData] = useState("");
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token")) 
+    {
       getUserData();
-    } else {
+    }
+    else
+    {
       localStorage.clear();
       window.location.href = "/";
     }
@@ -88,7 +92,7 @@ export function UserProfile() {
             </div>
             <div className="flex mt-4 md:mt-10">
               <div>
-                <EditProfileUser data={userData}/>
+                <EditProfileUser next = {getUserData} data={userData} setData = { setuserData }/>
               </div>
               <div className="ml-4">
                 <ChangePasswordUser />

@@ -5,6 +5,7 @@ import {
   Typography,
   IconButton,
   Button,
+  Avatar,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -33,20 +34,13 @@ function NavList() {
           href="#"
           className="flex items-center hover:text-blue-500 transition-colors"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 mr-2"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 0a5.89 5.89 0 00-5.877 6.482C3.058 7.918 1 9.515 1 12v2a1 1 0 001 1h16a1 1 0 001-1v-2c0-2.485-2.058-4.082-3.123-5.518A5.89 5.89 0 0010 0zM5.877 4.482A3.894 3.894 0 0110 2a3.895 3.895 0 014.123 2.482C14.484 5.295 12.546 6 10 6s-4.484-.705-4.123-1.518zM12 8a4 4 0 00-4 4v2h8v-2a4 4 0 00-4-4z"
-              clipRule="evenodd"
-            />
-          </svg>
-          Profile
+          <Avatar
+            variant="circular"
+            size="sm"
+            alt="tania andrew"
+            className="border border-gray-900 p-0.5"
+            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+          />
         </a>
         ) : ""}
       </Typography>

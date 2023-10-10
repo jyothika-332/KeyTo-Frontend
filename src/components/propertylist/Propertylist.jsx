@@ -13,7 +13,9 @@ import { BaseUrl } from "../../utils/Constants";
 import { useEffect, useState } from "react";
 
 
-export function PropertyList() {
+export function PropertyList({
+   is_premium
+}) {
   const [properties, setProperties] = useState([]);
 console.log(properties);
     useEffect(() => {
@@ -21,7 +23,11 @@ console.log(properties);
     }, []);
 
     const getProperties = () => {
-      axios.get(`${BaseUrl}/property/`)
+      axios.get(`${BaseUrl}/property/`,{
+        params : {
+          is_premium : is_premium
+        }
+      })
       .then((res) => {
         setProperties(res.data);
       })

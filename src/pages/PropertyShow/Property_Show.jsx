@@ -42,7 +42,9 @@ function Property_Show() {
         <div className="flex-1"></div>
       </div>
       <div className="text-center mt-16 text-deep-orange-900 text-4xl font-serif font-bold">Properties</div>
-      <PropertyList />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
+        <PropertyList is_premium={ false } />
+      </div>  
       <div className="mt-44">
         <FooterWithSocialLinks/>
       </div>

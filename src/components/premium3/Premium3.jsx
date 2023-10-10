@@ -7,7 +7,7 @@ import {
     Button,
   } from "@material-tailwind/react";
 import jwtDecode from "jwt-decode";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { BaseUrl } from "../../utils/Constants";
 import axios from "axios";
    
@@ -32,11 +32,18 @@ import axios from "axios";
    
   export function PricingCard3() {
 
+    const [is_premium, setis_premium] = useState(false);
+
     useEffect(() => {
+      console.log(jwtDecode(localStorage.getItem('token')));
       if (!localStorage.getItem("token"))
       {
           localStorage.clear()
           window.location.href = '/'
+      }
+      else
+      {
+        setis_premium(jwtDecode(localStorage.getItem('token')).is_premium)
       }
   }, []);
 
@@ -130,16 +137,29 @@ import axios from "axios";
           </ul>
         </CardBody>
         <CardFooter className="mt-12 p-0">
-          <Button
+          {
+            is_premium ?
+            <Button
             size="lg"
             color="white"
             className="hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
             ripple={false}
             fullWidth={true}
-            onClick={()=>AddToPremium(3)}
+            disabled={false}
           >
-            Buy Now
-          </Button>
+            Premium User
+          </Button>:
+          <Button
+          size="lg"
+          color="white"
+          className="hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
+          ripple={false}
+          fullWidth={true}
+          onClick={()=>AddToPremium(3)}
+        >
+          Buy Now
+        </Button>
+          }
         </CardFooter>
       </Card>
     );

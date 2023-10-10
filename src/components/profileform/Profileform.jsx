@@ -79,10 +79,10 @@ export function ProfileForm() {
             </div>
             <div className="flex mt-4 md:mt-10">
               <div>
-                <EditProfileSeller data={userData}/>
+                <EditProfileSeller next = {getUserData} data={userData} setData = { setuserData }/>
               </div>
               <div className="ml-4">
-                <ChangePasswordUser/>
+                <ChangePasswordUser />
               </div>
             </div>
           </div>
