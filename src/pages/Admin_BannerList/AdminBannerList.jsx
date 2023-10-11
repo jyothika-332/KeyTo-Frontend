@@ -16,7 +16,7 @@ import { BaseUrl } from "../../utils/Constants";
 import { Tooltip } from "react-bootstrap";
 import { PencilIcon } from "@heroicons/react/24/outline";
 
-const TABLE_HEAD = ["Heading", "Image", "Priority", "Description", "", ""];
+const TABLE_HEAD = ["Image", "Heading", "Priority", "Description", "", ""];
 
 function AdminBannerList() {
   const [open, setOpen] = React.useState(false);
@@ -130,6 +130,11 @@ function AdminBannerList() {
 
                       return (
                         <tr key={name}>
+                          <td className={`${classes} bg-blue-gray-50/50`}>
+                            <img src={`${BaseUrl}${image}`}
+                            className="transform hover:scale-150"
+                            style={{ height:"80px" , width:"80px" , objectFit:"cover" , borderRadius:"50%"}}/>
+                          </td>
                           <td className={classes}>
                             <Typography
                               variant="small"
@@ -137,15 +142,6 @@ function AdminBannerList() {
                               className="font-normal"
                             >
                               {heading}
-                            </Typography>
-                          </td>
-                          <td className={`${classes} bg-blue-gray-50/50`}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {image}
                             </Typography>
                           </td>
                           <td className={classes}>

@@ -71,23 +71,7 @@ export function My_Listing() {
     setOpen(true);
   };
 
-  const Update = () => {
-    let formData = new FormData();
-    formData.append("title", Data.title);
-    formData.append("description", Data.description);
-    formData.append("id", Data.id);
-    if (Data.image) {
-      formData.append("image", Data.image);
-    }
-    formData.append("location", Data.location);
-    if (Data.id){
-        axios.put(`${BaseUrl}/property/`, formData).then((res) => {
-          getProperties();
-          setData("");
-          handleOpen();
-        });
-    }
-  };
+  
 
   return (
     <div className="">
@@ -113,7 +97,7 @@ export function My_Listing() {
           </thead>
           <tbody>
             {TABLE_ROWS.map(
-              ({ image, title, location, description }, index) => {
+              ({ image, title, location,id, description }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -122,14 +106,9 @@ export function My_Listing() {
                 return (
                   <tr key={title}>
                     <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {image}
-                      </Typography>
-                    </td>
+                      <img src={`${BaseUrl}${image}`}
+                      className="transform hover:scale-150"
+                        style={{ height:"80px" , width:"80px" , objectFit:"cover" , borderRadius:"50%"}}/>                    </td>
                     <td className={classes}>
                       <Typography
                         variant="small"
@@ -159,10 +138,10 @@ export function My_Listing() {
                     </td>
                     <td className={classes}>
                       <Tooltip content="Edit Property">
-                        <IconButton variant="text">
-                          <PencilIcon className="h-4 w-4" onClick={() =>
+                        <IconButton variant="text"  onClick={() =>
                             EditData(image,title,location,description,id)
-                          } />
+                          }>
+                          <PencilIcon className="h-4 w-4"/>
                         </IconButton>
                       </Tooltip>
                     </td>
@@ -184,7 +163,7 @@ export function My_Listing() {
           </tbody>
         </table>
       </Card>
-      <MylistEdit open={open} handleOpen={handleOpen}/>
+      <MylistEdit next = { getProperties} open={open} handleOpen={handleOpen} Data= { Data } setData={ setData }/>
     </div>
   );
 }

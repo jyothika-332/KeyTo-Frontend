@@ -45,6 +45,9 @@ console.log(properties);
       <CardHeader floated={false} color="blue-gray">
         <img
           src={`${BaseUrl }/${value.image}`}
+          // width="384px"
+          // height="256px"
+          style={{ width:"384px" , height:"256px"}}
           alt="ui/ux review check"
         />
         <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />

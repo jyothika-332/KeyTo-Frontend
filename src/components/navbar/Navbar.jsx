@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Navbar,
   MobileNav,
@@ -28,6 +28,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import { SimpleContext } from "../Context/Context";
 
 
 // profile menu component
@@ -123,6 +124,8 @@ export function ProfileMenu() {
 }
 
 export function StickyNavbar() {
+
+  const { Datas } = useContext(SimpleContext)
   const [openNav, setOpenNav] = React.useState(false);
   const [is_premium, setis_premium] = useState(false)
 

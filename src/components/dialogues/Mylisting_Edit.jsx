@@ -9,9 +9,55 @@ import {
   Textarea,
 } from "@material-tailwind/react";
 import { Data } from "@react-google-maps/api";
+import axios from "axios";
+import { BaseUrl } from "../../utils/Constants";
 
 
-export function MylistEdit({ open, handleOpen }) {
+export function MylistEdit({ open, handleOpen , Data , setData , next }) {
+
+
+  const Update = () => {
+    let formData = new FormData();
+    formData.append("title", Data.title);
+    formData.append("description", Data.description);
+    formData.append("id", Data.id);
+    formData.append("location", Data.location);
+  
+    // Check if Data.image is a valid file before appending it
+    if (Data.image && Data.image instanceof File) {
+      formData.append("image", Data.image);
+    }
+  
+    if (Data.id) {
+      axios.put(`${BaseUrl}/property/`, formData)
+        .then((res) => {
+          console.log("Update successful:", res.data);
+          handleOpen();
+          setData("");
+          next();
+        })
+        .catch((error) => {
+          console.error("Update failed:", error);
+        });
+    }
+  };
+
+  
+  // const Update = (id) => {
+  //   axios.put(`${BaseUrl}/property/`,
+  //   {
+  //     "id" : id
+  //   }
+  //   ).then((res) => {
+  //     window.alert("Property Update Successfully");
+  //     handleOpen();
+  //     setData("");
+  //     next();
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
+  // };
 
   return (
     <>
@@ -46,7 +92,7 @@ export function MylistEdit({ open, handleOpen }) {
           <Button variant="outlined" color="red" onClick={handleOpen}>
             close
           </Button>
-          <Button className="bg-deep-orange-500" onClick={Update}>
+          <Button className="bg-deep-orange-500" onClick={() =>{ console.log(Data.id); Update(Data.id); }}>
             Update
           </Button>
         </DialogFooter>

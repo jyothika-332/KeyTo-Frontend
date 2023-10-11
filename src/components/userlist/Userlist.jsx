@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BaseUrl } from "../../utils/Constants";
 import jwtDecode from "jwt-decode";
-import { PencilIcon } from "@heroicons/react/24/solid";
-import { Card, IconButton, Tooltip, Typography } from "@material-tailwind/react";
- 
-const TABLE_HEAD = ["First_name", "Email", "Role", "Premium","Status",""];
+import { Card, Typography, Button } from "@material-tailwind/react";
+
+
+const TABLE_HEAD = ["First_name", "Last_name", "Email", "Role", "Premium","Status"];
 
  
 
@@ -48,6 +48,21 @@ function Userlist() {
   };
   const TABLE_ROWS = userList
 
+  const userManagent = (id,is_active) => {
+    console.log(id,is_active);
+    axios.put(`${BaseUrl}/user/`, 
+        {
+          "id":id, 
+          "is_active":!is_active
+        }
+    ).then((res) => {
+      console.log(res.data);
+      getUserData()
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  };
 
   return (
     <Card className="h-full w-full">
@@ -68,7 +83,7 @@ function Userlist() {
         </tr>
       </thead>
       <tbody>
-        {TABLE_ROWS.map(({ first_name, email, role,is_premium,is_active }, index) => {
+        {TABLE_ROWS.map(({ first_name, last_name, email, role,is_premium,is_active,id }, index) => {
           const isLast = index === TABLE_ROWS.length - 1;
           const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
 
@@ -81,32 +96,31 @@ function Userlist() {
               </td>
               <td className={`${classes} bg-blue-gray-50/50`}>
                 <Typography variant="small" color="blue-gray" className="font-normal">
-                  {email}
+                  {last_name}
                 </Typography>
               </td>
               <td className={classes}>
+                <Typography variant="small" color="blue-gray" className="font-normal">
+                  {email}
+                </Typography>
+              </td>
+              <td className={`${classes} bg-blue-gray-50/50`}>
                 <Typography variant="small" color="blue-gray" className="font-normal">
                   {role}
                 </Typography>
               </td>
-              <td className={`${classes} bg-blue-gray-50/50`}>
+              <td className={classes}>
                 <Typography variant="small" color="blue-gray" className="font-normal">
                 {is_premium == true? 'True': 'False'}
                 </Typography>
               </td>
-              <td className={classes}>
-                <Typography variant="small" color="blue-gray" className="font-normal">
-                  {is_active == true? 'Active' : 'Not Active'}
-                </Typography>
-              </td>
               <td className={`${classes} bg-blue-gray-50/50`}>
-                <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
-                  <Tooltip content="Edit User">
-                    <IconButton variant="text">
-                      <PencilIcon className="h-4 w-4" />
-                    </IconButton>
-                  </Tooltip>
-                </Typography>
+                  <Button className="bg-white border-2 rounded-xl" onClick={() => userManagent(id,is_active)}>
+                  {is_active ?
+                    <p className='text-light-green-900 text-center w-full p-1'>Block</p>
+                    : <p className='text-deep-orange-900 text-center p-1'>Unblock</p>
+                  }
+                  </Button>
               </td>
             </tr>
           );

@@ -22,14 +22,18 @@ import { useNavigate } from "react-router-dom";
       {
         axios.post(`${BaseUrl}/user/token/`,logDatas).then((res) => {
           console.log ( res)
-          const { access } = res.data
+          const { access , refresh } = res.data
           if (jwtDecode(access).role != "admin")
           {
             window.alert("You Dont Have The Permission to Login Here")
           }
           else{
-          localStorage.setItem('token' , access)
-          return navigate('/admin/admin_dashboard')
+            
+            
+            localStorage.setItem('token' , access)
+            localStorage.setItem('refresh' , refresh)
+        
+            return navigate('/admin/admin_dashboard')
 
           }
   
