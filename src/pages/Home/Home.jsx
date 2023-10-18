@@ -5,6 +5,7 @@ import { PropertyList } from "../../components/propertylist/Propertylist";
 import { Button } from "@material-tailwind/react";
 import Image1 from "../../assets/Image/bailey-anselme-Bkp3gLygyeA-unsplash.jpg";
 import { FooterWithSocialLinks } from "../../components/footer/Footer";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -17,9 +18,11 @@ function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-14">
         <PropertyList is_premium = { true } />
       </div>
+      <Link to='property'>
       <Button className="bg-deep-orange-500 mt-9 ml-10">
         View All Properties
       </Button>
+      </Link>
       <div className="mt-16 flex justify-center">
         <p className="text-4xl font-serif font-bold">Why Choose Us</p>
       </div>

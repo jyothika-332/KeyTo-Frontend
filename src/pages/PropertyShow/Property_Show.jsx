@@ -31,11 +31,11 @@ function Property_Show() {
           </div>
           <div className="w-28 ml-14">
             <Select label="Select Price">
-              <Option>Material Tailwind HTML</Option>
-              <Option>Material Tailwind React</Option>
-              <Option>Material Tailwind Vue</Option>
-              <Option>Material Tailwind Angular</Option>
-              <Option>Material Tailwind Svelte</Option>
+              <Option>₹ : 1,00,000</Option>
+              <Option>₹ : 1,50,000</Option>
+              <Option>₹ : 2,00,000</Option>
+              <Option>₹ : 2,50,000</Option>
+              <Option>₹ : 3,00,000</Option>
             </Select>
           </div>
         </div>
@@ -43,7 +43,7 @@ function Property_Show() {
       </div>
       <div className="text-center mt-16 text-deep-orange-900 text-4xl font-serif font-bold">Properties</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
-        <PropertyList is_premium={ false } />
+        <PropertyList/>
       </div>  
       <div className="mt-44">
         <FooterWithSocialLinks/>

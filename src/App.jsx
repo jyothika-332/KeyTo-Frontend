@@ -21,6 +21,7 @@ import AdminPropertyList from './pages/Admin_Propertylist/Admin_propertylist'
 import Seller_Dashboard from './pages/Seller_Dashboard/Seller_Dashboard'
 import Seller_My_Listing from './pages/Seller_My_Listing/Seller_My_Listing'
 import Success from './components/Payment/Success'
+import AdminProtected from './protect_public/AdminProtected'
 
 
 
@@ -29,16 +30,17 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-      <Route Component={Success} path='success=true' />
-      <Route Component={Success} path='canceled=true' />
 
         <Route Component={Home} path="/" />
         <Route Component={Login} path='/login' />
         <Route Component={Property_Show} path='/property' />
+
         <Route Component={UserProtected}>
           <Route Component={Property_Details} path='/property_details' />
           <Route Component={ForgotPassword} path='/forgot-password' />
           <Route Component={Userprofile} path='/userprofile' />
+          <Route Component={Success} path='success=true' />
+          <Route Component={Success} path='canceled=true' />
         </Route>
 
         <Route Component={UserProtected}>
@@ -55,13 +57,14 @@ function App() {
 
         <Route Component={Adminlogin} path='/admin_login' />
 
-        
-        <Route path='/admin' Component={AdminRoute}>
-          <Route Component={AdminDashboard} path='admin_dashboard' />
-          <Route Component={Admin_Userlist} path='admin_userlist' />
-          <Route Component={AdminBannerList} path='admin_bannerlist' />
-          <Route Component={AdminPropertyList} path='admin_propertylist' />
-        </Route>   
+        <Route Component={AdminProtected}>
+          <Route path='/admin' Component={AdminRoute}>
+            <Route Component={AdminDashboard} path='admin_dashboard' />
+            <Route Component={Admin_Userlist} path='admin_userlist' />
+            <Route Component={AdminBannerList} path='admin_bannerlist' />
+            <Route Component={AdminPropertyList} path='admin_propertylist' />
+          </Route>
+        </Route>  
       </Routes>
     </BrowserRouter>
     </>

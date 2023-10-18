@@ -1,24 +1,14 @@
 import {
   Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
   Typography,
-  Button,
   Tooltip,
   IconButton,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  Textarea,
-  DialogFooter,
 } from "@material-tailwind/react";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
 import React,{ useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import { PencilIcon } from "@heroicons/react/24/outline";
-import { Input } from "postcss";
 import { MylistEdit } from "../dialogues/Mylisting_Edit";
 
 
@@ -71,6 +61,12 @@ export function My_Listing() {
     setOpen(true);
   };
 
+
+  const Delete = (id) => {
+    axios.delete(`${BaseUrl}/property/`, { data: { id: id } }).then((res) => {
+      getProperties();
+    });
+  };
   
 
   return (
@@ -152,6 +148,7 @@ export function My_Listing() {
                         variant="small"
                         color="blue-gray"
                         className="font-medium"
+                        onClick={() => Delete(id)}
                       >
                         Delete
                       </Typography>

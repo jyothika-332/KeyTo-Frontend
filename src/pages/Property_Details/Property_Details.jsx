@@ -37,6 +37,7 @@ function Property_Details() {
         neque faucibus, condimentum lectus at, accumsan enim.
       </div>
       <div className="font-serif font-bold text-2xl ml-32 mt-20">Details</div>
+      <div className="ml-44 mt-8">kkkkkkkk</div>
     </div>
   );
 }

@@ -5,21 +5,18 @@ import {
   List,
   ListItem,
   ListItemPrefix,
-  ListItemSuffix,
-  Chip,
   Accordion,
   AccordionHeader,
-  AccordionBody,
 } from "@material-tailwind/react";
 import {
   PresentationChartBarIcon,
   ShoppingBagIcon,
   UserCircleIcon,
-  Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import { HomeIcon } from "@heroicons/react/24/outline";
 
  
 export function SidebarWithContentSeparator() {
@@ -37,7 +34,7 @@ export function SidebarWithContentSeparator() {
   };
  
   return (
-    <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 mt-20">
+    <Card className="h-[calc(94vh-2rem)] w-full fixed rounded-none max-w-[20rem] bg-blue-gray-100 p-4 shadow-xl shadow-blue-gray-900/5">
       <List>
         <Accordion
           open={open === 1}
@@ -62,7 +59,7 @@ export function SidebarWithContentSeparator() {
           <ListItem className="p-0" selected={open === 2}>
             <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
               <ListItemPrefix>
-                <ShoppingBagIcon className="h-5 w-5" />
+                <HomeIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
                 My Properties
@@ -74,7 +71,7 @@ export function SidebarWithContentSeparator() {
           <ListItem className="p-0" selected={open === 2}>
             <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
               <ListItemPrefix>
-                <ShoppingBagIcon className="h-5 w-5" />
+                <HomeIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
                 Create Listing
@@ -93,7 +90,7 @@ export function SidebarWithContentSeparator() {
         <Link to="/premium">
         <ListItem>
           <ListItemPrefix>
-            <UserCircleIcon className="h-5 w-5" />
+            <ShoppingBagIcon className="h-5 w-5" />
           </ListItemPrefix>
           Pricing
         </ListItem>

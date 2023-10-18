@@ -1,10 +1,3 @@
-import {
-  Card,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-} from "@material-tailwind/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BaseUrl } from "../../utils/Constants";
@@ -39,7 +32,6 @@ export function ProfileForm() {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setuserData(res.data)
       })
       .catch((err) => {
@@ -52,11 +44,11 @@ export function ProfileForm() {
 
   return (
     <>
-      <div>
+      <div className="ml-96">
         <img src={userData.profile_image ? userData.profile_image : profileicon } className="w-14 sm:w-16 md:w-20"></img>
         <p className="text-2xl font-semibold font-serif">Hello, { userData.first_name ? userData.first_name : ''}</p>
       </div>
-      <div className="mt-8 ml-10">
+      <div className="mt-8 ml-14">
         <div className="text-blue-gray-600 font-medium">Personal Info</div>
         <div className="flex flex-col md:flex-row mt-5">
           <div className="md:w-1/2">

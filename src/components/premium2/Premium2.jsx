@@ -5,7 +5,7 @@ import {
     CardFooter,
     Typography,
     Button,
-  } from "@material-tailwind/react";
+} from "@material-tailwind/react";
 import { BaseUrl } from "../../utils/Constants";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -57,7 +57,6 @@ import jwtDecode from "jwt-decode";
 
     axios.post(`${BaseUrl}/payment/`,data)
     .then((res) => {
-      console.log ( res)
       window.location.href = res.data.message.url
     })
     

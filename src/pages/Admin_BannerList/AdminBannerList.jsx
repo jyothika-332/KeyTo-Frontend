@@ -41,7 +41,6 @@ function AdminBannerList() {
 
   const getBanners = () => {
     axios.get(`${BaseUrl}/banner/`).then((res) => {
-      console.log(res);
       setbannerList(res.data);
     });
   };
@@ -107,12 +106,12 @@ function AdminBannerList() {
                     {TABLE_HEAD.map((head) => (
                       <th
                         key={head}
-                        className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                        className="border-b border-blue-gray-100 bg-blue-gray-400 p-4"
                       >
                         <Typography
                           variant="small"
-                          color="blue-gray"
-                          className="font-normal leading-none opacity-70"
+                          color="white"
+                          className="font-serif text-lg leading-none opacity-70"
                         >
                           {head}
                         </Typography>

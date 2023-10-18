@@ -7,9 +7,6 @@ import { NavbarSimple } from '../../components/adminNavbar/Admin_NAvbar';
 function Adminlogin() {
   return (
     <div>
-      <div className='w-full'>
-        <NavbarSimple/>
-      </div>
         <div className="grid grid-cols-1 md:grid-cols-2 ml-20 mt-16 mx-10 gap-10 h-full">
         <div className="">
         <img

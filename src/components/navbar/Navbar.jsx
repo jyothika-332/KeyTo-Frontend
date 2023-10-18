@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Navbar,
   MobileNav,
@@ -9,62 +9,26 @@ import {
   MenuList,
   Button,
   MenuItem,
-  Card,
   IconButton,
-  Input,
 } from "@material-tailwind/react";
 import {
-  CubeTransparentIcon,
   UserCircleIcon,
-  CodeBracketSquareIcon,
-  Square3Stack3DIcon,
   ChevronDownIcon,
-  Cog6ToothIcon,
-  InboxArrowDownIcon,
-  LifebuoyIcon,
   PowerIcon,
-  RocketLaunchIcon,
-  Bars2Icon,
 } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import { SimpleContext } from "../Context/Context";
 
 
-// profile menu component
-const profileMenuItems = [
-  {
-    label: "My Profile",
-    icon: UserCircleIcon,
-    link : localStorage.getItem("token") ? jwtDecode(localStorage.getItem("token")).role === "user" ? "/userprofile" : '/agent/profile' : null ,
-  },
-  {
-    label: "Edit Profile",
-    icon: Cog6ToothIcon,
-
-  },
-  {
-    label: "Inbox",
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: "Help",
-    icon: LifebuoyIcon,
-  },
-  {
-    label: "Sign Out",
-    icon: PowerIcon,
-  },
-];
-
 export function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  
- 
+  const nvgt = useNavigate()
   const closeMenu = () => setIsMenuOpen(false);
-
-
-
+  const Logout = () => {
+    localStorage.clear()
+    nvgt('/login')
+  }
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -89,45 +53,43 @@ export function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon, link }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
-          return (
-            <Link to={link}>
-              <MenuItem
-                key={label}
-                onClick={closeMenu}
-                className={`flex items-center gap-2 rounded ${
-                  isLastItem
-                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                    : ""
-                }`}
-              >
-                {React.createElement(icon, {
-                  className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                  strokeWidth: 2,
-                })}
-                <Typography
-                  as="span"
-                  variant="small"
-                  className="font-normal"
-                  color={isLastItem ? "red" : "inherit"}
-                >
-                  {label}
-                </Typography>
-              </MenuItem>
-            </Link>
-          );
-        })}
+        
+        { localStorage.getItem("token")? jwtDecode(localStorage.getItem("token")).role === "user" ?
+        (<Link to="/userprofile">
+        <MenuItem className="flex items-center " >
+        <UserCircleIcon className="h-4 w-4 me-2 "/> 
+        <Typography className="">
+          My Profile
+        </Typography> 
+        </MenuItem>
+         </Link>)
+          :
+         (<Link to="/agent/profile">  
+        <MenuItem className="flex items-center " >
+        <UserCircleIcon className="h-4 w-4 me-2 "/> 
+        <Typography className="">
+          My Profile
+        </Typography> 
+        </MenuItem>
+        </Link>)
+        
+        : '' }
+
+        <MenuItem className="flex items-center " onClick={Logout}>
+        <PowerIcon className="h-4 w-4 me-2 text-red-500"/> 
+        <Typography className="text-red-500 ">Sign Out</Typography> 
+        </MenuItem>
+        
+        
       </MenuList>
     </Menu>
   );
 }
 
 export function StickyNavbar() {
-
-  const { Datas } = useContext(SimpleContext)
+  const { Datas } = useContext(SimpleContext);
   const [openNav, setOpenNav] = React.useState(false);
-  const [is_premium, setis_premium] = useState(false)
+  const [is_premium, setis_premium] = useState(false);
 
   const [isLogedIn, setisLogedIn] = useState(
     localStorage.getItem("token") ? true : false
@@ -138,19 +100,12 @@ export function StickyNavbar() {
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
-    if (localStorage.getItem("token"))
-    {
-    
-      setis_premium(jwtDecode(localStorage.getItem("token")).is_premium)
+    if (localStorage.getItem("token")) {
+      setis_premium(jwtDecode(localStorage.getItem("token")).is_premium);
     }
   }, []);
 
-  const Logout = () => {
-    if (window.confirm("Do You Want to Logout")) {
-      localStorage.clear();
-      window.location.href = "/";
-    }
-  };
+ 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -173,50 +128,40 @@ export function StickyNavbar() {
           About Us
         </a>
       </Typography>
-      <Link to='/property'>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Property
-        </a>
-      </Typography>
+      <Link to="/property">
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          <a href="#" className="flex items-center">
+            Property
+          </a>
+        </Typography>
       </Link>
-      {isLogedIn ?
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <Link to="/agent/become_a_seller" className="flex items-center">
-          Become a Seller
-        </Link>
-      </Typography>
-      :
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-          Become a Seller
-      </Typography>
-      }
       {isLogedIn ? (
         <Typography
           as="li"
           variant="small"
           color="blue-gray"
           className="p-1 font-normal"
-          onClick={() => Logout()}
         >
-          Logout
+          <Link to="/agent/become_a_seller" className="flex items-center">
+            Become a Seller
+          </Link>
         </Typography>
       ) : (
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          Become a Seller
+        </Typography>
+      )}
+      {isLogedIn ? '' : (
         <Typography
           as="li"
           variant="small"
@@ -243,32 +188,35 @@ export function StickyNavbar() {
         >
           Search
         </Button> */}
-        {
-          isLogedIn  ? <>
-          {
-            is_premium ? 
-            <Link to='/premium'>
-            <Button className="border-2 rounded-xl bg-light-green-700">
-              <div className="flex">
-              <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="-mt-0.5 h-5 w-5 text-yellow-700"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Premium
-            </div>
-            </Button>
-            </Link> : ''          
-          }
-          </> : ''
-        }
+        {isLogedIn ? (
+          <>
+            {is_premium ? (
+              <Link to="/premium">
+                <Button className="border-2 rounded-xl bg-light-green-700">
+                  <div className="flex">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="-mt-0.5 h-5 w-5 text-yellow-700"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Premium
+                  </div>
+                </Button>
+              </Link>
+            ) : (
+              ""
+            )}
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </ul>
   );
@@ -286,7 +234,7 @@ export function StickyNavbar() {
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
-            {isLogedIn ? <ProfileMenu /> : ''}
+            {isLogedIn ? <ProfileMenu /> : ""}
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"

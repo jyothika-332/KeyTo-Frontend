@@ -1,12 +1,15 @@
-import { Card, CardHeader, CardBody, Button } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { Input } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import Image1 from "../../assets/Image/bailey-anselme-Bkp3gLygyeA-unsplash.jpg";
 import { BaseUrl } from "../../utils/Constants";
 import GoogleImage from "../../assets/Image/google2.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export function LoginPage() {
 
@@ -39,7 +42,6 @@ export function LoginPage() {
           }
         )
         .then((res) => {
-          // setgUser(res.data);
           const { data  } = res
           if (isLogin) {
             var datas = { username :data.email , password : data.email}
@@ -73,8 +75,6 @@ export function LoginPage() {
     if (datas)
     {
       axios.post(`${BaseUrl}/user/token/`,datas).then((res) => {
-        console.log("-------------------------------------------------")
-        console.log ( res)
         const { access , refresh } = res.data
         console.log ( access )
         console.log( refresh )
@@ -84,8 +84,7 @@ export function LoginPage() {
 
       })
       .catch((err) => {
-        console.log ( err.response)
-         
+        console.log ( err.response)       
          var { detail } = err.response.data ? err.response.data : 'Something Went Wrong'
          
           window.alert(detail)
@@ -116,11 +115,9 @@ export function LoginPage() {
             }
             setisLogin(true)
             setregDatas("")
-            // return navigate('/login')
         })
         .catch((err) => {
-          console.log ( err)
-           var { message } = err.response.data ? err.response.data : 'Something Went Wrong'
+          var { message } = err.response.data ? err.response.data : 'Something Went Wrong'
           window.alert(message)
         })
       }
@@ -140,7 +137,6 @@ export function LoginPage() {
       setisemail(false)
     })
     .catch((err) => {
-      console.log(err)
       var { message } = err.response.data ? err.response.data : "Server Error"
       window.alert( message)
     })
@@ -282,19 +278,6 @@ export function LoginPage() {
                       </Button>
                     </div>
                   </div>
-                  {/* <div className="flex justify-around">
-                    <div className="flex items-center p-2 rounded-lg h-10  text-black border-2 border-gray-400">
-                    <Button
-                      className="border-black border-2 bg-white text-black mt-5"
-                      onClick={() => login()}
-                    >
-                      Sign up With google
-                    </Button>
-                    </div>
-                    <Button onClick={(e)=>Signup(null)} className="bg-deep-orange-500 h-10 ml-40 mx-auto mt-5">
-                      SIGNUP
-                    </Button>
-                  </div> */}
                   </>
                   }
                   

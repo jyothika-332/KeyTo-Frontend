@@ -30,21 +30,29 @@ function NavList() {
         className="p-1 font-medium"
       >
         {isLogedIn ? (
-        <a
-          href="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
-        >
-          <Avatar
-            variant="circular"
-            size="sm"
-            alt="tania andrew"
-            className="border border-gray-900 p-0.5"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-          />
-        </a>
-        ) : ""}
+          <a
+            href="#"
+            className="flex items-center hover:text-blue-500 transition-colors"
+          >
+            <Avatar
+              variant="circular"
+              size="sm"
+              alt="tania andrew"
+              className="border border-gray-900 p-0.5"
+              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+            />
+          </a>
+        ) : (
+          ""
+        )}
       </Typography>
-      {isLogedIn ? <Button className="bg-deep-orange-500" onClick={() => Logout()}>Logout</Button> : ""}
+      {isLogedIn ? (
+        <Button className="bg-deep-orange-500" onClick={() => Logout()}>
+          Logout
+        </Button>
+      ) : (
+        ""
+      )}
     </ul>
   );
 }
@@ -64,8 +72,8 @@ export function NavbarSimple() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-6 py-3">
-      <div className="flex items-center justify-between text-blue-gray-900">
+    <navbar className=" z-10 rounded-none w-screen  fixed ">
+      <div className="flex items-center justify-between h-20 px-10  bg-blue-gray-100 text-blue-gray-900">
         <Typography
           as="a"
           href="#"
@@ -93,6 +101,6 @@ export function NavbarSimple() {
       <Collapse open={openNav}>
         <NavList />
       </Collapse>
-    </Navbar>
+    </navbar>
   );
 }

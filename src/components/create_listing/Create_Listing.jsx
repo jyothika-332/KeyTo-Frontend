@@ -2,7 +2,6 @@ import {
   Card,
   Input,
   Button,
-  Typography,
   Textarea,
   Radio,
 } from "@material-tailwind/react";
@@ -11,7 +10,6 @@ import { Form } from "react-bootstrap";
 import { BaseUrl } from "../../utils/Constants";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-
 
 export function CreateListingForm() {
   const [Data, setData] = React.useState("");
@@ -24,13 +22,12 @@ export function CreateListingForm() {
 
   const getProperty = () => {
     axios.get(`${BaseUrl}/property/`).then((res) => {
-      console.log(res);
       setpropertyList(res.data);
     });
   };
 
   const AddProperty = () => {
-    console.log( jwtDecode(localStorage.getItem("token")))
+    console.log(jwtDecode(localStorage.getItem("token")));
     let formData = new FormData();
     formData.append("title", Data.title);
     formData.append("location", Data.location);
@@ -114,11 +111,11 @@ export function CreateListingForm() {
             </span>
           </div>
           <div className="mt-3">
-            <Textarea 
-            size="lg" 
-            label="Location" 
-            value={Data.location ? Data.location : ""}
-            onChange={(e) =>setData({ ...Data, location: e.target.value })}
+            <Textarea
+              size="lg"
+              label="Location"
+              value={Data.location ? Data.location : ""}
+              onChange={(e) => setData({ ...Data, location: e.target.value })}
             />
           </div>
           <div className="my-1 flex items-center gap-2">

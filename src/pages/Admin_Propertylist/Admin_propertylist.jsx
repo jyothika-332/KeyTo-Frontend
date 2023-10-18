@@ -17,7 +17,6 @@ function Admin_propertylist() {
 
   const getProperty = () => {
     axios.get(`${BaseUrl}/property/`).then((res) => {
-      console.log(res);
       setPropertyList(res.data);
     });
   };
@@ -42,11 +41,11 @@ function Admin_propertylist() {
         <thead>
           <tr>
             {TABLE_HEAD.map((head) => (
-              <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+              <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-400 p-4">
                 <Typography
                   variant="small"
-                  color="blue-gray"
-                  className="font-normal leading-none opacity-70"
+                  color="white"
+                  className="font-serif text-lg leading-none opacity-70"
                 >
                   {head}
                 </Typography>
@@ -102,9 +101,8 @@ function Admin_propertylist() {
         </tbody>
       </table>
     </Card>
-
-        </div>
-      </div>
+    </div>
+    </div>
     </div>
   )
 }

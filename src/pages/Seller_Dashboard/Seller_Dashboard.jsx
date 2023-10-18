@@ -4,7 +4,7 @@ function Seller_Dashboard() {
   return (
     <>
      <div>
-        <div className="text-deep-orange-900 font-serif text-3xl mt-28 ml-11">
+        <div className="text-deep-orange-900 font-serif text-3xl mt-14 ml-11">
             Dashboard
         </div>
      </div>

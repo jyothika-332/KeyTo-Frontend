@@ -7,12 +7,11 @@ import { Card, Typography, Button } from "@material-tailwind/react";
 
 const TABLE_HEAD = ["First_name", "Last_name", "Email", "Role", "Premium","Status"];
 
- 
 
 function Userlist() {
   const tableStyle = {
     borderCollapse: "separate",
-    borderSpacing: "10px", // Adjust the value to set the desired gap
+    borderSpacing: "10px",
   };
 
   const [userList, setuserList] = useState([]);
@@ -38,7 +37,6 @@ function Userlist() {
     axios
       .get(`${BaseUrl}/user/`)
       .then((res) => {
-        console.log(res);
         setuserList(res.data);
       })
       .catch((err) => {
@@ -49,7 +47,6 @@ function Userlist() {
   const TABLE_ROWS = userList
 
   const userManagent = (id,is_active) => {
-    console.log(id,is_active);
     axios.put(`${BaseUrl}/user/`, 
         {
           "id":id, 
@@ -70,11 +67,11 @@ function Userlist() {
       <thead>
         <tr>
           {TABLE_HEAD.map((head) => (
-            <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+            <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-400 p-4">
               <Typography
                 variant="small"
-                color="blue-gray"
-                className="font-normal leading-none opacity-70"
+                color="white"
+                className="font-serif text-lg leading-none opacity-70"
               >
                 {head}
               </Typography>
@@ -128,7 +125,6 @@ function Userlist() {
       </tbody>
     </table>
   </Card>
-
   );
 }
 

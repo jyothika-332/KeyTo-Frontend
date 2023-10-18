@@ -1,16 +1,3 @@
-import {
-  Input,
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  CardHeader,
-  Typography,
-  CardBody,
-  Checkbox,
-  CardFooter,
-} from "@material-tailwind/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BaseUrl } from "../../utils/Constants";
@@ -43,7 +30,6 @@ export function UserProfile() {
         },
       })
       .then((res) => {
-        console.log(res);
         setuserData(res.data);
       })
       .catch((err) => {

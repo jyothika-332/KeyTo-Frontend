@@ -8,7 +8,6 @@ import {
   Input,
   Textarea,
 } from "@material-tailwind/react";
-import { Data } from "@react-google-maps/api";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
 
@@ -41,23 +40,6 @@ export function MylistEdit({ open, handleOpen , Data , setData , next }) {
         });
     }
   };
-
-  
-  // const Update = (id) => {
-  //   axios.put(`${BaseUrl}/property/`,
-  //   {
-  //     "id" : id
-  //   }
-  //   ).then((res) => {
-  //     window.alert("Property Update Successfully");
-  //     handleOpen();
-  //     setData("");
-  //     next();
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-  // };
 
   return (
     <>
