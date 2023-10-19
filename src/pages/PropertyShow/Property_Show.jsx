@@ -31,11 +31,11 @@ function Property_Show() {
           </div>
           <div className="w-28 ml-14">
             <Select label="Select Price">
-              <Option>₹ : 1,00,000</Option>
-              <Option>₹ : 1,50,000</Option>
-              <Option>₹ : 2,00,000</Option>
-              <Option>₹ : 2,50,000</Option>
-              <Option>₹ : 3,00,000</Option>
+              <Option>Material Tailwind HTML</Option>
+              <Option>Material Tailwind React</Option>
+              <Option>Material Tailwind Vue</Option>
+              <Option>Material Tailwind Angular</Option>
+              <Option>Material Tailwind Svelte</Option>
             </Select>
           </div>
         </div>

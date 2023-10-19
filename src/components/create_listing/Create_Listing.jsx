@@ -12,8 +12,8 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 
 export function CreateListingForm() {
+  
   const [Data, setData] = React.useState("");
-
   const [propertyList, setpropertyList] = useState([]);
 
   useEffect(() => {

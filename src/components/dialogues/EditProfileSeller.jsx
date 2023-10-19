@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Dialog,
@@ -9,16 +9,21 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
+import 'react-toastify/dist/ReactToastify.css';
+import { ShowToast } from "../../utils/Toats";
+
+
  
 export function EditProfileSeller({data , setData , next }) {
   const [open, setOpen] = React.useState(false); 
   const handleOpen = () => setOpen(!open);
   
+  console.log(data.id,"jyothi");
 
-  const UpdateData = () => {
-    axios.put(`${BaseUrl}/user/`,data)
+  const UpdateDatas = () => {
+    axios.patch(`${BaseUrl}/user/updateseller/${data.id}/`,data)
     .then((res) => {
-      window.alert("User Updated Succesfully")
+      ShowToast("User Updated Succesfully", true)
       next()
       handleOpen()
     })
@@ -89,7 +94,7 @@ export function EditProfileSeller({data , setData , next }) {
           <Button variant="outlined" color="red" onClick={handleOpen}>
             close
           </Button>
-          <Button className="bg-deep-orange-500" onClick={UpdateData}>
+          <Button className="bg-deep-orange-500" onClick={UpdateDatas}>
             update
           </Button>
         </DialogFooter>

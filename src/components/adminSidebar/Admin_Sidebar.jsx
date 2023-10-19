@@ -15,9 +15,10 @@ import {
   InboxIcon,
   PowerIcon,
 } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function AdminSidebar() {
+  const navigate = useNavigate()
   const [open, setOpen] = React.useState(0);
 
   const handleOpen = (value) => {
@@ -25,10 +26,8 @@ export function AdminSidebar() {
   };
 
   const Logout = () => {
-    if (window.confirm("Do You Want to Logout")) {
       localStorage.clear();
-      window.location.href = "/admin_login";
-    }
+      navigate("/admin_login");
   };
 
   return (

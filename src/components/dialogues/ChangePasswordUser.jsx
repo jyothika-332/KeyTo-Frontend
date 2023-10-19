@@ -11,6 +11,10 @@ import {
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
 import jwtDecode from "jwt-decode";
+import 'react-toastify/dist/ReactToastify.css';
+import { ShowToast } from "../../utils/Toats";
+
+
  
 export function ChangePasswordUser() {
   const [open, setOpen] = React.useState(false);
@@ -21,7 +25,7 @@ export function ChangePasswordUser() {
   
       if ( Datas.newpass != Datas.newcpass)
       {
-        window.alert("Mismatch Password")
+        ShowToast("Mismatch Password", false)
       }
       else
       {
@@ -32,13 +36,13 @@ export function ChangePasswordUser() {
         }
         axios.post(`${BaseUrl}/user/changepassword/`,data)
         .then((res) => {
-          window.alert("Password Changed Succesfully")
+          ShowToast("Password Changed Succesfully", true)
           localStorage.clear()
           window.location.href = '/'
         })
         .catch((err)=> {
           var { message} = err.response.data ? err.response.data : "Something Went Wrong"
-          window.alert(message)
+          ShowToast(message,false)
         })
       }
   }

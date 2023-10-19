@@ -1,4 +1,4 @@
-import { Carousel, Typography, Button } from "@material-tailwind/react";
+import { Carousel, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
 import { useEffect, useState } from "react";

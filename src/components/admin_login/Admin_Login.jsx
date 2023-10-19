@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BaseUrl } from "../../utils/Constants";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { ShowToast } from "../../utils/Toats";
 
 export function SimpleRegistrationForm() {
   let navigate = useNavigate();
@@ -16,22 +17,23 @@ export function SimpleRegistrationForm() {
         .then((res) => {
           const { access, refresh } = res.data;
           if (jwtDecode(access).role != "admin") {
-            window.alert("You Dont Have The Permission to Login Here");
-          } else {
+            ShowToast("You Dont Have The Permission to Login Here", false)
+            } else {
             localStorage.setItem("token", access);
             localStorage.setItem("refresh", refresh);
 
             return navigate("/admin/admin_dashboard");
+            
           }
         })
         .catch((err) => {
           var { message } = err.response.data
             ? err.response.data
             : "Sometging Went Wrong";
-          window.alert(message);
+          ShowToast(message, false); 
         });
     } else {
-      window.alert("Please Fill Datas");
+      ShowToast("Please Fill All Fields", false)
     }
   };
 

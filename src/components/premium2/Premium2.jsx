@@ -10,6 +10,8 @@ import { BaseUrl } from "../../utils/Constants";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { ShowToast } from "../../utils/Toats";
+
    
   function CheckIcon() {
     return (
@@ -146,7 +148,7 @@ import jwtDecode from "jwt-decode";
             className="hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
             ripple={false}
             fullWidth={true}
-            disabled={false}
+            onClick={() => ShowToast("Already a Premium User ", false)}
           >
             Premium User
           </Button> :

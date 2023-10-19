@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Dialog,
@@ -9,6 +9,9 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
+import 'react-toastify/dist/ReactToastify.css';
+import { ShowToast } from "../../utils/Toats";
+
  
 export function EditProfileUser({data , setData , next }) {
   const [open, setOpen] = React.useState(false); 
@@ -18,7 +21,8 @@ export function EditProfileUser({data , setData , next }) {
   const UpdateData = () => {
     axios.put(`${BaseUrl}/user/`,data)
     .then((res) => {
-      window.alert("User Updated Succesfully")
+      console.log(data);
+      ShowToast("User Updated Succesfully", true)
       next()
       handleOpen()
     })

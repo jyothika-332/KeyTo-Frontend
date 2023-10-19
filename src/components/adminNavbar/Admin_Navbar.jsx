@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Navbar,
   Collapse,
   Typography,
   IconButton,
@@ -8,17 +7,17 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 
 function NavList() {
+  const navigate = useNavigate()
   const [isLogedIn, setisLogedIn] = useState(
     localStorage.getItem("token") ? true : false
   );
 
   const Logout = () => {
-    if (window.confirm("Do You Want to Logout")) {
       localStorage.clear();
-      window.location.href = "/admin_login";
-    }
+      navigate("/admin_login");
   };
 
   return (

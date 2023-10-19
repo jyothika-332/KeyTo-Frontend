@@ -7,8 +7,8 @@ import axios from "axios";
 import Image1 from "../../assets/Image/bailey-anselme-Bkp3gLygyeA-unsplash.jpg";
 import { BaseUrl } from "../../utils/Constants";
 import GoogleImage from "../../assets/Image/google2.png";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ShowToast } from "../../utils/Toats";
 
 
 export function LoginPage() {
@@ -76,23 +76,24 @@ export function LoginPage() {
     {
       axios.post(`${BaseUrl}/user/token/`,datas).then((res) => {
         const { access , refresh } = res.data
-        console.log ( access )
-        console.log( refresh )
+        
         localStorage.setItem('token' , access)
         localStorage.setItem('refresh' , refresh)
+        ShowToast("Login Succesfull" , true )
+
         return navigate('/')
 
       })
       .catch((err) => {
         console.log ( err.response)       
          var { detail } = err.response.data ? err.response.data : 'Something Went Wrong'
-         
-          window.alert(detail)
+    
+          ShowToast(detail , false )
          
       })
     }
     else{
-      window.alert("Please Fill Datas")
+      ShowToast("Please Fill All Fields",false)
     }
   }
 
@@ -101,13 +102,14 @@ export function LoginPage() {
     if ( datas )
     {
       if ( datas.password != datas.cpassword){
-        window.alert("Invalid Confirm Password")
+        ShowToast("Invalid Confirm Password", false)
       }
       else
       {
         axios.post(`${BaseUrl}/user/`,datas)
         .then((res) => {
-            window.alert("User Registered Succesfully")
+
+          ShowToast("User Registered Succesfully", true)  
          
             var logindata = {
               username : datas.email,
@@ -118,13 +120,13 @@ export function LoginPage() {
         })
         .catch((err) => {
           var { message } = err.response.data ? err.response.data : 'Something Went Wrong'
-          window.alert(message)
+          ShowToast(message, false)
         })
       }
     }
     else
     {
-      window.alert("Please Fill All Fields")
+      ShowToast("Please Fill All Fields", false)
     }
     
   }
@@ -132,21 +134,24 @@ export function LoginPage() {
   const SendOTP = () => {
     axios.post(`${BaseUrl}/send-otp/`,{ email : regDatas.email})
     .then((res) => {
-      window.alert("OTP Send to The Number")
+      ShowToast("OTP Send To the Email", true)
       setotpform(true)
       setisemail(false)
     })
     .catch((err) => {
       var { message } = err.response.data ? err.response.data : "Server Error"
-      window.alert( message)
+      ShowToast(message, false)
     })
   }
 
   const verifyOTP = () => {
       axios.post(`${BaseUrl}/verify/`,{ "email" : regDatas.email , "otp" : otp})
       .then((res) => {
-        window.alert("OTP Verifiled")
+        ShowToast("OTP Verifiled", true)
         setisVerify(true)
+      })
+      .catch((err) => {
+        ShowToast("Invalid OTP", false)
       })
   }
 
