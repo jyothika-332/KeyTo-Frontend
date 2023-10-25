@@ -11,7 +11,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ShowToast } from "../../utils/Toats";
 
 
+
 export function LoginPage() {
+
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
+
+
 
   const [isVerify, setisVerify] = useState(false)
   const [otpform, setotpform] = useState(false)
@@ -27,6 +42,7 @@ export function LoginPage() {
     onSuccess: (codeResponse) => setUser(codeResponse),
     onError: (error) => console.log("Login Failed:", error),
   });
+
 
 
   useEffect(() => {
@@ -92,9 +108,9 @@ export function LoginPage() {
          
       })
     }
-    else{
-      ShowToast("Please Fill All Fields",false)
-    }
+    // else{
+    //   ShowToast("Please Fill All Fields",false)
+    // }
   }
 
   const Signup =  (data) => {
@@ -174,9 +190,11 @@ export function LoginPage() {
                   <p className="mt-8 text-3xl font-serif text-deep-orange-900"> Login </p>
                   <div className="w-96 mt-7">
                     <Input label="Email" type="email" value={ logDatas.username ? logDatas.username : ''} onChange={(e)=>setlogDatas({...logDatas, username : e.target.value })} />
+                    
                   </div>
                   <div className="w-96 mt-5">
                     <Input label="Password" type="password" value={ logDatas.password ? logDatas.password : ''} onChange={(e)=>setlogDatas({...logDatas, password : e.target.value })} />
+                 
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="mt-5">

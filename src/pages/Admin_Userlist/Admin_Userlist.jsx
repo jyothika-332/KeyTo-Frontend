@@ -1,5 +1,6 @@
 import React from 'react'
 import Userlist from '../../components/userlist/Userlist'
+import { CircularPagination } from '../../components/pagination/Pagination'
 
 function Admin_Userlist() {
   return (
@@ -12,6 +13,7 @@ function Admin_Userlist() {
           <div className='mt-10 w-full h-full'>
             <Userlist/>
           </div>
+          {/* <div className='mt-28 flex justify-center'><CircularPagination/></div> */}
         </div>
       </div>
     </div>

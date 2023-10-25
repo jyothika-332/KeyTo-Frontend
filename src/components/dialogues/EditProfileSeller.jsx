@@ -17,8 +17,6 @@ import { ShowToast } from "../../utils/Toats";
 export function EditProfileSeller({data , setData , next }) {
   const [open, setOpen] = React.useState(false); 
   const handleOpen = () => setOpen(!open);
-  
-  console.log(data.id,"jyothi");
 
   const UpdateDatas = () => {
     axios.patch(`${BaseUrl}/user/updateseller/${data.id}/`,data)

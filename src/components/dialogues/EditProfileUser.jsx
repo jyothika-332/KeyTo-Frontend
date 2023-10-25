@@ -21,7 +21,6 @@ export function EditProfileUser({data , setData , next }) {
   const UpdateData = () => {
     axios.put(`${BaseUrl}/user/`,data)
     .then((res) => {
-      console.log(data);
       ShowToast("User Updated Succesfully", true)
       next()
       handleOpen()

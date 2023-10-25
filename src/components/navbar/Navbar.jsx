@@ -125,7 +125,7 @@ export function StickyNavbar() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-          About Us
+          Inbox
         </a>
       </Typography>
       <Link to="/property">
@@ -174,20 +174,6 @@ export function StickyNavbar() {
         </Typography>
       )}
       <div className="relative flex w-full gap-2 md:w-max">
-        {/* <Input
-          type="search"
-          label="Type here..."
-          className="pr-20"
-          containerProps={{
-            className: "min-w-[200px]",
-          }}
-        />
-        <Button
-          size="sm"
-          className="!absolute right-1 bg-deep-orange-400 top-1 rounded"
-        >
-          Search
-        </Button> */}
         {isLogedIn ? (
           <>
             {is_premium ? (

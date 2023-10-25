@@ -10,11 +10,39 @@ import { Form } from "react-bootstrap";
 import { BaseUrl } from "../../utils/Constants";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 export function CreateListingForm() {
   
   const [Data, setData] = React.useState("");
   const [propertyList, setpropertyList] = useState([]);
+  useEffect(() => {
+    const map = L.map('map').setView([10.8505, 76.2711], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    map.on('click', async (e) => {
+      const coordinates = e.latlng;
+
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.lat}&lon=${coordinates.lng}`
+        );
+        const data = await response.json();
+
+        if (data.display_name) {
+          console.log( data)
+          setData({...Data , latitude :coordinates.lat , longitude : coordinates.lng , location : data.address ? data.address.town : "Not Found" })
+        } else {
+          alert('No location found');
+        }
+      } catch (error) {
+        console.error('Error fetching location data:', error);
+      }
+    });
+  }, []);
+
 
   useEffect(() => {
     getProperty();
@@ -144,6 +172,20 @@ export function CreateListingForm() {
                 onChange={(e) => setData({ ...Data, image: e.target.files[0] })}
               />
             </Form.Group>
+          </div>
+          <div className="mt-3">
+          {/* <iframe
+  title="Interactive Map"
+  width="100%"
+  height="400"
+  frameBorder="0"
+  scrolling="no"
+  marginHeight="0"
+  marginWidth="0"
+  src="https://your-website.com/leaflet-map.html"
+></iframe> */}
+    <div id="map" style={{ height: '400px' }}></div>
+
           </div>
         </div>
         <Button className="mt-10 bg-deep-orange-500" onClick={AddProperty}>

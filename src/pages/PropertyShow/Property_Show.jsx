@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { StickyNavbar } from "../../components/navbar/Navbar";
-import { Input, Button, Select, Option } from "@material-tailwind/react";
+import { Input, Button, Select, Option, Slider, slider } from "@material-tailwind/react";
 import { PropertyList } from "../../components/propertylist/Propertylist";
 import { FooterWithSocialLinks } from "../../components/footer/Footer";
 
 
 function Property_Show() {
+  const [sliderValue, setSliderValue] = useState(100); // Initialize with a default value
+  const [place, setplace] = useState("")
+
+  const handleSliderChange = (event) => {
+    setSliderValue(Math.round(event.target.value) );
+    console.log( Math.round(event.target.value) )
+  };
   return (
-    <div>
+    <div className="">
       <div>
         <StickyNavbar />
       </div>
@@ -17,33 +24,33 @@ function Property_Show() {
             <Input
               type="search"
               label="Location..."
+              value = { place }
+              onChange={(e)=>setplace(e.target.value )}
               className="pr-10 rounded-xl"
               containerProps={{
                 className: "min-w-[200px]",
               }}
             />
-            <Button
-              size="sm"
-              className="!absolute right-1 bg-brown-300 top-1 rounded-full"
-            >
-              Search
-            </Button>
+       
           </div>
-          <div className="w-28 ml-14">
-            <Select label="Select Price">
-              <Option>Material Tailwind HTML</Option>
-              <Option>Material Tailwind React</Option>
-              <Option>Material Tailwind Vue</Option>
-              <Option>Material Tailwind Angular</Option>
-              <Option>Material Tailwind Svelte</Option>
-            </Select>
+          <div className="w-32 ml-14">
+            <p className="text-xs flex justify-center">Select your price range</p>
+            <Slider
+        className="mt-2"
+        size="lg"
+        color="red"
+        value={sliderValue}
+        onChange={(e)=>handleSliderChange(e)}
+        defaultValue={100}
+           />
+           <p> { sliderValue * 10000}</p>
           </div>
         </div>
         <div className="flex-1"></div>
       </div>
       <div className="text-center mt-16 text-deep-orange-900 text-4xl font-serif font-bold">Properties</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
-        <PropertyList/>
+        <PropertyList price = { sliderValue * 10000 } place = { place } />
       </div>  
       <div className="mt-44">
         <FooterWithSocialLinks/>

@@ -13,17 +13,20 @@ import { useEffect, useState } from "react";
 
 
 export function PropertyList({
-   is_premium
+   is_premium , price , place
 }) {
   const [properties, setProperties] = useState([]);
     useEffect(() => {
+      console.log ( place )
       getProperties()
-    }, []);
+    }, [price , place]);
 
     const getProperties = () => {
       axios.get(`${BaseUrl}/property/`,{
         params : {
-          is_premium : is_premium
+          is_premium : is_premium,
+          price : price,
+          place : place
         }
       })
       .then((res) => {

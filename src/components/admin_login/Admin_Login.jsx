@@ -5,15 +5,31 @@ import { BaseUrl } from "../../utils/Constants";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { ShowToast } from "../../utils/Toats";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 export function SimpleRegistrationForm() {
   let navigate = useNavigate();
   const [logDatas, setlogDatas] = useState("");
 
-  const loginWithUsername = () => {
-    if (logDatas) {
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      username: Yup.string().email('Invalid email address').required('Required'),
+      password: Yup.string().required('Required'),
+    }),
+    onSubmit: (values) => {
+      loginWithUsername(values);
+    },
+  });
+
+  const loginWithUsername = (values) => {
+  
       axios
-        .post(`${BaseUrl}/user/token/`, logDatas)
+        .post(`${BaseUrl}/user/token/`, values)
         .then((res) => {
           const { access, refresh } = res.data;
           if (jwtDecode(access).role != "admin") {
@@ -32,9 +48,7 @@ export function SimpleRegistrationForm() {
             : "Sometging Went Wrong";
           ShowToast(message, false); 
         });
-    } else {
-      ShowToast("Please Fill All Fields", false)
-    }
+   
   };
 
   return (
@@ -48,31 +62,40 @@ export function SimpleRegistrationForm() {
       </Typography>
       <form className="mt-10 mb-2 w-80 max-w-screen-lg sm:w-96">
         <div className="mb-4 flex flex-col gap-6">
-          <Input
-            size="lg"
-            label="Email"
-            value={logDatas.username ? logDatas.username : ""}
-            onChange={(e) =>
-              setlogDatas({ ...logDatas, username: e.target.value })
-            }
-          />
-          <Input
-            type="password"
-            size="lg"
-            label="Password"
-            value={logDatas.password ? logDatas.password : ""}
-            onChange={(e) =>
-              setlogDatas({ ...logDatas, password: e.target.value })
-            }
-          />
+        <Input
+  size="lg"
+  label="Email"
+  name="username"
+  value={formik.values.username}
+  onChange={formik.handleChange}
+  onBlur={formik.handleBlur}
+/>
+{formik.touched.username && formik.errors.username ? (
+  <div className="text-red-500">{formik.errors.username}</div>
+) : null}
+
+<Input
+  type="password"
+  size="lg"
+  label="Password"
+  name="password"
+  value={formik.values.password}
+  onChange={formik.handleChange}
+  onBlur={formik.handleBlur}
+/>
+{formik.touched.password && formik.errors.password ? (
+  <div className="text-red-500">{formik.errors.password}</div>
+) : null}
+
         </div>
         <Button
-          onClick={loginWithUsername}
-          className="mt-10 bg-deep-orange-500"
-          fullWidth
-        >
-          Login
-        </Button>
+  onClick={formik.handleSubmit}
+  className="mt-10 bg-deep-orange-500"
+  fullWidth
+>
+  Login
+</Button>
+
       </form>
     </Card>
   );

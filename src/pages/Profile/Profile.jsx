@@ -5,7 +5,7 @@ function Profile() {
   return (
     <div>
       <div className=" col-span-3">
-        <div className="mt-14">
+        <div>
         <ProfileForm/>
         </div>
       </div>

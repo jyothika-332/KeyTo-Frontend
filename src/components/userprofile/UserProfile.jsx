@@ -5,18 +5,16 @@ import jwtDecode from "jwt-decode";
 import profileicon from "../../assets/Image/profileicon.png";
 import { ChangePasswordUser } from "../dialogues/ChangePasswordUser";
 import { EditProfileUser } from "../dialogues/EditProfileUser";
+import { ChangeDp } from "../dialogues/ChangeDP";
+import { Badge } from "@material-tailwind/react";
 
-export function UserProfile() { 
-
+export function UserProfile() {
   const [userData, setuserData] = useState("");
 
   useEffect(() => {
-    if (localStorage.getItem("token")) 
-    {
+    if (localStorage.getItem("token")) {
       getUserData();
-    }
-    else
-    {
+    } else {
       localStorage.clear();
       window.location.href = "/";
     }
@@ -40,12 +38,25 @@ export function UserProfile() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-4 max-w-screen-md">
-      <div>
-        <img src={userData.profile_image ? userData.profile_image : profileicon} className="w-14 sm:w-16 md:w-20"></img>
-        <p className="text-xl sm:text-2xl font-semibold font-serif">
-          Hello, {userData ? userData.first_name : ""}
-        </p>
-      </div>
+          <div>
+            <Badge
+              className="w-10 h-10 p-2 bg-white hover:bg-red-500 border border-white"
+              placement="bottom-end"
+              overlap="circular"
+              content={<ChangeDp next = { getUserData} />}
+            >
+              <div className="  md:w-36 h-36">
+                <img
+                  src={
+                    userData.profile_image
+                      ? `${BaseUrl}${userData.profile_image}`
+                      : profileicon
+                  }
+                  className="w-36 h-36"
+                ></img>
+              </div>
+            </Badge>
+          </div>
       <div className="mt-5">
         <div className="text-blue-gray-400 font-medium text-left text-sm">
           Personal Info
@@ -78,7 +89,11 @@ export function UserProfile() {
             </div>
             <div className="flex mt-4 md:mt-10">
               <div>
-                <EditProfileUser next = {getUserData} data={userData} setData = { setuserData }/>
+                <EditProfileUser
+                  next={getUserData}
+                  data={userData}
+                  setData={setuserData}
+                />
               </div>
               <div className="ml-4">
                 <ChangePasswordUser />
