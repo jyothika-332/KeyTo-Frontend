@@ -3,6 +3,7 @@ import {
   Typography,
   Tooltip,
   IconButton,
+  Button,
 } from "@material-tailwind/react";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
@@ -10,10 +11,11 @@ import React,{ useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { MylistEdit } from "../dialogues/Mylisting_Edit";
+import { ShowToast } from "../../utils/Toats";
 
 
 
-const TABLE_HEAD = ["Image", "Title", "Location", "Description", "", ""];
+const TABLE_HEAD = ["Image", "Title", "Location", "Price","status" , "", ""];
 
 export function My_Listing() {
 
@@ -50,17 +52,28 @@ export function My_Listing() {
       });
   };
 
-  const EditData = (image, title, location, description, id) => {
+  const EditData = (image, title, location, price_per_cent, id) => {
     setData({
       id: id,
       image: image,
       title: title,
       location: location,
-      description: description,
+      price_per_cent: price_per_cent,
     });
     setOpen(true);
   };
 
+  const ChangeStatus = (id , old_stat) => {
+      var data  = {
+        "id" : id,
+        is_sold : !old_stat
+      }
+      axios.put(`${BaseUrl}/property/`,data)
+      .then((res) => {
+        ShowToast("Status Changes Succesfully",true)
+        getProperties()
+      })
+  }
 
   const Delete = (id) => {
     axios.delete(`${BaseUrl}/property/`, { data: { id: id } }).then((res) => {
@@ -70,8 +83,8 @@ export function My_Listing() {
   
 
   return (
-    <div className="">
-      <Card className="h-full w-full">
+    <div className="overflow-x-auto">
+      <Card className="w-full">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -93,7 +106,7 @@ export function My_Listing() {
           </thead>
           <tbody>
             {TABLE_ROWS.map(
-              ({ image, title, location,id, description }, index) => {
+              ({ image, title, location,id, price_per_cent , is_sold }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -129,13 +142,20 @@ export function My_Listing() {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {description}
+                        {price_per_cent}
                       </Typography>
                     </td>
                     <td className={classes}>
+                      {
+                        is_sold ? <Button className="bg-red-900" onClick={()=>ChangeStatus(id,is_sold)} > Sold</Button> : 
+                        <Button className="bg-green-900" onClick={()=>ChangeStatus(id,is_sold)}> Available</Button>
+                      }
+                    </td>
+
+                    <td className={classes}>
                       <Tooltip content="Edit Property">
                         <IconButton variant="text"  onClick={() =>
-                            EditData(image,title,location,description,id)
+                            EditData(image,title,location,price_per_cent,id)
                           }>
                           <PencilIcon className="h-4 w-4"/>
                         </IconButton>

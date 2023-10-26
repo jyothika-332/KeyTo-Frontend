@@ -7,6 +7,8 @@ import { EditProfileSeller } from "../dialogues/EditProfileSeller";
 import { ChangePasswordUser } from "../dialogues/ChangePasswordUser";
 import { Badge, Typography } from "@material-tailwind/react";
 import { ChangeDp } from "../dialogues/ChangeDP";
+import profilebg from '../../assets/Image/profilebg2.jpg'
+
 
 export function ProfileForm() {
   const [userData, setuserData] = useState("");
@@ -36,11 +38,13 @@ export function ProfileForm() {
       });
   };
 
+  
+  
   return (
     <>
       <div className="flex-col justify-center items-center">
-        <div className="h-[13rem] bg-deep-orange-300 ">
-          <div className="flex justify-center relative pt-32 ">
+        <div className="h-[15rem]  bg-cover" style={{ backgroundImage: `url(${profilebg})` }}>
+          <div className="flex justify-center relative pt-36 ">
             <Badge
               className="w-10 h-10 p-2 bg-white hover:bg-red-500 border border-white"
               placement="bottom-end"
@@ -55,16 +59,16 @@ export function ProfileForm() {
                 <img
                   src={
                     userData.profile_image
-                      ? userData.profile_image
+                      ? `${BaseUrl}${userData.profile_image}`
                       : profileicon
                   }
-                  className="w-36 h-36"
+                  className="w-44 h-36 rounded-full"
                 ></img>
               </div>
             </Badge>
           </div>
         </div>
-        <div className="mt-20  mx-10">
+        <div className="mt-20 mx-4 md:mx-10">
           <Typography variant="h4" className="text-blue-gray-600 font-serif">
             Personal Info
           </Typography>

@@ -42,7 +42,7 @@ function App() {
 
 
         <Route Component={UserProtected}>
-          <Route Component={Property_Details} path='/property_details' />
+          <Route Component={Property_Details} path='/property_details/:id' />
           <Route Component={Userprofile} path='/userprofile' />
           <Route Component={User_Chat} path='/user_chat' />
           <Route Component={Success} path='success=true' />

@@ -87,19 +87,19 @@ function AdminBannerList() {
   
   return (
     <div>
-        <div className=" col-span-2">
+        <div className=" col-span-2 md:col-span-1">
           <div className="grid grid-cols-2">
             <p className="mt-9 ml-10 font-serif text-3xl  text-deep-orange-900">
               Banner List
             </p>
-            <div className="ml-64 mt-9">
+            <div className="md:ml-64 mt-9">
               <Button onClick={handleOpen} className="bg-deep-orange-900">
                 Add Banner
               </Button>
             </div>
           </div>
           <div className="mt-10 w-full h-full">
-            <Card className="h-full w-full">
+            <Card className="h-full w-full overflow-x-auto md:overflow-x-scroll overflow-y-scroll">
               <table className="w-full max-w-full table-auto text-left">
                 <thead>
                   <tr>

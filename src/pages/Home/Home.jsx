@@ -53,7 +53,8 @@ function Home() {
         <PropertyList />
       </div>
       <div className="mt-40">
-        <FooterWithSocialLinks />
+      <hr className="my-2 border-blue-gray-100 mx-9" />
+        <div className="mt-10"><FooterWithSocialLinks/></div>
       </div>
     </>
   );

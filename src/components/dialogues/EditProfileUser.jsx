@@ -67,20 +67,10 @@ export function EditProfileUser({data , setData , next }) {
                 }
               />
               <Input
-                label="Email"
-                defaultValue={data.email ? data.email : ""}
-                onChange={(e) => setData({ ...data, email: e.target.value })}
-              />
-              <Input
                 label="Username"
                 defaultValue={data.email ? data.email : ""}
                 onChange={(e) => setData({ ...data, email: e.target.value })}
               />
-              {/* <Input
-                label="Image"
-                type="file"
-                onChange={(e) => setData({ ...Data, image: e.target.files[0] })}
-              /> */}
           </div>
         </DialogBody>
         <DialogFooter className="space-x-2">

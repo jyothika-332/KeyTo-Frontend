@@ -20,6 +20,7 @@ import { HomeIcon } from "@heroicons/react/24/outline";
 
  
 export function SidebarWithContentSeparator() {
+  const [openNav, setOpenNav] = React.useState(false);
   const [open, setOpen] = React.useState(0);
  
   const handleOpen = (value) => {
@@ -34,11 +35,9 @@ export function SidebarWithContentSeparator() {
   };
  
   return (
-    <Card className="h-[calc(94vh-2rem)] w-full fixed rounded-none max-w-[20rem] bg-blue-gray-100 p-4 shadow-xl shadow-blue-gray-900/5">
+    <Card className="h-[calc(94vh-2rem)] w-72 fixed rounded-none max-w-[20rem] bg-blue-gray-100 p-4 shadow-xl shadow-blue-gray-900/5">
       <List>
-        <Accordion
-          open={open === 1}
-        >
+        <Accordion open={open === 1}>
           <Link to='/agent/seller_dashboard'>
           <ListItem className="p-0" selected={open === 1}>
             <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
@@ -52,9 +51,7 @@ export function SidebarWithContentSeparator() {
           </ListItem>
           </Link>
         </Accordion>
-        <Accordion
-          open={open === 2}
-        >
+        <Accordion open={open === 2}>
           <Link to='/agent/seller_mylisting'>
           <ListItem className="p-0" selected={open === 2}>
             <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
@@ -81,12 +78,14 @@ export function SidebarWithContentSeparator() {
           </Link>
         </Accordion>
         <hr className="my-2 border-blue-gray-50" />
+        <Link to='/agent/chat_section'>
         <ListItem>
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />
           </ListItemPrefix>
           Inbox
         </ListItem>
+        </Link>
         <Link to="/premium">
         <ListItem>
           <ListItemPrefix>
@@ -110,6 +109,6 @@ export function SidebarWithContentSeparator() {
           Log Out
         </ListItem>
       </List>
-    </Card>
+      </Card>
   );
 }

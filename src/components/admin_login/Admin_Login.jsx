@@ -5,8 +5,9 @@ import { BaseUrl } from "../../utils/Constants";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { ShowToast } from "../../utils/Toats";
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 
 export function SimpleRegistrationForm() {
   let navigate = useNavigate();
@@ -14,12 +15,14 @@ export function SimpleRegistrationForm() {
 
   const formik = useFormik({
     initialValues: {
-      username: '',
-      password: '',
+      username: "",
+      password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string().email('Invalid email address').required('Required'),
-      password: Yup.string().required('Required'),
+      username: Yup.string()
+        .email("Invalid email address")
+        .required("* required"),
+      password: Yup.string().required("* required"),
     }),
     onSubmit: (values) => {
       loginWithUsername(values);
@@ -27,28 +30,25 @@ export function SimpleRegistrationForm() {
   });
 
   const loginWithUsername = (values) => {
-  
-      axios
-        .post(`${BaseUrl}/user/token/`, values)
-        .then((res) => {
-          const { access, refresh } = res.data;
-          if (jwtDecode(access).role != "admin") {
-            ShowToast("You Dont Have The Permission to Login Here", false)
-            } else {
-            localStorage.setItem("token", access);
-            localStorage.setItem("refresh", refresh);
+    axios
+      .post(`${BaseUrl}/user/token/`, values)
+      .then((res) => {
+        const { access, refresh } = res.data;
+        if (jwtDecode(access).role != "admin") {
+          ShowToast("You Dont Have The Permission to Login Here", false);
+        } else {
+          localStorage.setItem("token", access);
+          localStorage.setItem("refresh", refresh);
 
-            return navigate("/admin/admin_dashboard");
-            
-          }
-        })
-        .catch((err) => {
-          var { message } = err.response.data
-            ? err.response.data
-            : "Sometging Went Wrong";
-          ShowToast(message, false); 
-        });
-   
+          return navigate("/admin/admin_dashboard");
+        }
+      })
+      .catch((err) => {
+        var { message } = err.response.data
+          ? err.response.data
+          : "Sometging Went Wrong";
+        ShowToast(message, false);
+      });
   };
 
   return (
@@ -62,40 +62,38 @@ export function SimpleRegistrationForm() {
       </Typography>
       <form className="mt-10 mb-2 w-80 max-w-screen-lg sm:w-96">
         <div className="mb-4 flex flex-col gap-6">
-        <Input
-  size="lg"
-  label="Email"
-  name="username"
-  value={formik.values.username}
-  onChange={formik.handleChange}
-  onBlur={formik.handleBlur}
-/>
-{formik.touched.username && formik.errors.username ? (
-  <div className="text-red-500">{formik.errors.username}</div>
-) : null}
+          <Input
+            size="lg"
+            label="Email"
+            name="username"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.username && formik.errors.username ? (
+            <div className="text-red-500">{formik.errors.username}</div>
+          ) : null}
 
-<Input
-  type="password"
-  size="lg"
-  label="Password"
-  name="password"
-  value={formik.values.password}
-  onChange={formik.handleChange}
-  onBlur={formik.handleBlur}
-/>
-{formik.touched.password && formik.errors.password ? (
-  <div className="text-red-500">{formik.errors.password}</div>
-) : null}
-
+          <Input
+            type="password"
+            size="lg"
+            label="Password"
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.password && formik.errors.password ? (
+            <div className="text-red-500">{formik.errors.password}</div>
+          ) : null}
         </div>
         <Button
-  onClick={formik.handleSubmit}
-  className="mt-10 bg-deep-orange-500"
-  fullWidth
->
-  Login
-</Button>
-
+          onClick={formik.handleSubmit}
+          className="mt-10 bg-deep-orange-500"
+          fullWidth
+        >
+          Login
+        </Button>
       </form>
     </Card>
   );

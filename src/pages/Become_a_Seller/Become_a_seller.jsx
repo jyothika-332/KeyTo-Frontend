@@ -19,7 +19,7 @@ function Become_a_seller() {
   return (
     <div>
       <div className="ml-8">
-          <div className="text-deep-orange-900 font-serif text-3xl mt-40 ml-10">Add More Personal Info</div>
+          <div className="text-deep-orange-900 font-serif text-3xl mt-28 ml-10">Add More Personal Info</div>
           <div className="mt-10 ml-10"><Become_A_Selller/></div>
       </div>
     </div>

@@ -10,25 +10,27 @@ import {
   Button,
   MenuItem,
   IconButton,
+  Drawer,
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
   ChevronDownIcon,
   PowerIcon,
+  Bars3Icon,
 } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import { SimpleContext } from "../Context/Context";
-
+import { SidebarWithContentSeparator } from "../sidebar/Sidebar";
 
 export function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const nvgt = useNavigate()
+  const nvgt = useNavigate();
   const closeMenu = () => setIsMenuOpen(false);
   const Logout = () => {
-    localStorage.clear()
-    nvgt('/login')
-  }
+    localStorage.clear();
+    nvgt("/login");
+  };
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -53,34 +55,30 @@ export function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        
-        { localStorage.getItem("token")? jwtDecode(localStorage.getItem("token")).role === "user" ?
-        (<Link to="/userprofile">
-        <MenuItem className="flex items-center " >
-        <UserCircleIcon className="h-4 w-4 me-2 "/> 
-        <Typography className="">
-          My Profile
-        </Typography> 
-        </MenuItem>
-         </Link>)
-          :
-         (<Link to="/agent/profile">  
-        <MenuItem className="flex items-center " >
-        <UserCircleIcon className="h-4 w-4 me-2 "/> 
-        <Typography className="">
-          My Profile
-        </Typography> 
-        </MenuItem>
-        </Link>)
-        
-        : '' }
+        {localStorage.getItem("token") ? (
+          jwtDecode(localStorage.getItem("token")).role === "user" ? (
+            <Link to="/userprofile">
+              <MenuItem className="flex items-center ">
+                <UserCircleIcon className="h-4 w-4 me-2 " />
+                <Typography className="">My Profile</Typography>
+              </MenuItem>
+            </Link>
+          ) : (
+            <Link to="/agent/profile">
+              <MenuItem className="flex items-center ">
+                <UserCircleIcon className="h-4 w-4 me-2 " />
+                <Typography className="">My Profile</Typography>
+              </MenuItem>
+            </Link>
+          )
+        ) : (
+          ""
+        )}
 
         <MenuItem className="flex items-center " onClick={Logout}>
-        <PowerIcon className="h-4 w-4 me-2 text-red-500"/> 
-        <Typography className="text-red-500 ">Sign Out</Typography> 
+          <PowerIcon className="h-4 w-4 me-2 text-red-500" />
+          <Typography className="text-red-500 ">Sign Out</Typography>
         </MenuItem>
-        
-        
       </MenuList>
     </Menu>
   );
@@ -100,12 +98,16 @@ export function StickyNavbar() {
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
+
     if (localStorage.getItem("token")) {
       setis_premium(jwtDecode(localStorage.getItem("token")).is_premium);
     }
   }, []);
 
- 
+  const [open, setOpen] = React.useState(false);
+  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
+
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -118,16 +120,18 @@ export function StickyNavbar() {
           Home
         </Link>
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Inbox
-        </a>
-      </Typography>
+      <Link to="/user_chat">
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          <a href="#" className="flex items-center">
+            Inbox
+          </a>
+        </Typography>
+      </Link>
       <Link to="/property">
         <Typography
           as="li"
@@ -161,7 +165,9 @@ export function StickyNavbar() {
           Become a Seller
         </Typography>
       )}
-      {isLogedIn ? '' : (
+      {isLogedIn ? (
+        ""
+      ) : (
         <Typography
           as="li"
           variant="small"
@@ -210,14 +216,53 @@ export function StickyNavbar() {
   return (
     <div className="max-h-[768px] w-screen">
       <Navbar className="fixed top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
-        <div className="flex items-center justify-between text-blue-gray-900">
-          <Typography
-            as="a"
-            href="#"
-            className="mr-4 font-extrabold text-3xl text-red-900 ml-10 cursor-pointer py-1.5 "
-          >
-            KeyTo
-          </Typography>
+        <div className="flex items-center justify-between text-blue-gray-90 ">
+          <div className="flex items-center">
+            <Drawer
+              open={open}
+              onClose={closeDrawer}
+              className="bg-deep-orange-500 w-72"
+            >
+              <div className="flex items-center justify-between p-2">
+                <Typography variant="h5" color="white">
+                  KeyTo
+                </Typography>
+                <IconButton variant="text" color="white" onClick={closeDrawer}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="h-5 w-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </IconButton>
+              </div>
+              <SidebarWithContentSeparator />
+            </Drawer>
+            <div>
+              <Bars3Icon
+                onClick={openDrawer}
+                className="h-10 w-10 mx-5 visible sm:invisible"
+                color="black"
+              />
+            </div>
+            <div>
+              <Typography
+                as="a"
+                href="#"
+                className="font-extrabold text-3xl text-red-900 mx-5 cursor-pointer py-1.5 "
+              >
+                KeyTo
+              </Typography>
+            </div>
+          </div>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
             {isLogedIn ? <ProfileMenu /> : ""}

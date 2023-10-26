@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { StickyNavbar } from "../../components/navbar/Navbar";
-import { Input, Button, Select, Option, Slider, slider } from "@material-tailwind/react";
+import { Input, Button, Slider } from "@material-tailwind/react";
 import { PropertyList } from "../../components/propertylist/Propertylist";
 import { FooterWithSocialLinks } from "../../components/footer/Footer";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 
 function Property_Show() {
+  const [page, setpage] = useState(1);
   const [sliderValue, setSliderValue] = useState(100); // Initialize with a default value
   const [place, setplace] = useState("")
 
@@ -51,9 +53,28 @@ function Property_Show() {
       <div className="text-center mt-16 text-deep-orange-900 text-4xl font-serif font-bold">Properties</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
         <PropertyList price = { sliderValue * 10000 } place = { place } />
-      </div>  
-      <div className="mt-44">
-        <FooterWithSocialLinks/>
+      </div>
+      
+      <div className="mt-44 flex justify-center  items-center gap-4">
+        <Button
+        variant="text"
+        className="flex items-center gap-2 rounded-full"
+        onClick={()=>setpage( page -1 )}
+        disabled={page === 1}>
+          <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+        </Button>
+        <Button
+        variant="text"
+        className="flex items-center gap-2 rounded-full"
+        onClick={()=>setpage(page + 1 )}>
+          Next
+          <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+        </Button>
+      </div>
+
+      <div className="mt-20">
+        <hr className="my-2 border-blue-gray-100 mx-9" />
+        <div className="mt-10"><FooterWithSocialLinks/></div>
       </div>
     </div>
   );

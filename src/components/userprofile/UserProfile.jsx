@@ -52,7 +52,7 @@ export function UserProfile() {
                       ? `${BaseUrl}${userData.profile_image}`
                       : profileicon
                   }
-                  className="w-36 h-36"
+                  className="w-44 h-36 rounded-full"
                 ></img>
               </div>
             </Badge>

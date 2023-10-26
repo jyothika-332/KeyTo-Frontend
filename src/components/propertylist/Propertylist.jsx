@@ -10,12 +10,14 @@ import {
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export function PropertyList({
    is_premium , price , place
 }) {
   const [properties, setProperties] = useState([]);
+  let navigate = useNavigate()
     useEffect(() => {
       console.log ( place )
       getProperties()
@@ -41,7 +43,7 @@ export function PropertyList({
     <>
       {
         properties.map((value,key) => (
-        <Card className="w-full md:max-w-[26rem] shadow-lg">  
+        <Card className="w-full md:max-w-[26rem] shadow-lg" onClick={()=>navigate(`/property_details/${value.id}`)}>  
     <> 
       <CardHeader floated={false} color="blue-gray">
         <img

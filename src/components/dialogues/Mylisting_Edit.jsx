@@ -7,6 +7,7 @@ import {
   DialogFooter,
   Input,
   Textarea,
+  Radio,
 } from "@material-tailwind/react";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
@@ -18,7 +19,7 @@ export function MylistEdit({ open, handleOpen , Data , setData , next }) {
   const Update = () => {
     let formData = new FormData();
     formData.append("title", Data.title);
-    formData.append("description", Data.description);
+    formData.append("price_per_cent", Data.price_per_cent);
     formData.append("id", Data.id);
     formData.append("location", Data.location);
   
@@ -67,7 +68,12 @@ export function MylistEdit({ open, handleOpen , Data , setData , next }) {
             <Input label="Image" type="file" onChange={(e) => setData({ ...Data, image: e.target.files[0] })} />
             <Input label="Title" type="text" value={Data.title ? Data.title : ""} onChange={(e) => setData({ ...Data, title: e.target.value })} />
             <Input label="Location" type="text" value={Data.location ? Data.location : ""} onChange={(e) => setData({ ...Data, location: e.target.value })} />
-            <Textarea label="Description" value={Data.description ? Data.description : ""} onChange={(e) => setData({ ...Data, description: e.target.value })} />
+            <Input label="Price_per_cent" type="number" value={Data.price_per_cent ? Data.price_per_cent : ""} onChange={(e) => setData({ ...Data, price_per_cent: e.target.value })} />
+            <Radio
+              label="Sold"
+              color="blue"
+              name="propertyType"
+              />
           </div>
         </DialogBody>
         <DialogFooter className="space-x-2">

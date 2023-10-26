@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card } from 'react-bootstrap';
 import { BaseUrl } from '../../utils/Constants';
 
-const TABLE_HEAD = ["Location", "Address", "Total_cent", "Price_per_cent","Is_rent","Is_sell",""];  
+const TABLE_HEAD = ["Location", "Address", "Total_cent", "Price_per_cent","Type",""];  
 
 function Admin_propertylist() {
 
@@ -29,14 +29,14 @@ function Admin_propertylist() {
 
   return (
     <div>
-      <div className=" col-span-2">
+      <div className=" col-span-2 md:col-span-1">
         <div className="grid grid-cols-2">
             <p className="mt-9 ml-10 font-serif text-3xl  text-deep-orange-900">
               Property List
             </p>
         </div>
         <div className="mt-10 w-full h-full">
-        <Card className="h-full w-full">
+        <Card className="h-full w-full overflow-x-auto md:overflow-x-scroll overflow-y-scroll">
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
@@ -82,14 +82,14 @@ function Admin_propertylist() {
                 </td>
                 <td className={classes}>
                   <Typography variant="small" color="blue-gray" className="font-normal">
-                    {is_rent}
+                    {is_rent ? "Rent" : "Sell"}
                   </Typography>
                 </td>
-                <td className={`${classes} bg-blue-gray-50/50`}>
+                {/* <td className={`${classes} bg-blue-gray-50/50`}>
                   <Typography variant="small" color="blue-gray" className="font-normal">
                     {is_sell}
                   </Typography>
-                </td>
+                </td> */}
                 <td className={classes}>
                   <Button className='bg-deep-orange-500 h-10 w-28 rounded-xl text-white' onClick={() => Delete(id)}>
                     DELETE

@@ -17,6 +17,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 
+
 export function AdminSidebar() {
   const navigate = useNavigate()
   const [open, setOpen] = React.useState(0);
@@ -31,18 +32,14 @@ export function AdminSidebar() {
   };
 
   return (
-    <Card className="h-[calc(94vh-2rem)] w-full max-w-[20rem] fixed rounded-none p-4 shadow-xl shadow-blue-gray-900/5 bg-blue-gray-300">
+    <Card className="h-[calc(94vh-2rem)] w-72 max-w-[20rem] fixed rounded-none p-4 shadow-xl shadow-blue-gray-900/5 bg-blue-gray-200">
       <List>
         <Accordion open={open === 1}>
           <ListItem className="p-0" selected={open === 1}>
-            <AccordionHeader
-              onClick={() => handleOpen(1)}
-              className="border-b-0 p-3"
-            >
+            <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
               <ListItemPrefix>
                 <PresentationChartBarIcon className="h-5 w-5" />
               </ListItemPrefix>
-
               <Typography color="blue-gray" className="mr-auto font-normal">
                 <Link to="/admin/admin_dashboard">Dashboard</Link>
               </Typography>
@@ -81,20 +78,6 @@ export function AdminSidebar() {
             </ListItem>
           </Link>
         </Accordion>
-        <ListItem>
-          <ListItemPrefix>
-            <InboxIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Report
-        </ListItem>
-        {/* <Link to="/agent/profile"> */}
-        <ListItem>
-          <ListItemPrefix>
-            <UserCircleIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Profile
-        </ListItem>
-        {/* </Link> */}
         <ListItem onClick={() => Logout()}>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />

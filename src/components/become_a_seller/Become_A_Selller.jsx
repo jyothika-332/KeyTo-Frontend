@@ -3,8 +3,31 @@ import { Button, Input } from "@material-tailwind/react";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 
 function Become_A_Selller() {
+
+  const formik = useFormik({
+    initialValues: {
+      address: "",
+      phone: "",
+      location: "",
+      id_card_image: "",
+    },
+    validationSchema: Yup.object({
+      address: Yup.string().required("* required"),
+      phone: Yup.string().required("* required"),
+      location: Yup.string().required("* required"),
+      id_card_image: Yup.string().required("* required"),
+    }),
+    onSubmit: (values) => {
+      updateSellerData(values);
+    },
+  });
+
+
   const [sellerData, setsellerData] = useState("");
   useEffect(() => {
     console.log(jwtDecode(localStorage.getItem("token")));
@@ -15,6 +38,8 @@ function Become_A_Selller() {
       window.location.href = "/";
     }
   }, []);
+
+
   const updateSellerData = async () => {
     console.log(sellerData);
     const formData = new FormData();
@@ -38,48 +63,62 @@ function Become_A_Selller() {
             <Input
               label="Address"
               type="text"
-              value={sellerData.address ? sellerData.address : ""}
-              onChange={(e) =>
-                setsellerData({ ...sellerData, address: e.target.value })
-              }
+              name="address"
+              value={formik.values.address}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            {formik.touched.address && formik.errors.address ? (
+              <div className="text-red-500">{formik.errors.address}</div>
+            ) : null}
           </div>
           <div className="w-96 mt-8">
             <Input
               label="Phone Number"
               type="text"
-              value={sellerData.phone ? sellerData.phone : ""}
-              onChange={(e) =>
-                setsellerData({ ...sellerData, phone: e.target.value })
-              }
+              name="phone_number"
+              value={formik.values.phone}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            {formik.touched.phone && formik.errors.phone ? (
+              <div className="text-red-500">{formik.errors.phone}</div>
+            ) : null}
           </div>
           <div className="w-96 mt-8">
             <Input
               label="Location"
               type="text"
-              value={sellerData.location ? sellerData.location : ""}
-              onChange={(e) =>
-                setsellerData({ ...sellerData, location: e.target.value })
-              }
+              name="location"
+              value={formik.values.location}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            {formik.touched.location && formik.errors.location ? (
+              <div className="text-red-500">{formik.errors.location}</div>
+            ) : null}
           </div>
           <div className="w-96 mt-8">
             <Input
               label="Upload Id"
               type="file"
-              onChange={(e) =>
-                setsellerData({
-                  ...sellerData,
-                  id_card_image: e.target.files[0],
-                })
-              }
+              // onChange={(e) =>
+              //   setsellerData({
+              //     ...sellerData,
+              //     id_card_image: e.target.files[0],
+              //   })
+              // }
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            {formik.touched.id_card_image && formik.errors.id_card_image ? (
+              <div className="text-red-500">{formik.errors.id_card_image}</div>
+            ) : null}
           </div>
           <div>
             <Button
               className="mt-10 ml-72 bg-deep-orange-500"
-              onClick={() => updateSellerData()}
+              onClick={formik.handleSubmit}
             >
               Submit
             </Button>

@@ -46,7 +46,8 @@ function Premium_Page() {
         <PricingCard4 />
       </div>
       <div className="mt-44">
-        <FooterWithSocialLinks />
+        <hr className="my-2 border-blue-gray-100 mx-9" />
+        <div className="mt-10"><FooterWithSocialLinks/></div>
       </div>
     </div>
   );

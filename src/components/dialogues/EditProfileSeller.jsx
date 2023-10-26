@@ -67,11 +67,7 @@ export function EditProfileSeller({data , setData , next }) {
                 }
               />
               <Input
-                label="Email"
-                defaultValue={data.email ? data.email : ""}
-                onChange={(e) => setData({ ...data, email: e.target.value })}
-              />
-              <Input
+                type="number"
                 label="Phone Number"
                 defaultValue={data.phone ? data.phone : ""}
                 onChange={(e) => setData({ ...data, phone: e.target.value })}
@@ -81,11 +77,6 @@ export function EditProfileSeller({data , setData , next }) {
                 defaultValue={data.address ? data.address : ""}
                 onChange={(e) => setData({ ...data, address: e.target.value })}
               />
-              {/* <Input
-                label="Image"
-                type="file"
-                onChange={(e) => setData({ ...Data, image: e.target.files[0] })}
-              /> */}
           </div>
         </DialogBody>
         <DialogFooter className="space-x-2">

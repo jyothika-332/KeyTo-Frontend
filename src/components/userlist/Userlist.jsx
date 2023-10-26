@@ -19,6 +19,7 @@ function Userlist() {
   const [userList, setuserList] = useState([]);
 
   useEffect(() => {
+   
     if (localStorage.getItem("token")) {
         if ( jwtDecode(localStorage.getItem("token")).role != "admin")
         {
@@ -46,8 +47,10 @@ function Userlist() {
         setuserList(res.data);
       })
       .catch((err) => {
-        localStorage.clear();
-        window.location.href = "/";
+        setpage(page-1)
+        // localStorage.clear();
+        // window.location.href = "/";
+        console.log(err)
       });
   };
   const TABLE_ROWS = userList
@@ -68,8 +71,8 @@ function Userlist() {
   };
 
   return (
-    <Card className="h-full w-full">
-    <table className="w-full min-w-max table-auto text-left">
+    <Card className="h-full w-full overflow-x-scroll">
+    <table className="w-full min-w-max  table-auto text-left">
       <thead>
         <tr>
           {TABLE_HEAD.map((head) => (
@@ -131,7 +134,7 @@ function Userlist() {
       </tbody>
     </table>
 
-    <div className="mt-28 flex justify-center  items-center gap-4">
+    <div className="mt-28 flex justify-center items-center gap-4">
       <Button
         variant="text"
         className="flex items-center gap-2 rounded-full"
@@ -140,18 +143,10 @@ function Userlist() {
       >
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
       </Button>
-      {/* <div className="flex items-center gap-2">
-        <IconButton {...getItemProps(1)}>1</IconButton>
-        <IconButton {...getItemProps(2)}>2</IconButton>
-        <IconButton {...getItemProps(3)}>3</IconButton>
-        <IconButton {...getItemProps(4)}>4</IconButton>
-        <IconButton {...getItemProps(5)}>5</IconButton>
-      </div> */}
       <Button
         variant="text"
         className="flex items-center gap-2 rounded-full"
         onClick={()=>setpage(page + 1 )}
-        // disabled={active === 5}
       >
         Next
         <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
