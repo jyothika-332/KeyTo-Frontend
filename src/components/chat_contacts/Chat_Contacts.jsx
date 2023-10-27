@@ -5,9 +5,16 @@ function Chat_Contacts() {
   return (
     <div>
       <div className="mt-5 mx-2">
-      <div className='w-full'> 
-          <Input placeholder='Search or start new chat' variant='outlined' className='rounded-full !border !border-gray-300  text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10' labelProps={{
-          className: "hidden"}}/> </div>
+        <div className="w-full">
+          <Input
+            placeholder="Search or start new chat"
+            variant="outlined"
+            className="rounded-full !border !border-gray-300  text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+            labelProps={{
+              className: "hidden",
+            }}
+          />{" "}
+        </div>
         <div>
           <div className="border-b mt-10 h-12">
             <Avatar
