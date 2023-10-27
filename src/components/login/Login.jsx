@@ -13,17 +13,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 export function LoginPage() {
-  // const [validated, setValidated] = useState(false);
-
-  // const handleSubmit = (event) => {
-  //   const form = event.currentTarget;
-  //   if (form.checkValidity() === false) {
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //   }
-
-  //   setValidated(true);
-  // };
 
   const send_otofromik = useFormik({
     initialValues: {

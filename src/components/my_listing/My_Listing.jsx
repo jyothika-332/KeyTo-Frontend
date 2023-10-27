@@ -15,7 +15,7 @@ import { ShowToast } from "../../utils/Toats";
 
 
 
-const TABLE_HEAD = ["Image", "Title", "Location", "Price","status" , "", ""];
+const TABLE_HEAD = ["Image", "Title", "Location", "Price" , "Type", "status", "", ""];
 
 export function My_Listing() {
 
@@ -52,13 +52,14 @@ export function My_Listing() {
       });
   };
 
-  const EditData = (image, title, location, price_per_cent, id) => {
+  const EditData = (image, title, location, price_per_cent, type, id) => {
     setData({
       id: id,
       image: image,
       title: title,
       location: location,
       price_per_cent: price_per_cent,
+      type:type,
     });
     setOpen(true);
   };
@@ -106,7 +107,7 @@ export function My_Listing() {
           </thead>
           <tbody>
             {TABLE_ROWS.map(
-              ({ image, title, location,id, price_per_cent , is_sold }, index) => {
+              ({ image, title, location, id, price_per_cent , type, is_sold }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -146,12 +147,20 @@ export function My_Listing() {
                       </Typography>
                     </td>
                     <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {type}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
                       {
                         is_sold ? <Button className="bg-red-900" onClick={()=>ChangeStatus(id,is_sold)} > Sold</Button> : 
                         <Button className="bg-green-900" onClick={()=>ChangeStatus(id,is_sold)}> Available</Button>
                       }
                     </td>
-
                     <td className={classes}>
                       <Tooltip content="Edit Property">
                         <IconButton variant="text"  onClick={() =>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import {
   Navbar,
   MobileNav,
@@ -89,6 +89,19 @@ export function StickyNavbar() {
   const [openNav, setOpenNav] = React.useState(false);
   const [is_premium, setis_premium] = useState(false);
 
+
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setRole(decodedToken.role); 
+    }
+  }, []);
+
+
+
   const [isLogedIn, setisLogedIn] = useState(
     localStorage.getItem("token") ? true : false
   );
@@ -120,18 +133,20 @@ export function StickyNavbar() {
           Home
         </Link>
       </Typography>
-      <Link to="/user_chat">
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          <a href="#" className="flex items-center">
-            Inbox
-          </a>
-        </Typography>
-      </Link>
+      {role === 'user' && (
+        <Link to="/user_chat">
+          <Typography
+            as="li"
+            variant="small"
+            color="blue-gray"
+            className="p-1 font-normal"
+          >
+            <a href="#" className="flex items-center">
+              Inbox
+            </a>
+          </Typography>
+        </Link>
+      )}
       <Link to="/property">
         <Typography
           as="li"

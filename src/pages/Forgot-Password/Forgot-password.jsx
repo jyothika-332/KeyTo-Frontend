@@ -19,7 +19,7 @@ function ForgotPassword() {
   const SendResetLink = () => {
     axios.post(`${BaseUrl}/user/send-resetlink/`,{ "email" : email})
     .then((res) => {
-      ShowToast("Link Send to Your Email , Please Check" , false )
+      ShowToast("Link Send to Your Email , Please Check" , true )
     }).catch((err) => {
       var { message }= err.response.data ?err.response.data : "Something Went Wrong"
       ShowToast(message , false )

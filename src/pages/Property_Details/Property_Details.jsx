@@ -4,7 +4,7 @@ import { Avatar, Typography,Tooltip } from "@material-tailwind/react";
 import {PhoneIcon,EnvelopeIcon,MapPinIcon,CurrencyRupeeIcon} from '@heroicons/react/24/solid'
 import {ChatBubbleOvalLeftEllipsisIcon} from '@heroicons/react/24/outline'
 import { FooterWithSocialLinks } from "../../components/footer/Footer";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
 
@@ -41,8 +41,8 @@ function Property_Details() {
       </div>
       <div className="flex">
         <div className="flex-1 mt-16">
-          <div className="w-96 h-96 bg-blue-gray-300 ml-60 mt-5 rounded-lg">
-            <img src={`${BaseUrl}${propertyData.image}`} />
+          <div className="w-96 h-96 bg-blue-gray-300 ml-60 mt-5 rounded-lg" style={{ overflow: "hidden" }}>
+            <img src={`${BaseUrl}${propertyData.image}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           </div>
         </div>
         <div className="flex-1 mt-16">
@@ -72,9 +72,11 @@ function Property_Details() {
                 <Typography className="ml-2">Mail : {propertyData.user ? propertyData.user[0].email : ""}</Typography>
               </div>
               <div className="mt-8 flex justify-end mr-4">
-                <Tooltip content='Inbox'>
-                <ChatBubbleOvalLeftEllipsisIcon className="w-10 h-10"/>
-                </Tooltip>
+                <Link to='/user_chat'>
+                  <Tooltip content='Inbox'>
+                    <ChatBubbleOvalLeftEllipsisIcon className="w-10 h-10"/>
+                  </Tooltip>
+                </Link>
               </div>
             </div>
           </div>

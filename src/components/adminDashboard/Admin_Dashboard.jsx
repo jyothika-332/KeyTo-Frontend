@@ -25,7 +25,7 @@ function Admin_Dashboard() {
         </div>
       </div>
       <div className="">
-        <div className="grid grid-cols-[1fr,1fr] h-40 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mt-8">
           <div className="flex justify-center items-center">
             <Card className="h-60 w-80 bg-deep-orange-200 shadow-deep-orange-900 rounded-lg">
               <div className="mt-7">
@@ -66,9 +66,7 @@ function Admin_Dashboard() {
           </div>
         </div> 
 
-
-
-           <div className="grid grid-cols-[1fr,1fr] h-40 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mt-8">
           <div className="flex justify-center items-center">
             <Card className="h-60 w-80 bg-deep-orange-200 shadow-deep-orange-900 rounded-lg">
               <div className="mt-7">

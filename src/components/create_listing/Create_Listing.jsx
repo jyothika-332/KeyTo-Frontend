@@ -4,7 +4,6 @@ import { Form } from "react-bootstrap";
 import { BaseUrl } from "../../utils/Constants";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useFormik } from "formik";
@@ -25,15 +24,12 @@ export function CreateListingForm() {
       longitude: "",
       image:null,
     },
+
     validationSchema: Yup.object({
       title: Yup.string().required("* required"),
       description: Yup.string().required("* required"),
-      price_per_cent: Yup.number()
-    .positive("* Price must be a positive number")
-    .required("* Price is required"),
-  total_cent: Yup.number()
-    .positive("* Total cent must be a positive number")
-    .required("* Total cent is required"),
+      price_per_cent: Yup.number().positive("* Price must be a positive number").required("* required"),
+      total_cent: Yup.number().positive("* Total cent must be a positive number").required("* required"),
       type: Yup.string().required("* required"),
       location: Yup.string().required("* required"),
       latitude: Yup.string().required("* required"),
@@ -71,12 +67,6 @@ export function CreateListingForm() {
             longitude: coordinates.lng,
             location: data.address.town ? data.address.town : data.address.village,
           });
-          // setData({
-          //   ...Data,
-          //   latitude: coordinates.lat,
-          //   longitude: coordinates.lng,
-          //   location: data.address ? data.address.town : "Not Found",
-          // });
         } else {
           alert("No location found");
         }
@@ -181,8 +171,8 @@ export function CreateListingForm() {
               <div className="text-red-500">{formik.errors.total_cent}</div>
             ) : null}
           </div>
-          <div>
-            <Radio
+          <div className="grid grid-cols-2">
+            <div><Radio
               label="For Rent"
               color="blue"
               name="type"
@@ -193,7 +183,8 @@ export function CreateListingForm() {
             {formik.touched.type && formik.errors.type ? (
               <div className="text-red-500">{formik.errors.type}</div>
             ) : null}
-            <span className="ml-8">
+            </div>
+            <div>
               <Radio
                 label="For Sale"
                 color="blue"
@@ -205,7 +196,7 @@ export function CreateListingForm() {
               {formik.touched.type && formik.errors.type ? (
               <div className="text-red-500">{formik.errors.type}</div>
             ) : null}
-            </span>
+            </div>
           </div>
           <div className="mt-3">
             <Textarea
@@ -254,18 +245,18 @@ export function CreateListingForm() {
               <Form.Control
                 type="file"
                 name="image"
-  onChange={(e) => {
-    formik.setFieldValue("image", e.currentTarget.files[0]);
-  }}
-  onBlur={formik.handleBlur}
+                onChange={(e) => {
+                formik.setFieldValue("image", e.currentTarget.files[0]);
+                }}
+                onBlur={formik.handleBlur}
               />
             </Form.Group>
             {formik.touched.image && formik.errors.image ? (
               <div className="text-red-500">{formik.errors.image}</div>
             ) : null}
           </div>
-          <div className="mt-3">
-            <div id="map" style={{ height: "400px" }}></div>
+          <div className="mt-3 ">
+            <div id="map" style={{ height: "400px",zIndex: 1  }}></div>
           </div>
         </div>
         <Button className="mt-10 bg-deep-orange-500" onClick={formik.handleSubmit}>

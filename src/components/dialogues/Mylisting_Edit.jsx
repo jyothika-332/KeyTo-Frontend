@@ -69,11 +69,6 @@ export function MylistEdit({ open, handleOpen , Data , setData , next }) {
             <Input label="Title" type="text" value={Data.title ? Data.title : ""} onChange={(e) => setData({ ...Data, title: e.target.value })} />
             <Input label="Location" type="text" value={Data.location ? Data.location : ""} onChange={(e) => setData({ ...Data, location: e.target.value })} />
             <Input label="Price_per_cent" type="number" value={Data.price_per_cent ? Data.price_per_cent : ""} onChange={(e) => setData({ ...Data, price_per_cent: e.target.value })} />
-            <Radio
-              label="Sold"
-              color="blue"
-              name="propertyType"
-              />
           </div>
         </DialogBody>
         <DialogFooter className="space-x-2">

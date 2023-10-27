@@ -14,11 +14,11 @@ function Become_A_Selller() {
       address: "",
       phone: "",
       location: "",
-      id_card_image: "",
+      id_card_image: null,
     },
     validationSchema: Yup.object({
       address: Yup.string().required("* required"),
-      phone: Yup.string().required("* required"),
+      phone: Yup.number().positive("* Must be 10 digit number").required("* required"),
       location: Yup.string().required("* required"),
       id_card_image: Yup.string().required("* required"),
     }),
@@ -40,7 +40,7 @@ function Become_A_Selller() {
   }, []);
 
 
-  const updateSellerData = async () => {
+  const updateSellerData = (values) => {
     console.log(sellerData);
     const formData = new FormData();
     formData.append("id", jwtDecode(localStorage.getItem("token")).user_id);
@@ -58,7 +58,7 @@ function Become_A_Selller() {
   return (
     <div>
       <div className="flex-col items-center">
-        <form>
+        <form className="w-full md:max-w-md">
           <div className="w-96 mt-6">
             <Input
               label="Address"
@@ -76,7 +76,7 @@ function Become_A_Selller() {
             <Input
               label="Phone Number"
               type="text"
-              name="phone_number"
+              name="phone"
               value={formik.values.phone}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -102,13 +102,10 @@ function Become_A_Selller() {
             <Input
               label="Upload Id"
               type="file"
-              // onChange={(e) =>
-              //   setsellerData({
-              //     ...sellerData,
-              //     id_card_image: e.target.files[0],
-              //   })
-              // }
-              onChange={formik.handleChange}
+              name="id_card_image"
+              onChange={(e) => {
+                formik.setFieldValue("id_card_image", e.currentTarget.files[0]);
+                }}
               onBlur={formik.handleBlur}
             />
             {formik.touched.id_card_image && formik.errors.id_card_image ? (

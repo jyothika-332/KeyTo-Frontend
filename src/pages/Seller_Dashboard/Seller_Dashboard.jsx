@@ -73,7 +73,7 @@ function Seller_Dashboard() {
               </div>
               <div className="mt-5">
                 <span className="flex justify-center text-5xl font-serif">
-                  100
+                { dashboard_data ? dashboard_data.sale_prpty : 0}
                 </span>
               </div>
             </Card>
@@ -87,7 +87,7 @@ function Seller_Dashboard() {
               </div>
               <div className="mt-5">
                 <span className="flex justify-center text-5xl font-serif">
-                  100
+                { dashboard_data ? dashboard_data.rent_prpty : 0}
                 </span>
               </div>
             </Card>
