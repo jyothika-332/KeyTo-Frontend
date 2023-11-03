@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BaseUrl } from "../../utils/Constants";
 import jwtDecode from "jwt-decode";
+import Donut from "../../components/dashboard_chart/Dashboard_Chart";
 
 function Seller_Dashboard() {
   const [dashboard_data, setdashboard_data] = useState("");
@@ -25,6 +26,7 @@ function Seller_Dashboard() {
   }
   return (
     <>
+    <Donut series_data = {[dashboard_data ? dashboard_data.property : 0 ,dashboard_data ? dashboard_data.sold : 0 ,dashboard_data ? dashboard_data.sale_prpty : 0 ,dashboard_data ? dashboard_data.rent_prpty : 0]} />
       <div>
         <div className="text-deep-orange-900 font-serif text-3xl mt-14 ml-11">
           Dashboard

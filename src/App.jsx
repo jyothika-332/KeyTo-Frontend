@@ -58,8 +58,7 @@ function App() {
             <Route Component={Seller_My_Listing} path='seller_mylisting' />
             <Route Component={Chat_Section} path='chat_section' />
           </Route>
-          <Route Component={Premium_Page} path='/premium' />
-          
+          <Route Component={Premium_Page} path='/premium' />      
         </Route>
 
 

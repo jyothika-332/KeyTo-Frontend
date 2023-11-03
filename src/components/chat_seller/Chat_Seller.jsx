@@ -9,70 +9,36 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 import defaultdp from "../../assets/Image/avatar.png";
 
 
-function Chat_Page() {
-  
+function Chat_Page_Seller() {
   const [search, setSearch] = useState("");
   const [recentChats, setRecentChats] = useState({});
   const [clientstate, setClientState] = useState("");
   const [messages, setMessages] = useState([]);
   const messageRef = useRef();
-  const [sellerlist, setSellerlist] = useState([]);
-  const [senderDetails, setSenderDetails] = useState("");
-
-  const removeQueryParams = () =>{
-    const urlWithoutParams = window.location.pathname;
-    window.history.replaceState({}, document.title, urlWithoutParams);
-  }
+  const [userlist, setUserlist] = useState([]);
 
   useEffect(() => {
-    getSeller();
-    
+    getUser();
   }, [search]);
-
-  const getSeller = () => {
-    const token = jwtDecode(localStorage.getItem("token"))
+  
+  const getUser = () => {
+    const token = jwtDecode(localStorage.getItem('token'))
     axios
-      .get(`${BaseUrl}/chat/addtochat/${token.id}/`, {
+      .get(`${BaseUrl}/chat/get-seller-recent-chat/${token.id}/`, {
         params: {
-          is_seller: true,
+          is_seller: false,
           search: search,
         },
       })
       .then((res) => {
-        setSellerlist(res.data.results);
+        setUserlist(res.data.results);
+        console.log(res,'kkkkkkkkkkkkkk');
       });
   };
 
-  
+  const [senderDetails, setSenderDetails] = useState("");
   useEffect(() => {
     getSender();
-    const queryParams = new URLSearchParams(location.search);
-    const user_id = queryParams.get('user');
-
-      const getUserData = async () => {
-        axios
-          .get(`${BaseUrl}/user/`, {
-            params: {
-              id: user_id,
-            },
-          })
-          .then((res) => {
-            setRecentChats({
-                id: res.data.id,
-                email: res.data.email,
-                first_name: res.data.first_name,
-                profile_image: res.data.profile_image,
-              })
-          }).catch((err)=>{
-            console.log('Profile Details Error:> ',err);
-          })
-      };
-      if(!isNaN(user_id)){
-        getUserData()
-      }
-      else{
-        removeQueryParams()
-      }
   }, []);
 
   const getSender = () => {
@@ -83,21 +49,16 @@ function Chat_Page() {
         },
       })
       .then((res) => {
-        console.log(res.data, "jyoothi");
+        console.log(res);
         setSenderDetails(res.data);
       });
   };
-
 
   const onButtonClicked = () => {
     if (messageRef.current.value.trim() == "") {
       return;
     }
-    console.log("Sending Message .....> ", {
-      message: messageRef.current.value,
-      senderUsername: senderDetails.email,
-      receiverUsername: recentChats.email,
-    });
+   
     clientstate.send(
       JSON.stringify({
         message: messageRef.current.value,
@@ -111,30 +72,30 @@ function Chat_Page() {
   const setUpChat = () => {
     axios
       .get(
-        `${BaseUrl}/chat/user-previous-chats/${senderDetails.id}/${recentChats.id}/`
+        `${BaseUrl}/chat/user-previous-chats/${senderDetails.id}/${recentChats?.id}/`
       )
       .then((response) => {
         if (response.status == 200) {
           setMessages(response.data);
         }
       });
-      console.log('Web Socket url --> ',`${WsURL}/ws/chat/${senderDetails.id}/?${recentChats.id}`);
-    const client = new W3CWebSocket(
-      `${WsURL}/ws/chat/${senderDetails.id}/?${recentChats.id}`
+
+    console.log(
+      "ws Url ",
+      `${WsURL}/ws/chat/${senderDetails.id}/?${recentChats?.id}`
     );
+    const client = new W3CWebSocket(
+      `${WsURL}/ws/chat/${senderDetails.id}/?${recentChats?.id}`
+      );
     console.log(client);
     setClientState(client);
 
     client.onopen = (event) => {
       console.log("Websocket disconnected", event);
-
-      
-      console.log("Reason:", event.reason);
-      console.log("Code:", event.code);
-    };
+      };
     client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
-      console.log(dataFromServer);
+      console.log(dataFromServer, "daxooo");
       if (dataFromServer) {
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -149,7 +110,6 @@ function Chat_Page() {
     client.onclose = (event) => {
       console.log("Websocket disconnected", event);
 
-      
       console.log("Reason:", event.reason);
       console.log("Code:", event.code);
     };
@@ -170,7 +130,7 @@ function Chat_Page() {
 
   return (
     <>
-      <div className="grid grid-cols-[20rem,1fr]">
+      <div className="grid grid-cols-[20rem,1fr] bg-blue-gray-100">
         <div className="border-2">
           <div className="bg-blue-gray-200 h-14 flex">
             <div>
@@ -192,7 +152,7 @@ function Chat_Page() {
                   variant="outlined"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="rounded-full !border !border-gray-400  text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+                  className="rounded-full !border !border-gray-500  text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
                   labelProps={{
                     className: "hidden",
                   }}
@@ -206,7 +166,7 @@ function Chat_Page() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-5 h-5 text-gray-600"
+                  className="w-5 h-5 text-gray-900"
                 >
                   <path
                     strokeLinecap="round"
@@ -217,29 +177,32 @@ function Chat_Page() {
               </div>
             </div>
             <div>
-              {sellerlist.map((value, key) => (
+              {userlist.map((value, key) => (
                 <div
                   className="border-b mt-5 h-12 cursor-pointer"
                   key={key}
-                  onClick={() =>{
-                    removeQueryParams()
+                  onClick={() => {
                     setRecentChats({
-                      id: value.receiver_id,
-                      email: value.receiver_email,
-                      first_name: value.receiver_first_name,
-                      profile_image: value.receiver_profile,
-                    })
-                  }
-                  }
+                      id: value.sender_id,
+                      email: value.sender_email ,
+                      first_name: value.sender_first_name,
+                      profile_image: value.sender_profile,
+                    });
+                  }}
                 >
                   <Avatar
                     variant="circular"
                     size="sm"
                     alt="tania andrew"
                     className="border border-gray-900 p-0.5"
-                    src={value.receiver_profile ? value.receiver_profile : defaultdp}
+                    src={
+                      value.sender_profile
+                        ? value.sender_profile
+                        : defaultdp
+                    }
                   />
-                  <span className="ml-5">{value.receiver_first_name}</span>
+
+                  <span className="ml-5">{value.sender_first_name}</span>
                 </div>
               ))}
             </div>
@@ -249,7 +212,7 @@ function Chat_Page() {
         {/* chat session */}
 
         {recentChats.id ? (
-          <div className="bg-gray-300  flex-col">
+          <div className="bg-gray-300 flex-col">
             <div className="bg-blue-gray-200 h-14 flex">
               <div>
                 <Avatar
@@ -258,9 +221,7 @@ function Chat_Page() {
                   alt="tania andrew"
                   className="border border-gray-900 p-0.5 mt-1 ml-8"
                   src={
-                    recentChats.profile_image
-                      ? recentChats.profile_image
-                      : defaultdp
+                    recentChats.profile_image ? recentChats.profile_image : defaultdp
                   }
                 />
               </div>
@@ -274,7 +235,7 @@ function Chat_Page() {
                       <div class="bg-purple-50 shadow border text-gray-800 py-1 px-4 rounded-md max-w-xs">
                         {message.message}
                       </div>
-                      <div className="rounded-full flex justify-center items-center ms-1 w-7 h-7 ">
+                      <div className="rounded-full flex justify-center items-center  ms-1 w-7 h-7 ">
                         <img
                           src={
                             senderDetails.profile_image
@@ -309,7 +270,7 @@ function Chat_Page() {
                 )
               )}
             </div>
-            <div className="bg-blue-gray-100 flex justify-between items-center p-2">
+            <div className="bg-blue-gray-100 flex justify-between p-2 mt-96">
               <div className="w-10">
                 <PlusIcon className="h-5 w-5" />
               </div>
@@ -340,4 +301,4 @@ function Chat_Page() {
   );
 }
 
-export default Chat_Page;
+export default Chat_Page_Seller;

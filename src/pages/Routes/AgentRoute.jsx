@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StickyNavbar } from "../../components/navbar/Navbar";
 import { SidebarWithContentSeparator } from "../../components/sidebar/Sidebar";
 import { FooterWithSocialLinks } from "../../components/footer/Footer";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 function AgentRoute() {
+  // let navigate = useNavigate()
+
+  // useEffect(() => {
+  //   console.log(jwtDecode(localStorage.getItem("token")))
+  //   if (localStorage.getItem("token"))
+  //   {
+  //     if (jwtDecode(localStorage.getItem("token")) != "seller")
+  //     {
+  //       localStorage.clear()
+  //       navigate("/")
+  //     }
+  //   }
+  //   else{
+  //     localStorage.clear()
+  //       navigate("/")
+  //   }
+  // }, []);
+  
   return (
     <>
       <StickyNavbar />

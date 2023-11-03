@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { StickyNavbar } from "../../components/navbar/Navbar";
-import { Avatar, Typography,Tooltip } from "@material-tailwind/react";
+import { Avatar, Typography,Tooltip, IconButton } from "@material-tailwind/react";
 import {PhoneIcon,EnvelopeIcon,MapPinIcon,CurrencyRupeeIcon} from '@heroicons/react/24/solid'
 import {ChatBubbleOvalLeftEllipsisIcon} from '@heroicons/react/24/outline'
 import { FooterWithSocialLinks } from "../../components/footer/Footer";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
+import jwtDecode from "jwt-decode";
+import { CommentPage } from "../../components/dialogues/Comments";
 
 
 
 function Property_Details() {
   const [propertyData, setpropertyData] = useState("");
-  let { id}  = useParams()
+  let { id }  = useParams()
+  const token = jwtDecode(localStorage.getItem('token'))
+
   useEffect(() => {
       console.log( id)
       getProperty()
@@ -25,10 +29,14 @@ function Property_Details() {
       }
     })
     .then((res) => {
-      console.log( res)
+      console.log(res)
       setpropertyData(res.data)
     })
   }
+
+  
+  
+  
   return (
     <div>
       <div>
@@ -41,14 +49,16 @@ function Property_Details() {
       </div>
       <div className="flex">
         <div className="flex-1 mt-16">
-          <div className="w-96 h-96 bg-blue-gray-300 ml-60 mt-5 rounded-lg" style={{ overflow: "hidden" }}>
-            <img src={`${BaseUrl}${propertyData.image}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          </div>
+        <div className="w-96 h-96 flex justify-end items-end p-3 bg-blue-gray-300 ml-60 mt-5 rounded-lg bg-cover" style={{ backgroundImage: `url(${BaseUrl}${propertyData.image})` }}>
+ 
+          <CommentPage/>
+</div>
+
         </div>
         <div className="flex-1 mt-16">
           <div className="w-2/3 h-96 bg-blue-gray-100 ml-5 mt-5 rounded-lg">
             <div className="w-full h-32 bg-deep-orange-300 rounded-lg flex justify-center pt-14">
-              <div className="bg-deep-orange-800 border-2 relative w-80 h-32 rounded-lg grid grid-cols-[1fr,2fr]">
+              <div className="bg-deep-orange-800 border-2 w-80 h-32 rounded-lg grid grid-cols-[1fr,2fr]">
                 <div className="">
                   <Avatar
                     variant="circular"
@@ -72,9 +82,9 @@ function Property_Details() {
                 <Typography className="ml-2">Mail : {propertyData.user ? propertyData.user[0].email : ""}</Typography>
               </div>
               <div className="mt-8 flex justify-end mr-4">
-                <Link to='/user_chat'>
+                <Link to={`/user_chat/?user=${propertyData?.user[0]?.id}`}>
                   <Tooltip content='Inbox'>
-                    <ChatBubbleOvalLeftEllipsisIcon className="w-10 h-10"/>
+                    <ChatBubbleOvalLeftEllipsisIcon  className="w-10 h-10"/>
                   </Tooltip>
                 </Link>
               </div>

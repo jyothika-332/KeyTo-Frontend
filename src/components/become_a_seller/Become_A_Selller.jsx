@@ -48,7 +48,9 @@ function Become_A_Selller() {
     formData.append("address", sellerData.address);
     formData.append("phone", sellerData.phone);
     formData.append("location", sellerData.location);
-    formData.append("id_card_image", sellerData.id_card_image);
+    if (sellerData.id_card_image instanceof File) {
+      formData.append("id_card_image", sellerData.id_card_image);
+  }
     axios.put(`${BaseUrl}/user/`, formData).then((res) => {
       localStorage.clear();
       window.location.href = "/login";

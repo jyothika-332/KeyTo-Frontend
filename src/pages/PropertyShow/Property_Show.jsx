@@ -28,7 +28,7 @@ function Property_Show() {
               label="Location..."
               value = { place }
               onChange={(e)=>setplace(e.target.value )}
-              className="pr-10 rounded-xl"
+              className="pr-10 rounded-lg"
               containerProps={{
                 className: "min-w-[200px]",
               }}
