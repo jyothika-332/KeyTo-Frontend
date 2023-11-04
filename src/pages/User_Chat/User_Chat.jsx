@@ -10,14 +10,14 @@ function User_Chat() {
       <div>
         <StickyNavbar />
       </div>
-      <div className="mt-20">
+      <div className="mt-8 md:mt-20">
         <div>
           <Chat_Page />
         </div>
       </div>
-      <div className="mt-40">
-        <hr className="my-2 border-blue-gray-100 mx-9" />
-        <div className="mt-10">
+      <div className="mt-16 md:mt-40">
+        <hr className="my-2 border-blue-gray-100 mx-4 md:mx-9" />
+        <div className="mt-4 md:mt-10">
           <FooterWithSocialLinks />
         </div>
       </div>
@@ -28,4 +28,3 @@ function User_Chat() {
 export default User_Chat;
 
 
-// grid grid-cols-[20rem,1fr]

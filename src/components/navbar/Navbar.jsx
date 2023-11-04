@@ -133,6 +133,18 @@ export function StickyNavbar() {
           Home
         </Link>
       </Typography>
+      <Link to="/property">
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          <a href="#" className="flex items-center">
+            Property
+          </a>
+        </Typography>
+      </Link>
       {role === 'user' && (
         <Link to="/user_chat">
           <Typography
@@ -147,18 +159,6 @@ export function StickyNavbar() {
           </Typography>
         </Link>
       )}
-      <Link to="/property">
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          <a href="#" className="flex items-center">
-            Property
-          </a>
-        </Typography>
-      </Link>
       {isLogedIn ? (
         <Typography
           as="li"
@@ -261,13 +261,15 @@ export function StickyNavbar() {
               </div>
               <SidebarWithContentSeparator />
             </Drawer>
-            <div>
+            {role === 'seller' &&
+            (<div>
               <Bars3Icon
                 onClick={openDrawer}
                 className="h-10 w-10 mx-5 visible sm:invisible"
                 color="black"
               />
             </div>
+            )}
             <div>
               <Typography
                 as="a"

@@ -30,10 +30,8 @@ export function SidebarWithContentSeparator() {
   };
 
   const Logout = () => {
-    if (window.confirm("Do You Want to Logout")) {
       localStorage.clear();
       window.location.href = "/";
-    }
   };
  
 
