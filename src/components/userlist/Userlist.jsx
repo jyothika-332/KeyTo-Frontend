@@ -48,8 +48,6 @@ function Userlist() {
       })
       .catch((err) => {
         setpage(page-1)
-        // localStorage.clear();
-        // window.location.href = "/";
         console.log(err)
       });
   };
@@ -62,7 +60,6 @@ function Userlist() {
           "is_active":!is_active
         }
     ).then((res) => {
-      console.log(res.data);
       getUserData()
     })
     .catch((error) => {
