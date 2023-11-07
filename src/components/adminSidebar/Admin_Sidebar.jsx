@@ -34,6 +34,7 @@ export function AdminSidebar() {
   return (
     <Card className="h-[calc(94vh-2rem)] w-72 max-w-[20rem] fixed rounded-none p-4 shadow-xl shadow-blue-gray-900/5 bg-blue-gray-200">
       <List>
+      <Link to="/admin/admin_dashboard">
         <Accordion open={open === 1}>
           <ListItem className="p-0" selected={open === 1}>
             <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
@@ -41,11 +42,12 @@ export function AdminSidebar() {
                 <PresentationChartBarIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
-                <Link to="/admin/admin_dashboard">Dashboard</Link>
+                Dashboard
               </Typography>
             </AccordionHeader>
           </ListItem>
         </Accordion>
+        </Link>
         <Link to="/admin/admin_userlist">
         <ListItem>
           <ListItemPrefix>
