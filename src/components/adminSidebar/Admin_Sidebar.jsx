@@ -46,12 +46,14 @@ export function AdminSidebar() {
             </AccordionHeader>
           </ListItem>
         </Accordion>
+        <Link to="/admin/admin_userlist">
         <ListItem>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/admin/admin_userlist">Users</Link>
+          Users
         </ListItem>
+        </Link>
         <hr className="my-2 border-blue-gray-50" />
         <Link to="/admin/admin_bannerlist">
           <ListItem>
