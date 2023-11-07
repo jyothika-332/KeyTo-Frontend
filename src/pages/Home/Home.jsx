@@ -16,7 +16,7 @@ function Home() {
         <p className="text-4xl font-serif font-bold">Latest Properties</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-14">
-        <PropertyList is_premium = { true } />
+        <PropertyList is_premium = { true }   />
       </div>
       <Link to='property'>
       <Button className="bg-deep-orange-500 mt-9 ml-10">

@@ -1,7 +1,6 @@
 import React from 'react'
 import { SimpleRegistrationForm } from '../../components/admin_login/Admin_Login'
 import Image1 from "../../assets/Image/bailey-anselme-Bkp3gLygyeA-unsplash.jpg";
-import { NavbarSimple } from '../../components/adminNavbar/Admin_NAvbar';
 
 
 function Adminlogin() {
