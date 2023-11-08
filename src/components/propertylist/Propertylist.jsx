@@ -12,17 +12,18 @@ import { BaseUrl } from "../../utils/Constants";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function PropertyList({ is_premium, price, place }) {
+export function PropertyList({ is_premium, price, place , page  }) {
   const [properties, setProperties] = useState([]);
   let navigate = useNavigate();
   useEffect(() => {
     getProperties();
-  }, [price, place]);
+  }, [price, place , page]);
 
   const getProperties = () => {
     axios
       .get(`${BaseUrl}/property/`, {
         params: {
+          page: page,
           is_premium: is_premium,
           price: price,
           place: place,

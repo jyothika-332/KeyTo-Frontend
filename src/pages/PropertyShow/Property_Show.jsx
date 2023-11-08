@@ -33,12 +33,12 @@ function Property_Show() {
               }}
             />
           </div>
-          <div className="w-full md:w-1/3 ml-0 md:ml-14 mt-4 md:mt-0">
+          <div className="relative w-full md:w-1/3 ml-0 md:ml-14 mt-4 md:mt-0">
             <p className="text-xs flex justify-center">
               Select your price range
             </p>
             <Slider
-              className="mt-2"
+              className="relative mt-2"
               size="lg"
               color="red"
               value={sliderValue}
@@ -54,7 +54,7 @@ function Property_Show() {
         Properties
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
-        <PropertyList price={sliderValue * 10000} place={place} />
+        <PropertyList price={sliderValue * 10000} place={place} page = { page } />
       </div>
 
       <div className="mt-44 flex justify-center  items-center gap-4">

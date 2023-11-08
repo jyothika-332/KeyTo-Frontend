@@ -53,11 +53,13 @@ function Userlist() {
   };
   const TABLE_ROWS = userList
 
-  const userManagent = (id,is_active) => {
+  const userManagent = (id,is_active,email) => {
     axios.put(`${BaseUrl}/user/`, 
         {
           "id":id, 
-          "is_active":!is_active
+          "is_active":!is_active,
+          "email" : email,
+          "type" : "status"
         }
     ).then((res) => {
       getUserData()
@@ -118,7 +120,7 @@ function Userlist() {
                 </Typography>
               </td>
               <td className={`${classes} bg-blue-gray-50/50`}>
-                  <Button className="bg-white border-2 rounded-xl" onClick={() => userManagent(id,is_active)}>
+                  <Button className="bg-white border-2 rounded-xl" onClick={() => userManagent(id,is_active,email)}>
                   {is_active ?
                     <p className='text-light-green-900 text-center w-full p-1'>Block</p>
                     : <p className='text-deep-orange-900 text-center p-1'>Unblock</p>
