@@ -60,7 +60,7 @@ export function PropertyList({ is_premium, price, place , page  }) {
               >
               </IconButton>
             </CardHeader>
-            <CardBody className="mt-5 ml-3">
+            <CardBody className="mt-5 ml-3 h-52">
               <div className="mb-3 flex items-center justify-between">
                 <Typography
                   variant="h5"
