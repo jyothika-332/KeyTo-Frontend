@@ -46,11 +46,11 @@ function Home() {
           />
         </div>
       </div>
-      <div className="mt-16 flex justify-center">
+      <div className="mt-28 flex justify-center">
         <p className="text-4xl font-serif font-bold">About Us</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-14">
-        <PropertyList />
+      <div className="flex justify-center font-serif text-xl text-blue-gray-700 mx-44 mt-14 ">
+       Our aims to revolutionize property transactions by providing a user-friendly interface for buyers, sellers,<br></br> and agents to seamlessly connect and transact. With advanced search filters, interactive property listings, and<br></br>secure payment processing, it promises to streamline the real estate experience for users across the globe.
       </div>
       <div className="mt-40">
       <hr className="my-2 border-blue-gray-100 mx-9" />
