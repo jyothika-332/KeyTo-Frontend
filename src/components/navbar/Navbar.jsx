@@ -170,29 +170,19 @@ export function StickyNavbar() {
             Become a Seller
           </Link>
         </Typography>
-      ) : (
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          Become a Seller
-        </Typography>
-      )}
+      ) : ''}
       {isLogedIn ? (
         ""
       ) : (
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-normal"
+        <Link to="/login">
+        <Button
+          className=" font-normal bg-deep-orange-500 "
         >
-          <Link to="/login" className="flex items-center">
+           <div className="flex items-center">
             Sign In
+            </div>
+          </Button>
           </Link>
-        </Typography>
       )}
       <div className="relative flex w-full gap-2 md:w-max">
         {isLogedIn ? (
