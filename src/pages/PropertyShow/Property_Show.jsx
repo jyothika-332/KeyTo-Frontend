@@ -38,7 +38,7 @@ function Property_Show() {
               Select your price range
             </p>
             <Slider
-              className="relative mt-2"
+              className="relative z-0 mt-2"
               size="lg"
               color="red"
               value={sliderValue}

@@ -48,7 +48,7 @@ export function SidebarWithContentSeparator() {
 
 
   return (
-    <Card className="h-[calc(94vh-2rem)] w-72 fixed rounded-none max-w-[20rem] bg-blue-gray-100 p-4 shadow-xl shadow-blue-gray-900/5">
+    <Card className="h-[calc(94vh-2rem)] w-72 fixed rounded-none max-w-[25rem] bg-blue-gray-100 p-4 shadow-xl shadow-blue-gray-900/5">
       <List>
         <Accordion open={open === 1}>
           {role == 'seller' ?
