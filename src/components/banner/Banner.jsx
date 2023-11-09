@@ -28,7 +28,7 @@ export function CarouselWithContent() {
       {banners.map((value, key) => (
         <div className="relative h-screen w-full mt-20" key={key}>
           <img
-            src={`${BaseUrl}${value.image}`}
+            src={value.image}
             alt="image 2"
             className="h-full w-full object-cover"
           />

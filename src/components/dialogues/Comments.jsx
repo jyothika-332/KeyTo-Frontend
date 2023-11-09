@@ -75,7 +75,7 @@ export function CommentPage() {
         settype_comment("")
         getComment()
         setedit_id("")
-        ShowToast("Review Updated Succesfully", true)
+        ShowToast("Comment Updated Succesfully", true)
         handleOpen()
       })
     }
@@ -89,7 +89,7 @@ export function CommentPage() {
       settype_comment("")
       getComment()
       setedit_id("")
-      ShowToast("Review Deleted Succesfully", true)
+      ShowToast("Comment Deleted Succesfully", true)
       handleOpen()
     })
   }
