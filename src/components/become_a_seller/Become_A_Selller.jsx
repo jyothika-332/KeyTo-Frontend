@@ -17,18 +17,18 @@ function Become_A_Selller() {
       id_card_image: null,
     },
     validationSchema: Yup.object({
-      address: Yup.string().required("* required"),
-      phone: Yup.number().positive("* Must be 10 digit number").required("* required"),
+      address: Yup.string().min(4,'Addres is too short').required("* required"),
+      phone: Yup.number().positive("Enter valid number").min(10,'Phone number should be 10 digits').required("* required"),
       location: Yup.string().required("* required"),
       id_card_image: Yup.string().required("* required"),
     }),
     onSubmit: (values) => {
-      updateSellerData(values);
+      updateSellerData({...sellerData,values});
     },
   });
 
 
-  const [sellerData, setsellerData] = useState("");
+  const [sellerData, setsellerData] = useState({});
   useEffect(() => {
     console.log(jwtDecode(localStorage.getItem("token")));
     if (localStorage.getItem("token")) {
