@@ -26,7 +26,7 @@ export function EditProfileSeller({ data, setData, next }) {
     axios
       .patch(`${BaseUrl}/user/updateseller/${data.id}/`, details)
       .then((res) => {
-        ShowToast("User Updated Suc}cesfully", true);
+        ShowToast("User Updated Succesfully", true);
         next();
         handleOpen();
       });

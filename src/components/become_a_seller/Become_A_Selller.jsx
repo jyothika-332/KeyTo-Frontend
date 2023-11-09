@@ -5,10 +5,13 @@ import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 
 function Become_A_Selller() {
   const formData = new FormData();
+  const navigate = useNavigate()
+  const id = jwtDecode(localStorage.getItem("token")).user_id
 
 
   const formik = useFormik({
@@ -25,7 +28,6 @@ function Become_A_Selller() {
       id_card_image: Yup.string().required("* required"),
     }),
     onSubmit: (values) => {
-      formData.append("id", jwtDecode(localStorage.getItem("token")).user_id);
       formData.append("role", "seller");
       formData.append("address", values.address);
       formData.append("phone", values.phone);
@@ -34,9 +36,9 @@ function Become_A_Selller() {
         formData.append("id_card_image", values.id_card_image);
       };
 
-      axios.put(`${BaseUrl}/user/`, formData).then((res) => {
+      axios.put(`${BaseUrl}/user/become-a-seller/${id}/`, formData).then((res) => {
         localStorage.clear();
-        window.location.href = "/login";
+        navigate('/login')
       });
     }
   });
