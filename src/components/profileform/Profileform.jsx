@@ -59,7 +59,7 @@ export function ProfileForm() {
                 <img
                   src={
                     userData.profile_image
-                      ? `${BaseUrl}${userData.profile_image}`
+                      ? userData.profile_image
                       : profileicon
                   }
                   className="w-44 h-36 rounded-full"

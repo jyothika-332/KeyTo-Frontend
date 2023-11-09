@@ -116,7 +116,7 @@ export function My_Listing() {
                 return (
                   <tr key={title}>
                     <td className={classes}>
-                      <img src={`${BaseUrl}${image}`}
+                      <img src={image}
                       className="transform hover:scale-150"
                         style={{ height:"80px" , width:"80px" , objectFit:"cover" , borderRadius:"50%"}}/>                    </td>
                     <td className={classes}>

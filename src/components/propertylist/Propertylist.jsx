@@ -47,7 +47,7 @@ export function PropertyList({ is_premium, price, place , page  }) {
           <>
             <CardHeader floated={false} color="blue-gray">
               <img
-                src={`${BaseUrl}${value.image}`}
+                src={value.image}
                 style={{ width: "384px", height: "256px" }}
                 alt="ui/ux review check"
               />

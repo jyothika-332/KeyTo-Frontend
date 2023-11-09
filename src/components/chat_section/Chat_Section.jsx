@@ -179,7 +179,7 @@ function Chat_Page() {
                 size="md"
                 alt="tania andrew"
                 className="border border-gray-900 p-0.5 mt-1 ml-3"
-                src={senderDetails.profile_image ? `${BaseUrl}${senderDetails.profile_image}` : defaultdp}
+                src={senderDetails.profile_image ? senderDetails.profile_image : defaultdp}
               />
             </div>
             <div className="mt-5 ml-7">{senderDetails.first_name}</div>
@@ -278,7 +278,7 @@ function Chat_Page() {
                         <img
                           src={
                             senderDetails.profile_image
-                              ? `${BaseUrl}${senderDetails.profile_image}`
+                              ? senderDetails.profile_image
                               : defaultdp
                           }
                           alt=""

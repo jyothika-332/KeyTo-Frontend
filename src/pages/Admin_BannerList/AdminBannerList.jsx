@@ -130,7 +130,7 @@ function AdminBannerList() {
                       return (
                         <tr key={name}>
                           <td className={`${classes} bg-blue-gray-50/50`}>
-                            <img src={`${BaseUrl}${image}`}
+                            <img src={image}
                             className="transform hover:scale-150"
                             style={{ height:"80px" , width:"80px" , objectFit:"cover" , borderRadius:"50%"}}/>
                           </td>
