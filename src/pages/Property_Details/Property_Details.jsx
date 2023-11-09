@@ -58,7 +58,7 @@ function Property_Details() {
               <div
                 className="w-96 h-96 flex justify-end items-end p-3 bg-blue-gray-300 sm:ml-60 mt-5 rounded-lg bg-cover"
                 style={{
-                  backgroundImage: propertyData.image,
+                  backgroundImage: `url(${propertyData.image})`,
                 }}
               >
                 <CommentPage />
