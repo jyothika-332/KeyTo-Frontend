@@ -43,7 +43,7 @@ export function ProfileForm() {
   return (
     <>
       <div className="flex-col justify-center items-center">
-        <div className="h-[15rem]  bg-cover" style={{ backgroundImage: `url(${profilebg})` }}>
+        <div className="h-[15rem] me-5 bg-cover" style={{ backgroundImage: `url(${profilebg})` }}>
           <div className="flex justify-center relative pt-36 ">
             <Badge
               className="w-10 h-10 p-2 bg-white hover:bg-red-500 border border-white"
@@ -55,7 +55,7 @@ export function ProfileForm() {
                 setData={setuserData}
                 />}
             >
-              <div className="  md:w-36 h-36">
+              <div className="md:w-36 h-36">
                 <img
                   src={
                     userData.profile_image
