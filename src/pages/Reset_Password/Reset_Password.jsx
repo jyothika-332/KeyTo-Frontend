@@ -58,8 +58,8 @@ function Reset_Password() {
           </div>
           </CardHeader>
           <CardBody className="flex flex-col gap-4 mt-4">
-            <Input label="New Password" size="lg" value={password} onChange={(e)=>setpassword(e.target.value)} />
-            <Input label="Confirm Password" size="lg" value={cpassword} onChange={(e)=>setcpassword(e.target.value)} />
+            <Input label="New Password" type='password' size="lg" value={password} onChange={(e)=>setpassword(e.target.value)} />
+            <Input label="Confirm Password" type="password" size="lg" value={cpassword} onChange={(e)=>setcpassword(e.target.value)} />
           </CardBody>
           <CardFooter className="pt-0 mt-5">
             <Button className="bg-deep-orange-500" fullWidth onClick={ResetPassword}>
