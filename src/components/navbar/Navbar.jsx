@@ -56,15 +56,15 @@ export function ProfileMenu() {
       </MenuHandler>
       <MenuList className="p-1">
         {localStorage.getItem("token") ? (
-          jwtDecode(localStorage.getItem("token")).role === "user" ? (
-            <Link to="/userprofile">
+          jwtDecode(localStorage.getItem("token")).role === "seller" ? (
+            <Link to="/agent/profile">
               <MenuItem className="flex items-center ">
                 <UserCircleIcon className="h-4 w-4 me-2 " />
                 <Typography className="">My Profile</Typography>
               </MenuItem>
             </Link>
           ) : (
-            <Link to="/agent/profile">
+            <Link to="/userprofile">
               <MenuItem className="flex items-center ">
                 <UserCircleIcon className="h-4 w-4 me-2 " />
                 <Typography className="">My Profile</Typography>
