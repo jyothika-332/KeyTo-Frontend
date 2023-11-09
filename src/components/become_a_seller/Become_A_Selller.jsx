@@ -8,6 +8,8 @@ import * as Yup from "yup";
 
 
 function Become_A_Selller() {
+  const formData = new FormData();
+
 
   const formik = useFormik({
     initialValues: {
@@ -23,12 +25,23 @@ function Become_A_Selller() {
       id_card_image: Yup.string().required("* required"),
     }),
     onSubmit: (values) => {
-      updateSellerData({...sellerData,values});
-    },
+      formData.append("id", jwtDecode(localStorage.getItem("token")).user_id);
+      formData.append("role", "seller");
+      formData.append("address", values.address);
+      formData.append("phone", values.phone);
+      formData.append("location", values.location);
+      if (values.id_card_image instanceof File) {
+        formData.append("id_card_image", values.id_card_image);
+      };
+
+      axios.put(`${BaseUrl}/user/`, formData).then((res) => {
+        localStorage.clear();
+        window.location.href = "/login";
+      });
+    }
   });
 
 
-  const [sellerData, setsellerData] = useState({});
   useEffect(() => {
     console.log(jwtDecode(localStorage.getItem("token")));
     if (localStorage.getItem("token")) {
@@ -39,23 +52,6 @@ function Become_A_Selller() {
     }
   }, []);
 
-
-  const updateSellerData = (values) => {
-    console.log(sellerData);
-    const formData = new FormData();
-    formData.append("id", jwtDecode(localStorage.getItem("token")).user_id);
-    formData.append("role", "seller");
-    formData.append("address", sellerData.address);
-    formData.append("phone", sellerData.phone);
-    formData.append("location", sellerData.location);
-    if (sellerData.id_card_image instanceof File) {
-      formData.append("id_card_image", sellerData.id_card_image);
-  }
-    axios.put(`${BaseUrl}/user/`, formData).then((res) => {
-      localStorage.clear();
-      window.location.href = "/login";
-    });
-  };
 
   return (
     <div>
