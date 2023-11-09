@@ -11,7 +11,7 @@ import * as Yup from "yup";
 
 
 export function CreateListingForm() {
-
+  const [longitude, setlongitude] = useState(null)
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -60,13 +60,13 @@ export function CreateListingForm() {
         const data = await response.json();
 
         if (data.display_name) {
-          console.log(data);
-          formik.setValues({
-            ...formik.values,
-            latitude: coordinates.lat,
-            longitude: coordinates.lng,
-            location: data.address.town ? data.address.town : data.address.village,
-          });
+          console.log(formik.initialValues)
+          console.log(formik.values)
+          formik.setFieldValue('latitude', coordinates.lat);
+          formik.setFieldValue('longitude', coordinates.lng);
+          formik.setFieldValue('location', data.address.town ? data.address.town : data.address.village);
+         
+        
         } else {
           alert("No location found");
         }

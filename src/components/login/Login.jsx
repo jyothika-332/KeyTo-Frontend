@@ -22,7 +22,7 @@ export function LoginPage() {
     validationSchema: Yup.object({
       email: Yup.string()
         .email("Invalid email address")
-        .required("* required"),
+        .required("* Email is Required"),
 
     }),
     onSubmit: (values) => {
@@ -65,8 +65,8 @@ export function LoginPage() {
     validationSchema: Yup.object({
       username: Yup.string()
         .email("Invalid email address")
-        .required("* required"),
-      password: Yup.string().required("* required"),
+        .required("Email is Required"),
+      password: Yup.string().required("Password is Required"),
     }),
     onSubmit: (values) => {
       loginWithUsername(values);
