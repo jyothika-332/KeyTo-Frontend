@@ -11,12 +11,16 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { BaseUrl } from "../../utils/Constants";
+import { ShowToast } from "../../utils/Toats";
 
 
 export function MylistEdit({ open, handleOpen , Data , setData , next }) {
 
+  const [loading, setLoading] = useState(false);
+  const handleLoading = () => setLoading((cur) => !cur);
 
   const Update = () => {
+    setLoading(true)
     let formData = new FormData();
     formData.append("title", Data.title);
     formData.append("price_per_cent", Data.price_per_cent);
@@ -31,7 +35,9 @@ export function MylistEdit({ open, handleOpen , Data , setData , next }) {
     if (Data.id) {
       axios.put(`${BaseUrl}/property/`, formData)
         .then((res) => {
-          console.log("Update successful:", res.data);
+          // console.log("Update successful:", res.data);
+          ShowToast('Update successful',true)
+          setLoading(false)
           handleOpen();
           setData("");
           next();
@@ -75,9 +81,15 @@ export function MylistEdit({ open, handleOpen , Data , setData , next }) {
           <Button variant="outlined" color="red" onClick={handleOpen}>
             close
           </Button>
+          {loading ? 
+          (<Button className="bg-deep-orange-500" >
+            Updating...
+          </Button>
+          ) : (
           <Button className="bg-deep-orange-500" onClick={() =>{ console.log(Data.id); Update(Data.id); }}>
             Update
           </Button>
+          )}
         </DialogFooter>
       </Dialog>
     </>

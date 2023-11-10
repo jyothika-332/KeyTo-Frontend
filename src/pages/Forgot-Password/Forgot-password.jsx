@@ -14,15 +14,21 @@ import { BaseUrl } from "../../utils/Constants";
 import { ShowToast } from "../../utils/Toats";
 
 function ForgotPassword() {
+  const [loading, setLoading] = useState(false);
+  const handleLoading = () => setLoading((cur) => !cur);
+
   const [email, setemail] = useState("");
 
   const SendResetLink = () => {
+    setLoading(true)
     axios.post(`${BaseUrl}/user/send-resetlink/`,{ "email" : email})
     .then((res) => {
       ShowToast("Link Send to Your Email , Please Check" , true )
+      setLoading(false)
     }).catch((err) => {
       var { message }= err.response.data ?err.response.data : "Something Went Wrong"
       ShowToast(message , false )
+      setLoading(false)
     })
   }
   return (
@@ -46,9 +52,15 @@ function ForgotPassword() {
             <Input label="Email" size="lg" value={email} onChange={(e)=>setemail(e.target.value)} />
           </CardBody>
           <CardFooter className="pt-0 mt-5">
+            {loading ? 
+            (<Button className="bg-deep-orange-500" fullWidth >
+              submiting...
+            </Button>
+            ) : (
             <Button className="bg-deep-orange-500" fullWidth onClick={SendResetLink}>
               submit
             </Button>
+            )}
             <Link to='/login'>
             <Typography variant="small" className="mt-6 flex justify-center">
               <div className="mt-1">

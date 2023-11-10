@@ -8,9 +8,18 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { ShowToast } from "../../utils/Toats";
+import { useNavigate } from "react-router-dom";
+import Loding from "../loading/Loding";
 
 
 export function CreateListingForm() {
+
+  const [loading, setLoading] = useState(false);
+  const handleLoading = () => setLoading((cur) => !cur);
+
+  const navigate = useNavigate()
+
   const [longitude, setlongitude] = useState(null)
   const formik = useFormik({
     initialValues: {
@@ -87,6 +96,7 @@ export function CreateListingForm() {
   };
 
   const AddProperty = (values) => {
+    handleLoading();
     console.log(jwtDecode(localStorage.getItem("token")));
     let formData = new FormData();
     formData.append("title", values.title);
@@ -105,13 +115,18 @@ export function CreateListingForm() {
 
     axios.post(`${BaseUrl}/property/`, formData).then((res) => {
       getProperty();
+      ShowToast("Property Added Successfully",true)
+      handleLoading();
       setData("");
-    });
+      navigate('/agent/seller_mylisting')
+      });
 
     console.log(values)
   };
 
   return (
+    <>
+    { loading && <Loding/> }
     <Card color="transparent" shadow={false}>
       <form className="mt-8 mb-2 w-2/3 ">
         <div className="mb-4 flex flex-col gap-6">
@@ -264,5 +279,6 @@ export function CreateListingForm() {
         </Button>
       </form>
     </Card>
+    </>
   );
 }

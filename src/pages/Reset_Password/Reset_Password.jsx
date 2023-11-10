@@ -6,6 +6,9 @@ import axios from 'axios';
 import { BaseUrl } from '../../utils/Constants';
 
 function Reset_Password() {
+  const [loading, setLoading] = useState(false);
+  const handleLoading = () => setLoading((cur) => !cur);
+
   const [password, setpassword] = useState("");
   const [cpassword, setcpassword] = useState("");
   let { token , user} = useParams()
@@ -15,6 +18,7 @@ function Reset_Password() {
   }, []);
 
   const ResetPassword = () => {
+    setLoading(true)
       if (cpassword === "" || password === "")
       {
         ShowToast("Please Fill Fields", false)
@@ -34,11 +38,13 @@ function Reset_Password() {
           })
           .then((res) => {
             ShowToast("Password Changed Succesfully" , true)
+            setLoading(false)
             navigate('/login')
           })
           .catch((err) => {
             var { message }= err.response.data ?err.response.data : "Something Went Wrong"
-      ShowToast(message , false )
+            ShowToast(message , false )
+            setLoading(false)
           })
          }
       }
@@ -62,9 +68,15 @@ function Reset_Password() {
             <Input label="Confirm Password" type="password" size="lg" value={cpassword} onChange={(e)=>setcpassword(e.target.value)} />
           </CardBody>
           <CardFooter className="pt-0 mt-5">
+            {loading ?
+            (<Button className="bg-deep-orange-500" fullWidth >
+              submiting...
+            </Button>
+            ) : (
             <Button className="bg-deep-orange-500" fullWidth onClick={ResetPassword}>
               submit
             </Button>
+            )}
           </CardFooter>
         </Card>
       </div>

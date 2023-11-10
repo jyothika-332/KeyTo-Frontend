@@ -12,12 +12,16 @@ import jwtDecode from "jwt-decode";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { MylistEdit } from "../dialogues/Mylisting_Edit";
 import { ShowToast } from "../../utils/Toats";
+import Loding from "../loading/Loding";
 
 
 
 const TABLE_HEAD = ["Image", "Title", "Location", "Price" , "Type", "status", "", ""];
 
 export function My_Listing() {
+
+  const [loading, setLoading] = useState(false);
+  const handleLoading = () => setLoading((cur) => !cur);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
@@ -65,6 +69,7 @@ export function My_Listing() {
   };
 
   const ChangeStatus = (id , old_stat) => {
+    handleLoading();
       var data  = {
         "id" : id,
         is_sold : !old_stat
@@ -72,6 +77,7 @@ export function My_Listing() {
       axios.put(`${BaseUrl}/property/`,data)
       .then((res) => {
         ShowToast("Status Changes Succesfully",true)
+        handleLoading();
         getProperties()
       })
   }
@@ -84,7 +90,8 @@ export function My_Listing() {
   
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-scroll">
+      { loading && <Loding/> }
       <Card className="w-full">
         <table className="w-full min-w-max table-auto text-left">
           <thead>

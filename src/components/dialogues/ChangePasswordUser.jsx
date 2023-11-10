@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -17,12 +17,16 @@ import { ShowToast } from "../../utils/Toats";
 
  
 export function ChangePasswordUser() {
+
+  const [loading, setLoading] = useState(false);
+  const handleLoading = () => setLoading((cur) => !cur);
+
   const [open, setOpen] = React.useState(false);
   const [Datas, setDatas] = React.useState("");
   const handleOpen = () => setOpen((cur) => !cur);
 
   const ChangePass = () => {
-  
+      setLoading(true)
       if ( Datas.newpass != Datas.newcpass)
       {
         ShowToast("Mismatch Password", false)
@@ -37,12 +41,14 @@ export function ChangePasswordUser() {
         axios.post(`${BaseUrl}/user/changepassword/`,data)
         .then((res) => {
           ShowToast("Password Changed Succesfully", true)
+          setLoading(false)
           localStorage.clear()
           window.location.href = '/'
         })
         .catch((err)=> {
           var { message} = err.response.data ? err.response.data : "Something Went Wrong"
           ShowToast(message,false)
+          setLoading(false)
         })
       }
   }
@@ -66,9 +72,15 @@ export function ChangePasswordUser() {
             <Input label="Confirm Password" value={ Datas.newcpass ? Datas.newcpass : ""} onChange={(e)=>setDatas({...Datas , newcpass : e.target.value})} size="lg" type="password"/>
           </CardBody>
           <CardFooter className="pt-0 mt-5">
+            {loading ?
+            (<Button className="bg-deep-orange-500" fullWidth>
+              Submiting...
+            </Button>
+            ) : (
             <Button className="bg-deep-orange-500" onClick={ChangePass} fullWidth>
               Submit
             </Button>
+            )}
           </CardFooter>
         </Card>
       </Dialog>

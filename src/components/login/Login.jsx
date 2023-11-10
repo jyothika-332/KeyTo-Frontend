@@ -11,9 +11,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { ShowToast } from "../../utils/Toats";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Loding from "../loading/Loding";
 
 export function LoginPage() {
 
+  const [loading, setLoading] = useState(false);
+  const handleLoading = () => setLoading((cur) => !cur);
+
+  
   const send_otofromik = useFormik({
     initialValues: {
       email: "",
@@ -83,6 +88,7 @@ export function LoginPage() {
   const [isLogin, setisLogin] = useState(true);
   const [user, setUser] = useState([]);
   const [guser, setgUser] = useState([]);
+
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser(codeResponse),
     onError: (error) => console.log("Login Failed:", error),
@@ -123,6 +129,7 @@ export function LoginPage() {
   }, [user]);
 
   const loginWithUsername = (data) => {
+    handleLoading();
     const datas = data ? data : logDatas;
     if (datas) {
       axios
@@ -132,6 +139,7 @@ export function LoginPage() {
           localStorage.setItem("token", access);
           localStorage.setItem("refresh", refresh);
           ShowToast("Login Succesfull", true);
+          handleLoading();
           return navigate("/");
         })
         .catch((err) => {
@@ -140,18 +148,20 @@ export function LoginPage() {
             ? err.response.data
             : "Something Went Wrong";
           ShowToast(detail, false);
+          handleLoading();
         });
     }
   };
 
 
   const Signup = (data) => {
+    handleLoading();
     const datas = data ? data : regDatas;
     axios
     .post(`${BaseUrl}/user/`, datas)
     .then((res) => {
       ShowToast("User Registered Succesfully", true);
-
+      handleLoading();
       var logindata = {
         username: datas.email,
         password: datas.password,
@@ -164,16 +174,18 @@ export function LoginPage() {
         ? err.response.data
         : "Something Went Wrong";
       ShowToast(message, false);
+      handleLoading();
     });
 
   };
 
   const SendOTP = (values) => {
-
+    handleLoading()
     axios
       .post(`${BaseUrl}/send-otp/`, values)
       .then((res) => {
         ShowToast("OTP Send To the Email", true);
+        handleLoading();
         setotpform(true);
         setisemail(false);
         setregDatas({
@@ -185,16 +197,19 @@ export function LoginPage() {
           ? err.response.data
           : "Server Error";
         ShowToast(message, false);
+        handleLoading();
       });
   };
 
   const verifyOTP = () => {
+    handleLoading()
     console.log( regDatas )
     console.log( otp )
     axios
       .post(`${BaseUrl}/verify/`, { email: regDatas.email, otp: otp })
       .then((res) => {
         ShowToast("OTP Verifiled", true);
+        handleLoading();
         setisVerify(true);
         registrationFormik.setValues({
           ...registrationFormik.values,
@@ -204,11 +219,13 @@ export function LoginPage() {
       })
       .catch((err) => {
         ShowToast("Invalid OTP", false);
+        handleLoading();
       });
   };
 
   return (
     <div className="grid  grid-cols-1 md:grid-cols-2 mt-10 mx-10 gap-10  h-full">
+      { loading && <Loding/> }
       <div className="">
         <img
           src={Image1}

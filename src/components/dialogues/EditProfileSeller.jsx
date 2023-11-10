@@ -13,6 +13,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { ShowToast } from "../../utils/Toats";
 
 export function EditProfileSeller({ data, setData, next }) {
+
+  const [loading, setLoading] = useState(false);
+  const handleLoading = () => setLoading((cur) => !cur);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
   const [details, setDetails] = useState({
@@ -23,10 +27,12 @@ export function EditProfileSeller({ data, setData, next }) {
   });
 
   const UpdateDatas = () => {
+    setLoading(true)
     axios
       .patch(`${BaseUrl}/user/updateseller/${data.id}/`, details)
       .then((res) => {
         ShowToast("User Updated Succesfully", true);
+        setLoading(false)
         next();
         handleOpen();
       });
@@ -93,9 +99,15 @@ export function EditProfileSeller({ data, setData, next }) {
           <Button variant="outlined" color="red" onClick={handleOpen}>
             close
           </Button>
+          {loading ? (
+            <Button className="bg-deep-orange-500 " >
+            updating...
+          </Button>
+          ) : (
           <Button className="bg-deep-orange-500" onClick={UpdateDatas}>
             update
           </Button>
+          )}
         </DialogFooter>
       </Dialog>
     </>
