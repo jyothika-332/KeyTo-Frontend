@@ -46,7 +46,7 @@ export function LoginPage() {
         .required("* required"),
         first_name : Yup.string().required("first name is Required"),
         last_name : Yup.string().required("first name is Required"),
-        password: Yup.string().required("Password is required"),
+        password: Yup.string().required("Password is required").matches(/^\S*$/, "Password must not contain spaces"),
         c_password: Yup.string()
           .oneOf([Yup.ref("password"), null], "Passwords must match")
           .required("Confirm Password is required"),
@@ -66,7 +66,7 @@ export function LoginPage() {
       username: Yup.string()
         .email("Invalid email address")
         .required("Email is Required"),
-      password: Yup.string().required("Password is Required"),
+      password: Yup.string().required("Password is Required").matches(/^\S*$/, "Password must not contain spaces"),
     }),
     onSubmit: (values) => {
       loginWithUsername(values);
