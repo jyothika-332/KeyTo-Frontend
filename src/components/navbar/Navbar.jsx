@@ -159,7 +159,10 @@ export function StickyNavbar() {
           </Typography>
         </Link>
       )}
-      {isLogedIn ? (
+      {isLogedIn ? 
+      <>
+      {role === 'user' ?
+      (
         <Typography
           as="li"
           variant="small"
@@ -170,10 +173,28 @@ export function StickyNavbar() {
             Become a Seller
           </Link>
         </Typography>
-      ) : ''}
+      ) :
+      (
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          <Link to="/agent/profile" className="flex items-center">
+            Profile
+          </Link>
+        </Typography>
+      )}
+      </>
+       : 
+       (
+        ''
+        )}
       {isLogedIn ? (
         ""
-      ) : (
+      )
+       : (
         <Link to="/login">
         <Button
           className=" font-normal bg-deep-orange-500 "

@@ -6,6 +6,7 @@ import { BaseUrl } from "../../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { ShowToast } from "../../utils/Toats";
 
 
 function Become_A_Selller() {
@@ -39,6 +40,7 @@ function Become_A_Selller() {
       axios.put(`${BaseUrl}/user/become-a-seller/${id}/`, formData).then((res) => {
         localStorage.clear();
         navigate('/login')
+        ShowToast("Congrates Your a Seller Now", true);
       });
     }
   });
