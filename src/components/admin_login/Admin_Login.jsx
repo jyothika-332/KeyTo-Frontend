@@ -34,7 +34,8 @@ export function SimpleRegistrationForm() {
       .post(`${BaseUrl}/user/token/`, values)
       .then((res) => {
         const { access, refresh } = res.data;
-        if (jwtDecode(access).role != "admin") {
+        console.log("THE CODE IS" , jwtDecode(access))
+        if (jwtDecode(access).is_superuser != true) {
           ShowToast("You Dont Have The Permission to Login Here", false);
         } else {
           localStorage.setItem("token", access);
