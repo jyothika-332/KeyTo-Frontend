@@ -94,7 +94,7 @@ function Chat_Page_Seller() {
       };
     client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
-      console.log(dataFromServer, "daxooo");
+      console.log(dataFromServer);
       if (dataFromServer) {
         setMessages((prevMessages) => [
           ...prevMessages,

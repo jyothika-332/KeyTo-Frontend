@@ -21,7 +21,7 @@ function Userlist() {
   useEffect(() => {
    
     if (localStorage.getItem("token")) {
-        if ( jwtDecode(localStorage.getItem("token")).role != "admin")
+        if ( jwtDecode(localStorage.getItem("token")).is_superuser != true)
         {
             localStorage.clear();
             window.location.href = "/";
