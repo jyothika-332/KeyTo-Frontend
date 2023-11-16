@@ -15,11 +15,11 @@ export function SimpleRegistrationForm() {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string()
+      email: Yup.string()
         .email("Invalid email address")
         .required("* required"),
       password: Yup.string().required("* required"),
@@ -65,13 +65,13 @@ export function SimpleRegistrationForm() {
           <Input
             size="lg"
             label="Email"
-            name="username"
-            value={formik.values.username}
+            name="email"
+            value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.username && formik.errors.username ? (
-            <div className="text-red-500">{formik.errors.username}</div>
+          {formik.touched.email && formik.errors.email ? (
+            <div className="text-red-500">{formik.errors.email}</div>
           ) : null}
 
           <Input
