@@ -109,7 +109,7 @@ export function LoginPage() {
         .then((res) => {
           const { data } = res;
           if (isLogin) {
-            var datas = { username: data.email, password: data.email };
+            var datas = { email: data.email, password: data.email };
             loginWithUsername(datas);
           } else {
             var datas = {
@@ -176,7 +176,6 @@ export function LoginPage() {
       ShowToast(message, false);
       handleLoading();
     });
-
   };
 
   const SendOTP = (values) => {
