@@ -109,7 +109,7 @@ export function LoginPage() {
         .then((res) => {
           const { data } = res;
           if (isLogin) {
-            var datas = { email: data.email, password: data.email };
+            var datas = { username: data.email, password: data.email };
             loginWithUsername(datas);
           } else {
             var datas = {
@@ -130,10 +130,14 @@ export function LoginPage() {
 
   const loginWithUsername = (data) => {
     handleLoading();
-    const datas = data ? data : logDatas;
+    var datas = data ? data : logDatas;
+    const Senddatas = {
+      email : datas.username,
+      password : datas.password
+    }
     if (datas) {
       axios
-        .post(`${BaseUrl}/user/token/`, datas)
+        .post(`${BaseUrl}/user/token/`, Senddatas)
         .then((res) => {
           const { access, refresh } = res.data;
           localStorage.setItem("token", access);
@@ -176,6 +180,7 @@ export function LoginPage() {
       ShowToast(message, false);
       handleLoading();
     });
+
   };
 
   const SendOTP = (values) => {

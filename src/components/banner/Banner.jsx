@@ -14,7 +14,6 @@ export function CarouselWithContent() {
     axios
       .get(`${BaseUrl}/banner/`)
       .then((res) => {
-        console.log(res);
         setBanners(res.data);
       })
       .catch((error) => {
