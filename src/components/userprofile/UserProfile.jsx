@@ -78,7 +78,7 @@ export function UserProfile() {
                 Email{" "}
                 <span className="ml-10">
                   : {userData ? userData.email : ""}
-                </span>
+                </span> 
               </p>
             </div>
             <div className="mb-4 mt-8">
